@@ -1,0 +1,31 @@
+.addCommentH4 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  letter-spacing: -0.025rem;
+  color: var(--indigo);
+}
+
+.addCommentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+
+.addCommentForm textarea {
+  height: 8rem;
+}
+
+.addCommentFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftCha {
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}

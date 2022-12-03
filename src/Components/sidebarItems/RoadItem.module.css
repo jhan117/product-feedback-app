@@ -1,0 +1,33 @@
+.roadList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.roadTxt {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.6rem;
+  align-items: center;
+}
+
+.circle {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--scarlet);
+  border-radius: 50%;
+}
+
+.roadTxt p {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+  color: var(--light-gray);
+}
+
+.roadmapNum {
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+  color: var(--light-gray);
+}

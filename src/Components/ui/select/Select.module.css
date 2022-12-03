@@ -1,0 +1,41 @@
+.selectCon {
+  position: relative;
+
+  cursor: pointer;
+}
+
+/* add, edit p */
+.selectConDefault {
+  background-color: var(--light-white);
+  border-radius: 0.5rem;
+
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--indigo);
+
+  padding: 1.4rem 1.6rem;
+}
+
+.selectLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 2;
+}
+
+.iconArrow {
+  margin-left: 0.8rem;
+
+  transition: transform 0.3s;
+}
+
+.iconCustom path {
+  stroke: white;
+}
+
+.iconClickedOn {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,10 @@
+.replyBtn {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.9rem;
+  color: var(--blue);
+}
+
+.replyBtn:hover {
+  text-decoration: underline;
+}

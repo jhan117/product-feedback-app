@@ -1,0 +1,16 @@
+.decoCon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.circle {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.decoCon p {
+  font-weight: 400;
+  color: var(--light-gray);
+}

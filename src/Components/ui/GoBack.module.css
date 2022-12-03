@@ -1,0 +1,24 @@
+.goBack {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.6rem;
+
+  align-items: center;
+  cursor: pointer;
+}
+
+.goBack p {
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}
+
+.goBack p:hover {
+  text-decoration: underline;
+  color: hsl(224, 20%, 49%);
+}
+
+.whiteColor path {
+  stroke: hsl(231, 49%, 87%);
+}

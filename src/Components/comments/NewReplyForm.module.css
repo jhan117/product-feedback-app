@@ -1,0 +1,5 @@
+.replyForm {
+  display: grid;
+  grid-template-columns: auto 1.6rem auto;
+  grid-column: 1;
+}

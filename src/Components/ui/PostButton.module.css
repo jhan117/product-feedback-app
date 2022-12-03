@@ -1,0 +1,17 @@
+.postReplyBtn {
+  grid-column: 3;
+
+  background-color: var(--purple);
+  border-radius: 1rem;
+
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--dark-white);
+
+  height: 4rem;
+}
+
+.postReplyBtn:hover {
+  background-color: hsl(282, 90%, 66%);
+}

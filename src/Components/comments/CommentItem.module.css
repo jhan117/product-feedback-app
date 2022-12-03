@@ -1,0 +1,18 @@
+.commentCon {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+
+  padding-top: 2.4rem;
+}
+
+.commentBorder {
+  border-top: 0.1rem solid hsla(231, 20%, 63%, 25%);
+}
+
+.commentContent {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}
