@@ -11,15 +11,17 @@ import { StatusContextProvider } from "./store/status-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <SuggestionsContextProvider>
-    <TagsContextProvider>
-      <SortContextProvider>
-        <StatusContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </StatusContextProvider>
-      </SortContextProvider>
-    </TagsContextProvider>
-  </SuggestionsContextProvider>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <SuggestionsContextProvider>
+      <TagsContextProvider>
+        <SortContextProvider>
+          <StatusContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </StatusContextProvider>
+        </SortContextProvider>
+      </TagsContextProvider>
+    </SuggestionsContextProvider>
+  </BrowserRouter>
 );
