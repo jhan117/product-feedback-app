@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/product-feedback-app/static/css/main.18a2b13c.css",
-    "main.js": "/product-feedback-app/static/js/main.24fa73ed.js",
+    "main.js": "/product-feedback-app/static/js/main.e8ff9b43.js",
     "static/media/illustration-empty.svg": "/product-feedback-app/static/media/illustration-empty.6ed5b35a7fb831ed20ca5350bc0cbd84.svg",
     "index.html": "/product-feedback-app/index.html",
     "static/media/icon-edit-feedback.svg": "/product-feedback-app/static/media/icon-edit-feedback.4aeb5f4615fe33277ae49fefc668dbf7.svg",
@@ -14,10 +14,10 @@
     "static/media/icon-hamburger.svg": "/product-feedback-app/static/media/icon-hamburger.a8bc4c8c0391bf4ff8e8cb1d035d0f79.svg",
     "static/media/icon-check.svg": "/product-feedback-app/static/media/icon-check.121f050674ec6d7b94e2f2510cd50616.svg",
     "main.18a2b13c.css.map": "/product-feedback-app/static/css/main.18a2b13c.css.map",
-    "main.24fa73ed.js.map": "/product-feedback-app/static/js/main.24fa73ed.js.map"
+    "main.e8ff9b43.js.map": "/product-feedback-app/static/js/main.e8ff9b43.js.map"
   },
   "entrypoints": [
     "static/css/main.18a2b13c.css",
-    "static/js/main.24fa73ed.js"
+    "static/js/main.e8ff9b43.js"
   ]
 }
