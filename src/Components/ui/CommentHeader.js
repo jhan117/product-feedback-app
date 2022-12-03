@@ -1,4 +1,21 @@
+import {
+  anne,
+  elijah,
+  george,
+  jackson,
+  james,
+  javier,
+  judah,
+  roxanne,
+  ryan,
+  suzanne,
+  thomas,
+  victoria,
+  zena,
+} from "../../assets/user-images";
+
 import classes from "./CommentHeader.module.css";
+
 import ReplyBtn from "./ReplyBtn";
 
 function CommentHeader(props) {
@@ -7,7 +24,7 @@ function CommentHeader(props) {
       <div className={classes.userCon}>
         <img
           className={classes.userIcon}
-          src={process.env.PUBLIC_URL + props.user.image.slice(1)}
+          src={props.user.image.slice(27, -4)}
           alt={props.user.name}
         />
         <div className={classes.userTxt}>
