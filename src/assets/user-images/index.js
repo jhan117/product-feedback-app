@@ -12,7 +12,7 @@ import thomas from "./image-thomas.jpg";
 import victoria from "./image-victoria.jpg";
 import zena from "./image-zena.jpg";
 
-export {
+const images = {
   anne,
   elijah,
   george,
@@ -27,3 +27,5 @@ export {
   victoria,
   zena,
 };
+
+export default images;

@@ -1,30 +1,17 @@
-import {
-  anne,
-  elijah,
-  george,
-  jackson,
-  james,
-  javier,
-  judah,
-  roxanne,
-  ryan,
-  suzanne,
-  thomas,
-  victoria,
-  zena,
-} from "../../assets/user-images";
-
 import classes from "./CommentHeader.module.css";
+import images from "../../assets/user-images";
 
 import ReplyBtn from "./ReplyBtn";
 
 function CommentHeader(props) {
+  const userImageName = props.user.image.slice(27, -4);
+
   return (
     <div className={classes.commentHCon}>
       <div className={classes.userCon}>
         <img
           className={classes.userIcon}
-          src={props.user.image.slice(27, -4)}
+          src={images[userImageName]}
           alt={props.user.name}
         />
         <div className={classes.userTxt}>
