@@ -16,9 +16,7 @@ root.render(
       <TagsContextProvider>
         <SortContextProvider>
           <StatusContextProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <App />
           </StatusContextProvider>
         </SortContextProvider>
       </TagsContextProvider>
