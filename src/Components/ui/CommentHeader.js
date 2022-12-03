@@ -7,7 +7,7 @@ function CommentHeader(props) {
       <div className={classes.userCon}>
         <img
           className={classes.userIcon}
-          src={props.user.image.slice(1)}
+          src={require(props.user.image.slice(1)).default}
           alt={props.user.name}
         />
         <div className={classes.userTxt}>
