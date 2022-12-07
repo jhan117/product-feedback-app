@@ -16,3 +16,23 @@
   line-height: 1.9rem;
   color: var(--light-gray);
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .commentCon {
+    /* display: grid;
+    grid-template: repeat(3, auto) / repeat(2, minmax(7.2rem, auto)); */
+    row-gap: 1.7rem;
+
+    padding-top: 3.2rem;
+  }
+  .commentContent {
+    /* grid-column: 2 / 3;
+    grid-row: 2 / 3; */
+
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+
+    margin-left: 7.2rem;
+  }
+}

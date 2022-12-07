@@ -1,7 +1,7 @@
 import classes from "./CommentHeader.module.css";
 import images from "../../assets/user-images";
 
-import ReplyBtn from "./ReplyBtn";
+import ReplyBtn from "../ui/ReplyBtn";
 
 function CommentHeader(props) {
   const userImageName = props.user.image.slice(27, -4);

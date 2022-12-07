@@ -1,12 +1,15 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+
+import classes from "./NewCommentForm.module.css";
+import MediaContext from "../../store/media-context";
 
 import Card from "../ui/Card";
 import PostButton from "../ui/PostButton";
-import classes from "./NewCommentForm.module.css";
 
 function NewCommentForm(props) {
   const contentInputRef = useRef();
   const [textLength, setTextLength] = useState(250);
+  const mediaCtx = useContext(MediaContext);
 
   function submitCommentHandler(event) {
     event.preventDefault();
@@ -16,15 +19,27 @@ function NewCommentForm(props) {
     setTextLength(250);
   }
 
+  let cardStyle = {};
+
+  if (mediaCtx.isTablet) {
+    cardStyle = {
+      padding: "2.4rem",
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2.4rem",
+      gridColumn: "1 / 13",
+    };
+  } else {
+    cardStyle = {
+      padding: "2.4rem",
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2.4rem",
+    };
+  }
+
   return (
-    <Card
-      style={{
-        padding: "2.4rem",
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "2.4rem",
-      }}
-    >
+    <Card style={cardStyle}>
       <h4 className={classes.addCommentH4}>Add Comment</h4>
       <form className={classes.addCommentForm} onSubmit={submitCommentHandler}>
         <textarea

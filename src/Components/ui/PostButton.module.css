@@ -1,6 +1,4 @@
 .postReplyBtn {
-  grid-column: 3;
-
   background-color: var(--purple);
   border-radius: 1rem;
 

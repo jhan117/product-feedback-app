@@ -2,14 +2,16 @@ import { ReactComponent as IconComments } from "../../assets/shared/icon-comment
 import { ReactComponent as IconArrowUp } from "../../assets/shared/icon-arrow-up.svg";
 import { useContext } from "react";
 
+import classes from "./SuggestionItem.module.css";
 import SuggestionsContext from "../../store/suggestions-context";
+import MediaContext from "../../store/media-context";
 
 import Card from "../ui/Card";
-import classes from "./SuggestionItem.module.css";
 import StatusDeco from "../ui/StatusDeco";
 
 function SuggestionItem(props) {
   const suggestionsCtx = useContext(SuggestionsContext);
+  const mediaCtx = useContext(MediaContext);
 
   const idIsUpvote = suggestionsCtx.idIsUpvote(props.id);
 
@@ -17,11 +19,22 @@ function SuggestionItem(props) {
     (comment) => comment.id === props.id
   ).AllCommentsCount;
 
-  const sugCardStyle = {
-    padding: "2.4rem",
-    display: "flex",
-    flexDirection: "column",
-  };
+  let sugCardStyle = {};
+
+  if (mediaCtx.isTablet) {
+    sugCardStyle = {
+      display: "grid",
+      gridTemplate: "repeat(2, auto) / repeat(3, minmax(5rem, auto))",
+      rowGap: "1.2rem",
+      padding: "2.8rem 3.2rem",
+    };
+  } else {
+    sugCardStyle = {
+      padding: "2.4rem",
+      display: "flex",
+      flexDirection: "column",
+    };
+  }
 
   function toggleUpvoteStatusHandler(event) {
     event.preventDefault();
@@ -51,7 +64,7 @@ function SuggestionItem(props) {
   }
 
   return (
-    <li className={props.status ? classes.statusLi : null}>
+    <li className={props.status ? classes.statusLi : classes.sugLi}>
       <Card style={sugCardStyle}>
         {props.status ? (
           <div className={classes.liBorder} style={borderColor} />

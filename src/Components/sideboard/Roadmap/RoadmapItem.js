@@ -1,12 +1,12 @@
 import { useContext } from "react";
 
-import classes from "./RoadItem.module.css";
-import StatusContext from "../../store/status-context";
-import SuggestionsContext from "../../store/suggestions-context";
+import classes from "./RoadmapItem.module.css";
+import StatusContext from "../../../store/status-context";
+import SuggestionsContext from "../../../store/suggestions-context";
 
-import StatusDeco from "../ui/StatusDeco";
+import StatusDeco from "../../ui/StatusDeco";
 
-function RoadItem(props) {
+function RoadmapItem(props) {
   const statusCtx = useContext(StatusContext);
   const suggestionsCtx = useContext(SuggestionsContext);
 
@@ -23,4 +23,4 @@ function RoadItem(props) {
   );
 }
 
-export default RoadItem;
+export default RoadmapItem;

@@ -24,16 +24,6 @@
   color: var(--light-gray);
 }
 
-.backdrop:after {
-  position: absolute;
-  top: 7.2rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.5);
-  content: "";
-}
-
 .side {
   z-index: 1;
   position: absolute;
@@ -41,20 +31,4 @@
   width: 27.1rem;
   top: 0;
   bottom: 0;
-}
-
-#main::after {
-  position: absolute;
-  top: 7.2rem;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  content: "";
-
-  width: 100%;
-  height: calc(100% - 7.2rem);
-}
-
-.visible#main::after {
-  display: none;
 }

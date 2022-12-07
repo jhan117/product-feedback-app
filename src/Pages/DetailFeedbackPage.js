@@ -1,18 +1,21 @@
 import { useContext, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
+import classes from "./DetailFeedbackPage.module.css";
+import SuggestionsContext from "../store/suggestions-context";
+import MediaContext from "../store/media-context";
+
 import CommentList from "../Components/comments/CommentList";
 import NewCommentForm from "../Components/comments/NewCommentForm";
 import SuggestionItem from "../Components/suggestions/SuggestionItem";
 import Card from "../Components/ui/Card";
-import classes from "./DetailFeedbackPage.module.css";
+import GoBack from "../Components/ui/GoBack";
 
 import DummyData from "../data.json";
-import SuggestionsContext from "../store/suggestions-context";
-import GoBack from "../Components/ui/GoBack";
 
 function DetailFeedbackPage() {
   const suggestionsCtx = useContext(SuggestionsContext);
+  const mediaCtx = useContext(MediaContext);
   const { requestId } = useParams();
 
   useEffect(() => {
@@ -35,6 +38,19 @@ function DetailFeedbackPage() {
     });
   }
 
+  let cardStyle = {};
+
+  if (mediaCtx.isTablet) {
+    cardStyle = {
+      padding: "2.4rem 3.2rem 3.2rem",
+      gridColumn: "1 / 13",
+    };
+  } else {
+    cardStyle = {
+      padding: "2.4rem",
+    };
+  }
+
   return (
     <div className={classes.detailBody}>
       <header className={classes.detailHeader}>
@@ -53,11 +69,7 @@ function DetailFeedbackPage() {
         upvotes={thisRequest.upvotes}
         commentsNum={commentsCount}
       />
-      <Card
-        style={{
-          padding: "2.4rem",
-        }}
-      >
+      <Card style={cardStyle}>
         <h4 className={classes.commentH4}>{commentsCount} Comments</h4>
         {thisRequest.comments ? (
           <CommentList

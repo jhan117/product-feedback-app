@@ -1,25 +1,48 @@
 import { ReactComponent as ImageEmpty } from "../assets/suggestions/illustration-empty.svg";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import classes from "./SuggestionsPage.module.css";
-
-import FeedbackButton from "../Components/ui/FeedbackButton";
-import MainBar from "../Components/layout/MainBar";
-import SideBar from "../Components/layout/SideBar";
-import SideBoard from "../Components/layout/SideBoard";
-import SuggestionList from "../Components/suggestions/SuggestionList";
-import SuggestionsContainer from "../Components/ui/SuggestionsContainer";
-import Card from "../Components/ui/Card";
-
 import SuggestionsContext from "../store/suggestions-context";
 import TagsContext from "../store/tags-context";
 import SortContext from "../store/sort-context";
+import MediaContext from "../store/media-context";
+
+import FeedbackButton from "../Components/ui/FeedbackButton";
+import MainBar from "../Components/layout/MainBar";
+import Board from "../Components/sideboard/Board";
+import SideBar from "../Components/sideboard/SideBar";
+import CategoryList from "../Components/sideboard/Category/CategoryList";
+import RoadmapContainer from "../Components/sideboard/Roadmap/RoadmapContainer";
+import SuggestionList from "../Components/suggestions/SuggestionList";
+import SuggestionsContainer from "../Components/ui/SuggestionsContainer";
+import Card from "../Components/ui/Card";
+import request from "../utils/request";
 
 function SuggestionsPage() {
   const suggestionsCtx = useContext(SuggestionsContext);
   const tagsCtx = useContext(TagsContext);
   const sortCtx = useContext(SortContext);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mediaCtx = useContext(MediaContext);
+
+  const [loadedData, setLoadedData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    request
+      .get(
+        "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests.json"
+      )
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        setLoadedData(data);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const emptyStyle = {
     padding: "7.6rem 2.45rem",
@@ -62,15 +85,34 @@ function SuggestionsPage() {
       break;
   }
 
-  const currSuggestions = sortedIds.map((count_obj) =>
-    suggestionsCtx.suggestions.find(
-      (suggestion) => suggestion.id === count_obj.id
-    )
+  let currSuggestions = [];
+
+  if (!isLoading) {
+    currSuggestions = sortedIds.map((count_obj) =>
+      loadedData.find((suggestion) => suggestion.id === count_obj.id)
+    );
+  }
+
+  // header 컴포넌트 설정
+  const mobileHeader = (
+    <header>
+      <Board />
+      <SideBar />
+    </header>
+  );
+  const tabletHeader = (
+    <header>
+      <Board />
+      <CategoryList />
+      <RoadmapContainer />
+    </header>
   );
 
   let content;
 
-  if (currSuggestions.length === 0) {
+  if (isLoading) {
+    content = "loading...";
+  } else if (currSuggestions.length === 0) {
     content = (
       <SuggestionsContainer>
         <Card style={emptyStyle}>
@@ -95,11 +137,8 @@ function SuggestionsPage() {
   }
 
   return (
-    <div id={classes["main"]} className={isSidebarOpen ? "" : classes.visible}>
-      <SideBar setIsSidebarOpen={setIsSidebarOpen} />
-      <SideBoard
-        style={isSidebarOpen ? { display: "flex" } : { display: "none" }}
-      />
+    <div id={classes["main"]}>
+      {mediaCtx.isTablet ? tabletHeader : mobileHeader}
       <MainBar />
       {content}
     </div>

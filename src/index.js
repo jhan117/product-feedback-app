@@ -8,18 +8,21 @@ import { SuggestionsContextProvider } from "./store/suggestions-context";
 import { TagsContextProvider } from "./store/tags-context";
 import { SortContextProvider } from "./store/sort-context";
 import { StatusContextProvider } from "./store/status-context";
+import { MediaContextProvider } from "./store/media-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <SuggestionsContextProvider>
-      <TagsContextProvider>
-        <SortContextProvider>
-          <StatusContextProvider>
-            <App />
-          </StatusContextProvider>
-        </SortContextProvider>
-      </TagsContextProvider>
-    </SuggestionsContextProvider>
+    <MediaContextProvider>
+      <SuggestionsContextProvider>
+        <TagsContextProvider>
+          <SortContextProvider>
+            <StatusContextProvider>
+              <App />
+            </StatusContextProvider>
+          </SortContextProvider>
+        </TagsContextProvider>
+      </SuggestionsContextProvider>
+    </MediaContextProvider>
   </BrowserRouter>
 );

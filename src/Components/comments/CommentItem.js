@@ -1,10 +1,12 @@
-import RepliesList from "./RepliesList";
-import CommentHeader from "../ui/CommentHeader";
-import NewReplyForm from "./NewReplyForm";
-import classes from "./CommentItem.module.css";
+import { useContext, useState } from "react";
 
-import { useContext, useState, useEffect } from "react";
+import classes from "./CommentItem.module.css";
 import SuggestionsContext from "../../store/suggestions-context";
+
+import RepliesList from "./RepliesList";
+import CommentHeader from "./CommentHeader";
+import NewReplyForm from "./NewReplyForm";
+
 import DummyData from "../../data.json";
 
 function CommentItem(props) {
@@ -37,19 +39,21 @@ function CommentItem(props) {
         isReplyOpen={isReplyOpen}
         setReplyingToUser={setReplyingToUser}
       />
-      <p className={classes.commentContent}>{props.content}</p>
-      {replies.replies ? (
-        <RepliesList
-          commentId={props.id}
-          replies={replies.replies}
-          isReplyOpen={isReplyOpen}
-          setIsReplyOpen={setIsReplyOpen}
-          setReplyingToUser={setReplyingToUser}
-        />
-      ) : null}
+      <div>
+        <p className={classes.commentContent}>{props.content}</p>
+        {replies.replies ? (
+          <RepliesList
+            commentId={props.id}
+            replies={replies.replies}
+            isReplyOpen={isReplyOpen}
+            setIsReplyOpen={setIsReplyOpen}
+            setReplyingToUser={setReplyingToUser}
+          />
+        ) : null}
+      </div>
       <NewReplyForm
         style={{
-          display: isReplyOpen ? "grid" : "none",
+          display: isReplyOpen ? "flex" : "none",
           marginLeft: replies.replies ? "2.4rem" : null,
         }}
         onAddReply={addReplyHandler}

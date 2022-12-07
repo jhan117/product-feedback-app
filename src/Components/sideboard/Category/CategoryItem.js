@@ -1,10 +1,9 @@
 import { useContext } from "react";
 
-import TagsContext from "../../store/tags-context";
+import classes from "./CategoryItem.module.css";
+import TagsContext from "../../../store/tags-context";
 
-import classes from "./TagItem.module.css";
-
-function TagItems(props) {
+function CategoryItem(props) {
   const tagsContext = useContext(TagsContext);
 
   function changeCategoryHandler() {
@@ -32,4 +31,4 @@ function TagItems(props) {
   );
 }
 
-export default TagItems;
+export default CategoryItem;

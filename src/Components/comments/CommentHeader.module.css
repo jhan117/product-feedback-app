@@ -19,17 +19,33 @@
   height: 4rem;
 }
 
-.userTxt h4 {
+.userTxt {
   font-size: 1.3rem;
-  font-weight: 700;
   line-height: 1.9rem;
+}
+
+.userTxt h4 {
+  font-weight: 700;
   letter-spacing: -0.02rem;
   color: var(--indigo);
 }
 
 .userTxt p {
-  font-size: 1.3rem;
   font-weight: 400;
-  line-height: 1.9rem;
   color: var(--light-gray);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .commentHCon {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+  .userCon {
+    column-gap: 3.2rem;
+  }
+  .userTxt {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 }

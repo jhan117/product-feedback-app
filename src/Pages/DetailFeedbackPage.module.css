@@ -41,3 +41,30 @@
   letter-spacing: -0.025rem;
   color: var(--indigo);
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .detailBody {
+    display: grid;
+    grid-template: repeat(4, auto) / repeat(12, 1fr);
+    column-gap: 1rem;
+    padding: 5.6rem 3.95rem 12rem;
+  }
+
+  /* header */
+  .detailHeader {
+    grid-column: 1 / 13;
+  }
+  .editBtn {
+    height: 4.4rem;
+    width: 14.2rem;
+  }
+  .editLink {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .commentH4 {
+    margin-bottom: -0.4rem;
+  }
+}

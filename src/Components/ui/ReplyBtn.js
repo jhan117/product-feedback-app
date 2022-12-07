@@ -2,7 +2,6 @@ import classes from "./ReplyBtn.module.css";
 
 function ReplyBtn(props) {
   function toggleReplyBtnHandler(e) {
-    console.log("reply open?", props.isReplyOpen);
     props.isReplyOpen ? closeReply() : openReply(e);
   }
 

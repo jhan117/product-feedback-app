@@ -7,7 +7,7 @@ import {
   NewFeedbackPage,
   SuggestionsPage,
   RoadMapPage,
-} from "./Pages";
+} from "./pages";
 
 function App() {
   return (
