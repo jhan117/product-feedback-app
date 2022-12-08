@@ -23,3 +23,49 @@
 
   opacity: 0.75;
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .board {
+    background-image: url("../../assets/suggestions/tablet/background-header.png");
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 2.4rem;
+
+    border-radius: 1rem;
+  }
+
+  .board h1 {
+    font-size: 2rem;
+    line-height: 2.9rem;
+    letter-spacing: -0.025rem;
+  }
+
+  .board p {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 90em) {
+  .board {
+    background-image: url("../../assets/suggestions/desktop/background-header.png");
+
+    height: 13.7rem;
+  }
+
+  .board h1 {
+    font-size: 2rem;
+    line-height: 2.9rem;
+    letter-spacing: -0.025rem;
+  }
+
+  .board p {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
+}

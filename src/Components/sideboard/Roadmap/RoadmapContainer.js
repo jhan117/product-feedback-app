@@ -4,8 +4,12 @@ import classes from "./RoadmapContainer.module.css";
 
 import Card from "../../ui/Card";
 import RoadmapList from "./RoadmapList";
+import { useContext } from "react";
+import MediaContext from "../../../store/media-context";
 
 function RoadmapContainer() {
+  const mediaCtx = useContext(MediaContext);
+
   return (
     <Card
       style={{
@@ -13,6 +17,7 @@ function RoadmapContainer() {
         flexDirection: "column",
         rowGap: "2.2rem",
         padding: "2.1rem 2.4rem",
+        height: mediaCtx.isDesktop ? "17.8rem" : null,
       }}
     >
       <div className={classes.roadHeader}>

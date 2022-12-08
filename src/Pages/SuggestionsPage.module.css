@@ -32,3 +32,23 @@
   top: 0;
   bottom: 0;
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .TDHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 90em) {
+  .TDHeader {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.4rem;
+
+    width: 25.5rem;
+  }
+}

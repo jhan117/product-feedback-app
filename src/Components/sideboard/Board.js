@@ -1,6 +1,6 @@
 import classes from "./Board.module.css";
 
-function Board(props) {
+function Board() {
   return (
     <div className={classes.board}>
       <h1>Frontend Mentor</h1>

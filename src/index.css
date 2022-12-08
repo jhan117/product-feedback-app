@@ -31,6 +31,10 @@ html {
   font-family: "Jost", sans-serif;
 }
 
+#root {
+  background-color: var(--light-white);
+}
+
 button {
   font-size: inherit;
   font-family: inherit;
@@ -103,4 +107,25 @@ label p {
   font-weight: 400;
   letter-spacing: 0;
   color: var(--light-gray);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  #root {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
+
+    padding: 9.4rem 4rem 12.9rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 90em) {
+  #root {
+    flex-direction: row;
+    column-gap: 3rem;
+
+    padding: 5.6rem 16.5rem 11.3rem;
+  }
 }

@@ -8,7 +8,7 @@ import CategoryList from "./Category/CategoryList";
 import RoadmapContainer from "./Roadmap/RoadmapContainer";
 
 function SideBar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   function clickHandler() {
     isSidebarOpen ? setIsSidebarOpen(false) : setIsSidebarOpen(true);

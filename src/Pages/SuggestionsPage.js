@@ -1,5 +1,5 @@
 import { ReactComponent as ImageEmpty } from "../assets/suggestions/illustration-empty.svg";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, Fragment } from "react";
 
 import classes from "./SuggestionsPage.module.css";
 import SuggestionsContext from "../store/suggestions-context";
@@ -94,14 +94,14 @@ function SuggestionsPage() {
   }
 
   // header 컴포넌트 설정
-  const mobileHeader = (
+  const MHeader = (
     <header>
       <Board />
       <SideBar />
     </header>
   );
-  const tabletHeader = (
-    <header>
+  const TDHeader = (
+    <header className={classes.TDHeader}>
       <Board />
       <CategoryList />
       <RoadmapContainer />
@@ -137,11 +137,13 @@ function SuggestionsPage() {
   }
 
   return (
-    <div id={classes["main"]}>
-      {mediaCtx.isTablet ? tabletHeader : mobileHeader}
-      <MainBar />
-      {content}
-    </div>
+    <Fragment>
+      {mediaCtx.isTablet | mediaCtx.isDesktop ? TDHeader : MHeader}
+      <main>
+        <MainBar />
+        {content}
+      </main>
+    </Fragment>
   );
 }
 
