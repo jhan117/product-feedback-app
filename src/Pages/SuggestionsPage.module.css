@@ -43,7 +43,7 @@
 }
 
 /* desktop */
-@media only screen and (min-width: 90em) {
+@media only screen and (min-width: 82em) {
   .TDHeader {
     display: flex;
     flex-direction: column;

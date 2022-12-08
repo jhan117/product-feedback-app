@@ -5,8 +5,8 @@ import classes from "./SuggestionsPage.module.css";
 import SuggestionsContext from "../store/suggestions-context";
 import TagsContext from "../store/tags-context";
 import SortContext from "../store/sort-context";
-import MediaContext from "../store/media-context";
 
+import useMediaQuery from "../utils/useMediaQuery";
 import FeedbackButton from "../Components/ui/FeedbackButton";
 import MainBar from "../Components/layout/MainBar";
 import Board from "../Components/sideboard/Board";
@@ -22,7 +22,8 @@ function SuggestionsPage() {
   const suggestionsCtx = useContext(SuggestionsContext);
   const tagsCtx = useContext(TagsContext);
   const sortCtx = useContext(SortContext);
-  const mediaCtx = useContext(MediaContext);
+  const isTablet = useMediaQuery("tablet");
+  const isDesktop = useMediaQuery("desktop");
 
   const [loadedData, setLoadedData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -138,7 +139,7 @@ function SuggestionsPage() {
 
   return (
     <Fragment>
-      {mediaCtx.isTablet | mediaCtx.isDesktop ? TDHeader : MHeader}
+      {isTablet | isDesktop ? TDHeader : MHeader}
       <main>
         <MainBar />
         {content}

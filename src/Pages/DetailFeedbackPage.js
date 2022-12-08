@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 
 import classes from "./DetailFeedbackPage.module.css";
 import SuggestionsContext from "../store/suggestions-context";
-import MediaContext from "../store/media-context";
 
+import useMediaQuery from "../utils/useMediaQuery";
 import CommentList from "../Components/comments/CommentList";
 import NewCommentForm from "../Components/comments/NewCommentForm";
 import SuggestionItem from "../Components/suggestions/SuggestionItem";
@@ -15,7 +15,7 @@ import DummyData from "../data.json";
 
 function DetailFeedbackPage() {
   const suggestionsCtx = useContext(SuggestionsContext);
-  const mediaCtx = useContext(MediaContext);
+  const isTablet = useMediaQuery("tablet");
   const { requestId } = useParams();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function DetailFeedbackPage() {
 
   let cardStyle = {};
 
-  if (mediaCtx.isTablet) {
+  if (isTablet) {
     cardStyle = {
       padding: "2.4rem 3.2rem 3.2rem",
       gridColumn: "1 / 13",

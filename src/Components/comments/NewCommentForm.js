@@ -1,15 +1,15 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import classes from "./NewCommentForm.module.css";
-import MediaContext from "../../store/media-context";
 
+import useMediaQuery from "../../utils/useMediaQuery";
 import Card from "../ui/Card";
 import PostButton from "../ui/PostButton";
 
 function NewCommentForm(props) {
   const contentInputRef = useRef();
   const [textLength, setTextLength] = useState(250);
-  const mediaCtx = useContext(MediaContext);
+  const isTablet = useMediaQuery("tablet");
 
   function submitCommentHandler(event) {
     event.preventDefault();
@@ -21,7 +21,7 @@ function NewCommentForm(props) {
 
   let cardStyle = {};
 
-  if (mediaCtx.isTablet) {
+  if (isTablet) {
     cardStyle = {
       padding: "2.4rem",
       display: "flex",

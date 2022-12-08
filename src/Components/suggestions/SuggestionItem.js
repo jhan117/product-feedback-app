@@ -4,14 +4,14 @@ import { useContext } from "react";
 
 import classes from "./SuggestionItem.module.css";
 import SuggestionsContext from "../../store/suggestions-context";
-import MediaContext from "../../store/media-context";
 
+import useMediaQuery from "../../utils/useMediaQuery";
 import Card from "../ui/Card";
 import StatusDeco from "../ui/StatusDeco";
 
 function SuggestionItem(props) {
   const suggestionsCtx = useContext(SuggestionsContext);
-  const mediaCtx = useContext(MediaContext);
+  const isTablet = useMediaQuery("tablet");
 
   const idIsUpvote = suggestionsCtx.idIsUpvote(props.id);
 
@@ -21,7 +21,7 @@ function SuggestionItem(props) {
 
   let sugCardStyle = {};
 
-  if (mediaCtx.isTablet) {
+  if (isTablet) {
     sugCardStyle = {
       display: "grid",
       gridTemplate: "repeat(2, auto) / repeat(3, minmax(5rem, auto))",

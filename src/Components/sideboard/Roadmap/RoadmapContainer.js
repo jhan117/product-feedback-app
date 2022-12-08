@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 
 import classes from "./RoadmapContainer.module.css";
 
+import useMediaQuery from "../../../utils/useMediaQuery";
 import Card from "../../ui/Card";
 import RoadmapList from "./RoadmapList";
-import { useContext } from "react";
-import MediaContext from "../../../store/media-context";
 
 function RoadmapContainer() {
-  const mediaCtx = useContext(MediaContext);
+  const isDesktop = useMediaQuery("desktop");
 
   return (
     <Card
@@ -17,7 +16,7 @@ function RoadmapContainer() {
         flexDirection: "column",
         rowGap: "2.2rem",
         padding: "2.1rem 2.4rem",
-        height: mediaCtx.isDesktop ? "17.8rem" : null,
+        height: isDesktop ? "17.8rem" : null,
       }}
     >
       <div className={classes.roadHeader}>
