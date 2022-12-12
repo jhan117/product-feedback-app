@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import classes from "./SuggestionList.module.css";
+
 import SuggestionItem from "./SuggestionItem";
 
 function SuggestionList(props) {

@@ -1,4 +1,4 @@
-section {
+.mainBar {
   background: var(--dark-indigo);
   font-size: 1.3rem;
   line-height: 1.9rem;
@@ -13,10 +13,10 @@ section {
   padding: 0.8rem 2.4rem;
 }
 
-section span {
+.mainBar span {
   font-weight: 300;
 }
 
-section p {
+.mainBar p {
   font-weight: 600;
 }

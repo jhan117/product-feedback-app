@@ -1,14 +1,14 @@
 import classes from "./MainBar.module.css";
 
-import FeedbackButton from "../ui/FeedbackButton";
 import Select from "../ui/select/Select";
+import FeedbackButton from "../ui/FeedbackButton";
 
 function MainBar() {
   return (
-    <section>
+    <div className={classes.mainBar}>
       <Select state="sort" />
       <FeedbackButton />
-    </section>
+    </div>
   );
 }
 
