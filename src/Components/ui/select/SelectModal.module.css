@@ -7,5 +7,5 @@
   position: absolute;
 
   z-index: 1;
-  cursor: default;
+  cursor: pointer;
 }

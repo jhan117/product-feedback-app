@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 
 import classes from "./SuggestionList.module.css";
 
+import { getCommentsNum } from "../../utils/getCommentsCnt";
+
 import SuggestionItem from "./SuggestionItem";
 
 function SuggestionList(props) {
@@ -25,6 +27,7 @@ function SuggestionList(props) {
             description={request.description}
             category={request.category}
             upvotes={request.upvotes}
+            commentsCnt={getCommentsNum(request.comments)}
           />
         </Link>
       ))}

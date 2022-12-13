@@ -1,12 +1,28 @@
+import { ReactComponent as IconSuggestions } from "../../assets/suggestions/icon-suggestions.svg";
+
 import classes from "./MainBar.module.css";
+
+import useMediaQuery from "../../utils/useMediaQuery";
 
 import Select from "../ui/select/Select";
 import FeedbackButton from "../ui/FeedbackButton";
 
-function MainBar() {
+function MainBar(props) {
+  const isTablet = useMediaQuery("tablet");
+
+  const sugContent = (
+    <div className={classes.sugCnt}>
+      <IconSuggestions />
+      <p>{props.num} Suggestions</p>
+    </div>
+  );
+
   return (
     <div className={classes.mainBar}>
-      <Select state="sort" />
+      <div className={classes.mainTxt}>
+        {isTablet ? sugContent : null}
+        <Select state="sort" num={props.num} />
+      </div>
       <FeedbackButton />
     </div>
   );

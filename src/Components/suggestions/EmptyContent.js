@@ -2,12 +2,17 @@ import { ReactComponent as ImageEmpty } from "../../assets/suggestions/illustrat
 
 import classes from "./EmptyContent.module.css";
 
+import useMediaQuery from "../../utils/useMediaQuery";
+
 import Card from "../ui/Card";
 import FeedbackButton from "../ui/FeedbackButton";
 
 function EmptyContent() {
+  const isTablet = useMediaQuery("tablet");
+
   const emptyStyle = {
-    padding: "7.6rem 2.45rem",
+    padding: isTablet ? "11rem 0" : "7.6rem 2.45rem",
+    margin: isTablet ? null : "3.2rem 2.4rem 4.7rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -16,7 +21,11 @@ function EmptyContent() {
 
   return (
     <Card style={emptyStyle}>
-      <ImageEmpty className={classes.iconEmpty} />
+      <ImageEmpty
+        width={isTablet ? "128" : "102"}
+        height={isTablet ? "135" : "108"}
+        viewBox={isTablet ? "0 0 102 108" : null}
+      />
       <div className={classes.emptyText}>
         <h1>There is no feedback yet.</h1>
         <p>

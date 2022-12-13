@@ -18,3 +18,16 @@
 .feedbackBtn:hover {
   background-color: hsl(282, 90%, 66%);
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .feedbackBtn {
+    width: 15.8rem;
+    height: 4.4rem;
+  }
+
+  .feedbackBtnText {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}

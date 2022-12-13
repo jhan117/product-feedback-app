@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 
+import request from "../utils/request";
+
 import DummyData from "../data.json";
 
 const SuggestionsContext = createContext({
@@ -96,32 +98,43 @@ export function SuggestionsContextProvider(props) {
       });
     });
   }
-  function addUpvoteHandler(suggestionId) {
-    // suggestions 변경
-    setSuggestions((prevSuggestions) => {
-      return prevSuggestions.map((suggestion) => {
-        if (suggestion.id === suggestionId) {
-          suggestion.upvotes += 1;
+  function addUpvoteHandler(suggestionId, prevUpvotes) {
+    request
+      .patch(
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+          suggestionId - 1
+        }.json`,
+        {
+          upvotes: prevUpvotes + 1,
         }
-        return suggestion;
-      });
-    });
+      )
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .catch((err) => console.log(err));
 
     // upvotes id 삽입
     setUserUpvotes((prevUserUpvotes) => {
       return prevUserUpvotes.concat(suggestionId);
     });
   }
-  function removeUpvoteHandler(suggestionId) {
-    // suggestions 변경
-    setSuggestions((prevSuggestions) => {
-      return prevSuggestions.map((suggestion) => {
-        if (suggestion.id === suggestionId) {
-          suggestion.upvotes -= 1;
+  function removeUpvoteHandler(suggestionId, prevUpvotes) {
+    request
+      .patch(
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+          suggestionId - 1
+        }.json`,
+        {
+          upvotes: prevUpvotes - 1,
         }
-        return suggestion;
-      });
-    });
+      )
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .catch((err) => console.log(err));
+
     // upvotes id 제거
     setUserUpvotes((prevUserUpvotes) => {
       return prevUserUpvotes.filter((upvote) => upvote !== suggestionId);

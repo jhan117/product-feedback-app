@@ -1,4 +1,4 @@
-import getTotalComments from "./getTotalComments";
+import { getTotalComments } from "./getCommentsCnt";
 
 // category별 suggestion 설정
 // sort별 suggestion 설정

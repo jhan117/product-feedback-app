@@ -4,6 +4,10 @@
   cursor: pointer;
 }
 
+.sortLabel:hover {
+  opacity: 0.75;
+}
+
 /* add, edit p */
 .selectConDefault {
   background-color: var(--light-white);
@@ -38,4 +42,11 @@
 
 .iconClickedOn {
   transform: rotate(180deg);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .iconArrow {
+    margin-left: 0.9rem;
+  }
 }

@@ -20,7 +20,6 @@ function SuggestionsPage() {
   const tagsCtx = useContext(TagsContext);
   const sortCtx = useContext(SortContext);
   const isTablet = useMediaQuery("tablet");
-  const isDesktop = useMediaQuery("desktop");
   const [isLoading, setIsLoading] = useState(true);
   const [loadedData, setLoadedData] = useState([]);
 
@@ -45,7 +44,7 @@ function SuggestionsPage() {
       .catch((err) => console.log(err));
 
     setIsLoading(false);
-  }, [tagsCtx.tag]);
+  }, [tagsCtx.tag, loadedData]);
 
   // header 컴포넌트 설정
   const TDHeader = (
@@ -59,21 +58,23 @@ function SuggestionsPage() {
 
   if (isLoading) {
     content = "loading...";
-  } else if (loadedData.length === 0) {
-    content = <EmptyContent />;
   } else {
-    const sortedData = sortSuggestions(sortCtx.sortBy, loadedData);
-    content = <SuggestionList requests={sortedData} />;
+    if (loadedData.length === 0) {
+      content = <EmptyContent />;
+    } else {
+      const sortedData = sortSuggestions(sortCtx.sortBy, loadedData);
+      content = <SuggestionList requests={sortedData} />;
+    }
   }
 
   return (
     <Fragment>
       <header className={classes.sugHeader}>
         <Board />
-        {isTablet || isDesktop ? TDHeader : <SideBar />}
+        {isTablet ? TDHeader : <SideBar />}
       </header>
-      <main>
-        <MainBar />
+      <main className={classes.sugMain}>
+        <MainBar num={loadedData.length} />
         {content}
       </main>
     </Fragment>

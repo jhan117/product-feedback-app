@@ -1,4 +1,4 @@
-function getTotalComments(data) {
+export function getTotalComments(data) {
   return data.map((d) => {
     let repliesCount = 0;
 
@@ -14,4 +14,13 @@ function getTotalComments(data) {
   });
 }
 
-export default getTotalComments;
+export function getCommentsNum(comments) {
+  const commentsCount = comments?.length || 0;
+  let repliesCount = 0;
+
+  comments?.forEach((comment) => {
+    repliesCount += comment.replies?.length || 0;
+  });
+
+  return commentsCount + repliesCount;
+}
