@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/product-feedback-app/static/css/main.df6c679e.css",
-    "main.js": "/product-feedback-app/static/js/main.45601fff.js",
+    "main.css": "/product-feedback-app/static/css/main.7b7c2f7c.css",
+    "main.js": "/product-feedback-app/static/js/main.a669d13f.js",
     "static/media/background-header.png": "/product-feedback-app/static/media/background-header.bc782ba03942f8efd767.png",
     "static/media/illustration-empty.svg": "/product-feedback-app/static/media/illustration-empty.6ed5b35a7fb831ed20ca5350bc0cbd84.svg",
     "static/media/icon-suggestions.svg": "/product-feedback-app/static/media/icon-suggestions.2709beff19f3deb4adab5cb39341e2f5.svg",
@@ -15,11 +15,11 @@
     "static/media/icon-arrow-up.svg": "/product-feedback-app/static/media/icon-arrow-up.2b7b503143f7ffb093c60b03c2eefa9f.svg",
     "static/media/icon-hamburger.svg": "/product-feedback-app/static/media/icon-hamburger.a8bc4c8c0391bf4ff8e8cb1d035d0f79.svg",
     "static/media/icon-check.svg": "/product-feedback-app/static/media/icon-check.121f050674ec6d7b94e2f2510cd50616.svg",
-    "main.df6c679e.css.map": "/product-feedback-app/static/css/main.df6c679e.css.map",
-    "main.45601fff.js.map": "/product-feedback-app/static/js/main.45601fff.js.map"
+    "main.7b7c2f7c.css.map": "/product-feedback-app/static/css/main.7b7c2f7c.css.map",
+    "main.a669d13f.js.map": "/product-feedback-app/static/js/main.a669d13f.js.map"
   },
   "entrypoints": [
-    "static/css/main.df6c679e.css",
-    "static/js/main.45601fff.js"
+    "static/css/main.7b7c2f7c.css",
+    "static/js/main.a669d13f.js"
   ]
 }
