@@ -12,6 +12,18 @@ function TextareaForm(props) {
     }
   }, []);
 
+  function descSaveHandler(event) {
+    if (event.target.value) {
+      props.setSugData((prevData) => ({
+        ...prevData,
+        description: event.target.value,
+      }));
+      props.setIsDesc(true);
+    } else {
+      props.setIsDesc(false);
+    }
+  }
+
   return (
     <div className={classes.textareaCon}>
       <label htmlFor="detail">
@@ -26,12 +38,7 @@ function TextareaForm(props) {
         className={`${classes.textarea} ${
           props.isSubmitted && !props.isDesc ? classes.textError : null
         }`}
-        onChange={(e) => {
-          props.setSugData((prevData) => ({
-            ...prevData,
-            description: e.target.value,
-          }));
-        }}
+        onChange={descSaveHandler}
         defaultValue={props.value ? props.value : null}
       />
       {props.isSubmitted && !props.isDesc ? (

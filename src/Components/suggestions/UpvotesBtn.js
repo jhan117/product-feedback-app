@@ -20,8 +20,16 @@ function UpvotesBtn(props) {
 
   return (
     <button
-      className={classes.upvoteBtn}
+      className={`${classes.upvoteBtn} ${
+        props.isRoad ? classes.roadBtn : classes.sugBtn
+      }`}
       onClick={toggleUpvoteStatusHandler}
+      onMouseEnter={() => {
+        props.setIsHover(true);
+      }}
+      onMouseLeave={() => {
+        props.setIsHover(false);
+      }}
       style={
         idIsUpvote
           ? {

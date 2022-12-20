@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import CommentHeader from "./CommentHeader";
+import CommentHeader from "../comments/CommentHeader";
 import classes from "./RepliesItem.module.css";
 
 function RepliesItem(props) {
@@ -10,7 +10,7 @@ function RepliesItem(props) {
     props.setHeights((prevHeight) => {
       return prevHeight.concat(replyHeightRef.current.clientHeight);
     });
-  }, []);
+  }, [replyHeightRef]);
 
   return (
     <li ref={replyHeightRef} className={classes.replyCon}>

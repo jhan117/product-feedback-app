@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import classes from "./InputForm.module.css";
 
 function InputForm(props) {
@@ -11,6 +12,18 @@ function InputForm(props) {
     }
   }, []);
 
+  function titleSaveHandler(event) {
+    if (event.target.value) {
+      props.setSugData((prevData) => ({
+        ...prevData,
+        title: event.target.value,
+      }));
+      props.setIsTitle(true);
+    } else {
+      props.setIsTitle(false);
+    }
+  }
+
   return (
     <div className={classes.inputCon}>
       <label htmlFor="title">
@@ -21,12 +34,7 @@ function InputForm(props) {
         className={
           props.isSubmitted && !props.isTitle ? classes.textError : null
         }
-        onChange={(e) => {
-          props.setSugData((prevData) => ({
-            ...prevData,
-            title: e.target.value,
-          }));
-        }}
+        onChange={titleSaveHandler}
         defaultValue={props.value ? props.value : null}
       />
       {props.isSubmitted && !props.isTitle ? (

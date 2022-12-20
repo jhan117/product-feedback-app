@@ -1,0 +1,23 @@
+.submitBtn {
+  width: 100%;
+  height: 4rem;
+  background-color: var(--purple);
+  border-radius: 1rem;
+
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--dark-white);
+}
+
+.submitBtn:hover {
+  background-color: hsl(282, 90%, 66%);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .submitBtn {
+    width: 14.4rem;
+    height: 4.4rem;
+  }
+}

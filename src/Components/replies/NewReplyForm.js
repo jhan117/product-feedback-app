@@ -1,15 +1,22 @@
 import { useRef } from "react";
 
 import classes from "./NewReplyForm.module.css";
-import PostButton from "../ui/PostButton";
+
+import useMediaQuery from "../../utils/useMediaQuery";
+
+import PostButton from "../ui/buttons/PostButton";
 
 function NewReplyForm(props) {
   const contentInputRef = useRef();
+  const isTablet = useMediaQuery("tablet");
 
   function submitReplyHandler(event) {
+    props.setIsReplySubmit(true);
     event.preventDefault();
+
     const enteredContent = contentInputRef.current.value;
     props.onAddReply(enteredContent);
+
     event.target.querySelector("textarea").value = "";
     props.setIsReplyOpen(false);
   }
@@ -27,7 +34,9 @@ function NewReplyForm(props) {
         ref={contentInputRef}
         maxLength={250}
       />
-      <PostButton width="9.7rem">Post Reply</PostButton>
+      <PostButton width={isTablet ? "11.7rem" : "9.7rem"}>
+        Post Reply
+      </PostButton>
     </form>
   );
 }

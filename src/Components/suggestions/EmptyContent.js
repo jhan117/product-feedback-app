@@ -5,7 +5,7 @@ import classes from "./EmptyContent.module.css";
 import useMediaQuery from "../../utils/useMediaQuery";
 
 import Card from "../ui/Card";
-import FeedbackButton from "../ui/FeedbackButton";
+import FeedbackButton from "../ui/buttons/FeedbackButton";
 
 function EmptyContent() {
   const isTablet = useMediaQuery("tablet");

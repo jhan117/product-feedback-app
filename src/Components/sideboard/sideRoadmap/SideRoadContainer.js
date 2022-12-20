@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import classes from "./RoadmapContainer.module.css";
+import classes from "./SideRoadContainer.module.css";
 
 import useMediaQuery from "../../../utils/useMediaQuery";
 import Card from "../../ui/Card";
-import RoadmapList from "./RoadmapList";
+import SideRoadList from "./SideRoadList";
 
-function RoadmapContainer() {
+function SideRoadContainer() {
   const isDesktop = useMediaQuery("desktop");
 
   return (
@@ -25,9 +25,9 @@ function RoadmapContainer() {
           View
         </Link>
       </div>
-      <RoadmapList />
+      <SideRoadList />
     </Card>
   );
 }
 
-export default RoadmapContainer;
+export default SideRoadContainer;

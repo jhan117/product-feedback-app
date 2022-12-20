@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 import classes from "./SideBar.module.css";
 
 import CategoryList from "./Category/CategoryList";
-import RoadmapContainer from "./Roadmap/RoadmapContainer";
+import SideRoadContainer from "./sideRoadmap/SideRoadContainer";
 
 function SideBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +18,7 @@ function SideBar() {
     <Fragment>
       <div className={classes.sideCon}>
         <CategoryList />
-        <RoadmapContainer />
+        <SideRoadContainer />
       </div>
       <div className={classes.sideModal} />
     </Fragment>

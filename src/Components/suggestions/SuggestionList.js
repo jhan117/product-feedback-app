@@ -9,8 +9,8 @@ import SuggestionItem from "./SuggestionItem";
 function SuggestionList(props) {
   return (
     <ul
-      className={`${classes.suggestionsUl} ${
-        props.status ? classes.statusUl : null
+      className={`${classes.commonUl} ${
+        props.status ? classes.statusUl : classes.sugUl
       }`}
     >
       {props.requests.map((request) => (

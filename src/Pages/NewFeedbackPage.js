@@ -1,22 +1,34 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 
 import classes from "./NewFeedbackPage.module.css";
 
-import FeedbackForm from "../Components/feedback/FeedbackForm";
+import useRootClass from "../utils/useRootClass";
+
+import FeedbackForm from "../Components/feedbackForm/FeedbackForm";
 import GoBack from "../Components/ui/GoBack";
 
-function NewFeedbackPage() {
+function NewFeedbackPage(props) {
+  useRootClass("new");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className={classes.addBody}>
+    <Fragment>
       <header>
         <GoBack />
       </header>
-      <FeedbackForm pageName="add">Create new Feedback</FeedbackForm>
-    </div>
+      <main className={classes.newMain}>
+        <FeedbackForm
+          pageName="add"
+          isSubmit={props.isSubmit}
+          setIsSubmit={props.setIsSubmit}
+        >
+          Create new Feedback
+        </FeedbackForm>
+      </main>
+    </Fragment>
   );
 }
 

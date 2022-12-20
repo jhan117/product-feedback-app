@@ -1,13 +1,30 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import classes from "./RoadmapBtn.module.css";
 
-import SuggestionsContext from "../../store/suggestions-context";
-import StatusContext from "../../store/status-context";
+import request from "../../../utils/request";
+
+import StatusContext from "../../../store/status-context";
 
 function RoadmapBtn(props) {
-  const suggestionsCtx = useContext(SuggestionsContext);
   const statusCtx = useContext(StatusContext);
+  const [loadedData, setLoadedData] = useState([]);
+
+  useEffect(() => {
+    request
+      .get(
+        "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests.json"
+      )
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        const filteredData = data.filter(Boolean);
+        setLoadedData(filteredData);
+      })
+      .catch((err) => console.log(err));
+  }, [loadedData]);
 
   let borderColor = {};
 
@@ -41,11 +58,7 @@ function RoadmapBtn(props) {
       onClick={navClickHandler}
     >
       {statusCtx.changeStatusName(props.status)} (
-      {statusCtx.statusSuggestionsLength(
-        props.status,
-        suggestionsCtx.suggestions
-      )}
-      )
+      {statusCtx.statusSuggestionsLength(props.status, loadedData)})
     </button>
   );
 }

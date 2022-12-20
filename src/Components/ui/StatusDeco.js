@@ -28,11 +28,7 @@ function StatusDeco(props) {
   return (
     <div
       className={classes.decoCon}
-      style={
-        props.side
-          ? { columnGap: "1.6rem" }
-          : { marginBottom: "1.6rem", columnGap: "0.8rem" }
-      }
+      style={props.side ? { columnGap: "1.6rem" } : { columnGap: "0.8rem" }}
     >
       <div className={classes.circle} style={circleColor}></div>
       <p

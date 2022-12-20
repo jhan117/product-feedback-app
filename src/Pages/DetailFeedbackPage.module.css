@@ -1,70 +1,11 @@
-.detailBody {
-  padding: 2.4rem;
-  padding-bottom: 8.8rem;
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 2.4rem;
-}
-
 .detailHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.editBtn {
-  background-color: var(--blue);
-  border-radius: 1rem;
-
-  height: 4rem;
-  width: 11.9rem;
-}
-
-.editBtn:hover {
-  background-color: hsl(230, 91%, 73%);
-}
-
-.editLink {
-  text-decoration: none;
-  color: var(--dark-white);
-
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1.9rem;
-}
-
-.commentH4 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  line-height: 2.6rem;
-  letter-spacing: -0.025rem;
-  color: var(--indigo);
-}
-
-/* tablet */
-@media only screen and (min-width: 40em) {
-  .detailBody {
-    display: grid;
-    grid-template: repeat(4, auto) / repeat(12, 1fr);
-    column-gap: 1rem;
-    padding: 5.6rem 3.95rem 12rem;
-  }
-
-  /* header */
-  .detailHeader {
-    grid-column: 1 / 13;
-  }
-  .editBtn {
-    height: 4.4rem;
-    width: 14.2rem;
-  }
-  .editLink {
-    font-size: 1.4rem;
-    line-height: 2rem;
-  }
-
-  .commentH4 {
-    margin-bottom: -0.4rem;
-  }
+.detailMain {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
 }

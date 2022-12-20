@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   padding: 2.6rem 2.4rem;
 
@@ -11,7 +12,6 @@
 .headerLeftCon {
   display: flex;
   flex-direction: column;
-
   row-gap: 0.3rem;
 }
 
@@ -24,29 +24,26 @@
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2.4rem;
-
-  padding: 2.4rem 2.4rem 9.8rem;
+  padding: 2.4rem;
 }
 
-.mainHeading {
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.4rem;
-}
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .roadmapHeader {
+    padding: 2.7rem 3.2rem;
 
-.mainHeading h2 {
-  font-weight: 700;
-  font-size: 1.8rem;
-  line-height: 2.6rem;
-  letter-spacing: -0.025rem;
-  color: var(--dark-indigo);
-}
-.mainHeading p {
-  font-weight: 400;
-  font-size: 1.3rem;
-  line-height: 1.9rem;
-  color: var(--light-gray);
+    border-radius: 1rem;
+  }
+  .headerLeftCon {
+    row-gap: 0.4rem;
+  }
+  .headerLeftCon h1 {
+    font-size: 2.4rem;
+    line-height: 3.5rem;
+    letter-spacing: -0.033rem;
+  }
+
+  .main {
+    padding: 0;
+  }
 }

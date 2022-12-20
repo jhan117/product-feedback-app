@@ -1,0 +1,18 @@
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+}
+
+.formText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .feedbackForm {
+    row-gap: 3.2rem;
+  }
+}

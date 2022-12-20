@@ -3,39 +3,31 @@ import { useRef, useState } from "react";
 import classes from "./NewCommentForm.module.css";
 
 import useMediaQuery from "../../utils/useMediaQuery";
+
 import Card from "../ui/Card";
-import PostButton from "../ui/PostButton";
+import PostButton from "../ui/buttons/PostButton";
 
 function NewCommentForm(props) {
   const contentInputRef = useRef();
-  const [textLength, setTextLength] = useState(250);
   const isTablet = useMediaQuery("tablet");
+  const [textLength, setTextLength] = useState(250);
+
+  let cardStyle = {
+    padding: isTablet ? "2.4rem 3.2rem 3.2rem" : "2.4rem",
+    display: "flex",
+    flexDirection: "column",
+    rowGap: "2.4rem",
+  };
 
   function submitCommentHandler(event) {
     event.preventDefault();
+    props.setIsCommentSubmit(true);
+
     const enteredContent = contentInputRef.current.value;
     props.onAddComment(enteredContent);
+
     event.target.querySelector("textarea").value = "";
     setTextLength(250);
-  }
-
-  let cardStyle = {};
-
-  if (isTablet) {
-    cardStyle = {
-      padding: "2.4rem",
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2.4rem",
-      gridColumn: "1 / 13",
-    };
-  } else {
-    cardStyle = {
-      padding: "2.4rem",
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2.4rem",
-    };
   }
 
   return (
@@ -52,7 +44,9 @@ function NewCommentForm(props) {
         />
         <div className={classes.addCommentFooter}>
           <p className={classes.leftCha}>{textLength} characters left</p>
-          <PostButton width="11.9rem">Post Comment</PostButton>
+          <PostButton width={isTablet ? "14.2rem" : "11.9rem"}>
+            Post Comment
+          </PostButton>
         </div>
       </form>
     </Card>

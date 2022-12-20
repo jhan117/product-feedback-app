@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   row-gap: 1.6rem;
-
-  padding-top: 2.4rem;
 }
 
 .commentBorder {
+  padding-top: 2.4rem;
+
   border-top: 0.1rem solid hsla(231, 20%, 63%, 25%);
 }
 
@@ -20,16 +20,12 @@
 /* tablet */
 @media only screen and (min-width: 40em) {
   .commentCon {
-    /* display: grid;
-    grid-template: repeat(3, auto) / repeat(2, minmax(7.2rem, auto)); */
     row-gap: 1.7rem;
-
+  }
+  .commentBorder {
     padding-top: 3.2rem;
   }
   .commentContent {
-    /* grid-column: 2 / 3;
-    grid-row: 2 / 3; */
-
     font-size: 1.5rem;
     line-height: 2.2rem;
 

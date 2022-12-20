@@ -1,23 +1,39 @@
 import { useEffect, useState, useRef } from "react";
-import RepliesItem from "./RepliesItem";
+
 import classes from "./RepliesList.module.css";
+
+import useMediaQuery from "../../utils/useMediaQuery";
+
+import RepliesItem from "./RepliesItem";
 
 function RepliesList(props) {
   const lastIdx = props.replies.length - 1;
   const allReplyHeightRef = useRef(null);
+  const isTablet = useMediaQuery("tablet");
   const [heights, setHeights] = useState([]);
   const [curHeight, setCurHeight] = useState(0);
 
+  // tablet부터 32 + comment content
   useEffect(() => {
-    setCurHeight(
-      (allReplyHeightRef.current.clientHeight - (heights.slice(-1) - 20)) / 10 +
-        "rem"
-    );
-  }, [heights]);
+    const commonExpression =
+      allReplyHeightRef.current.clientHeight - (heights.slice(-1) - 20);
+
+    if (isTablet) {
+      setCurHeight((commonExpression + props.commentHeight + 32) / 10 + "rem");
+    } else {
+      setCurHeight(commonExpression / 10 + "rem");
+    }
+  }, [heights, isTablet, props.commentHeight, allReplyHeightRef]);
 
   return (
     <ul ref={allReplyHeightRef} className={`replies ${classes.repliesUl}`}>
-      <div className={classes.leftBorder} style={{ height: curHeight }}></div>
+      <div
+        className={classes.leftBorder}
+        style={{
+          height: curHeight,
+          top: isTablet ? -((props.commentHeight + 32) / 10) + "rem" : 0,
+        }}
+      ></div>
       {props.replies.map((reply, idx) => (
         <RepliesItem
           key={idx}

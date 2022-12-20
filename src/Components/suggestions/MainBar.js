@@ -5,7 +5,7 @@ import classes from "./MainBar.module.css";
 import useMediaQuery from "../../utils/useMediaQuery";
 
 import Select from "../ui/select/Select";
-import FeedbackButton from "../ui/FeedbackButton";
+import FeedbackButton from "../ui/buttons/FeedbackButton";
 
 function MainBar(props) {
   const isTablet = useMediaQuery("tablet");

@@ -3,15 +3,21 @@ import classes from "./SelectForm.module.css";
 import Select from "../ui/select/Select";
 
 function SelectForm(props) {
+  let labelTitle = "";
+  let labelDesc = "";
+  if (props.state === "category") {
+    labelTitle = "Category";
+    labelDesc = "Choose a category for your feedback";
+  } else {
+    labelTitle = "Update Status";
+    labelDesc = "Change feature state";
+  }
+
   return (
     <div className={classes.selectFrom}>
       <label htmlFor={props.state}>
-        {props.state === "category" ? "Category" : "Update Status"}
-        <p>
-          {props.state === "category"
-            ? "Choose a category for your feedback"
-            : "Change feature state"}
-        </p>
+        {labelTitle}
+        <p>{labelDesc}</p>
       </label>
       <Select
         state={props.state}

@@ -107,6 +107,25 @@ label p {
   color: var(--light-gray);
 }
 
+.detailBody,
+.newBody,
+.editBody {
+  padding: 2.4rem;
+}
+
+.detailBody {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
+}
+
+.newBody,
+.editBody {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5.5rem;
+}
+
 /* tablet */
 @media only screen and (min-width: 40em) {
   body {
@@ -115,24 +134,72 @@ label p {
   }
 
   #root {
+    padding: 5.6rem 4rem;
+  }
+
+  .sugBody,
+  .detailBody,
+  .roadBody {
+    width: 76.9rem;
+  }
+
+  .sugBody {
     display: flex;
     flex-direction: column;
     row-gap: 4rem;
+  }
 
-    padding: 9.4rem 4rem 12.9rem;
+  .newBody,
+  .editBody {
+    row-gap: 6.8rem;
 
-    max-width: 111rem;
+    width: 62rem;
+  }
+
+  .roadBody {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3.2rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
+
+  label {
+    font-size: 1.4rem;
+    line-height: 2rem;
   }
 }
 
 /* desktop */
 @media only screen and (min-width: 82em) {
   #root {
+    max-width: none;
+
+    padding: 9.2rem 0;
+  }
+
+  .sugBody {
     flex-direction: row;
     column-gap: 3rem;
 
-    padding: 5.6rem 0 11.3rem;
+    width: 111rem;
+  }
 
+  .detailBody {
+    width: 73rem;
+  }
+
+  .newBody,
+  .editBody {
+    width: 54rem;
+  }
+
+  .roadBody {
+    row-gap: 4.8rem;
     width: 111rem;
   }
 }

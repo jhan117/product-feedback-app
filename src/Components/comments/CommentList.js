@@ -6,13 +6,14 @@ function CommentList(props) {
     <ul className={classes.commentsCon}>
       {props.comments.map((comment, idx) => (
         <CommentItem
-          idx={idx}
           key={comment.id}
+          idx={idx}
           id={comment.id}
           suggestionId={props.suggestionId}
           content={comment.content}
           user={comment.user}
           replies={comment.replies}
+          setIsReplySubmit={props.setIsReplySubmit}
         />
       ))}
     </ul>
