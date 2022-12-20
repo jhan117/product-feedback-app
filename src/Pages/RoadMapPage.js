@@ -20,6 +20,7 @@ function RoadMapPage() {
   const statusCtx = useContext(StatusContext);
   const isTablet = useMediaQuery("tablet");
   const [curStatus, setCurStatus] = useState("in-progress");
+  const [isLoading, setIsLoading] = useState(true);
   const [loadedData, setLoadedData] = useState([]);
 
   const statusList = statusCtx.status.slice(1);
@@ -28,6 +29,7 @@ function RoadMapPage() {
   );
 
   useEffect(() => {
+    setIsLoading(true);
     const timeoutId = setInterval(() => {
       request
         .get(
@@ -40,6 +42,7 @@ function RoadMapPage() {
         .then((data) => {
           if (data !== loadedData) {
             setLoadedData(data.filter(Boolean));
+            setIsLoading(false);
             clearInterval(timeoutId);
           }
         })
@@ -61,6 +64,28 @@ function RoadMapPage() {
     }
   }
 
+  let mainContent = "";
+
+  if (isLoading) {
+    mainContent = "loading...";
+  } else {
+    mainContent = isTablet ? (
+      <RoadmapList
+        statusList={statusList}
+        data={loadedData}
+        getFunc={getContent}
+      />
+    ) : (
+      <RoadmapItem
+        title={statusCtx.changeStatusName(curStatus)}
+        length={currSuggestions.length}
+        desc={getContent(curStatus)}
+        status={curStatus}
+        requests={currSuggestions}
+      />
+    );
+  }
+
   return (
     <Fragment>
       <header className={classes.roadmapHeader}>
@@ -73,23 +98,7 @@ function RoadMapPage() {
       {isTablet ? null : (
         <RoadmapNav curStatus={curStatus} setCurStatus={setCurStatus} />
       )}
-      <main className={classes.main}>
-        {isTablet ? (
-          <RoadmapList
-            statusList={statusList}
-            data={loadedData}
-            getFunc={getContent}
-          />
-        ) : (
-          <RoadmapItem
-            title={statusCtx.changeStatusName(curStatus)}
-            length={currSuggestions.length}
-            desc={getContent(curStatus)}
-            status={curStatus}
-            requests={currSuggestions}
-          />
-        )}
-      </main>
+      <main className={classes.main}>{mainContent}</main>
     </Fragment>
   );
 }

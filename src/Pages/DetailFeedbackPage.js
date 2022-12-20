@@ -48,7 +48,7 @@ function DetailFeedbackPage(props) {
     }, 500);
 
     window.scrollTo(0, 0);
-  }, [props.isSubmit]);
+  }, [props.isSubmit, suggestionsCtx.userUpvoteId]);
 
   useEffect(() => {
     const timeoutCommentId = setInterval(() => {
@@ -75,14 +75,14 @@ function DetailFeedbackPage(props) {
   }, [isCommentSubmit, isReplySubmit]);
 
   let commentsCount = 0;
-  let content = "";
+  let mainContent = "";
 
   commentsCount = getCommentsNum(loadedCommentsData);
 
   if (isLoading) {
-    content = "loading...";
+    mainContent = "loading...";
   } else {
-    content = (
+    mainContent = (
       <Fragment>
         <SuggestionItem
           id={loadedDetailData.id}
@@ -91,6 +91,7 @@ function DetailFeedbackPage(props) {
           category={loadedDetailData.category}
           upvotes={loadedDetailData.upvotes}
           commentsCnt={commentsCount}
+          detail={true}
         />
         <CommentsContainer
           id={loadedDetailData.id}
@@ -120,7 +121,7 @@ function DetailFeedbackPage(props) {
         <GoBack />
         <EditBtn id={loadedDetailData.id} />
       </header>
-      <main className={classes.detailMain}>{content}</main>
+      <main className={classes.detailMain}>{mainContent}</main>
       <footer>
         <NewCommentForm
           setIsCommentSubmit={setIsCommentSubmit}

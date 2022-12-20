@@ -55,7 +55,9 @@ function SuggestionItem(props) {
             props.status ? classes.statusText : classes.sugText
           }`}
         >
-          <h3 className={isHover ? null : classes.haveTitle}>{props.title}</h3>
+          <h3 className={isHover || props.detail ? null : classes.haveTitle}>
+            {props.title}
+          </h3>
           <p>{props.description}</p>
         </div>
         <div className={classes.sugCatCon}>

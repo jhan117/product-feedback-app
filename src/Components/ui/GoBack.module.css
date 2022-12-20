@@ -14,7 +14,7 @@
   color: var(--light-gray);
 }
 
-.goBack p:hover {
+.goBack:hover p {
   text-decoration: underline;
   color: hsl(224, 20%, 49%);
 }
