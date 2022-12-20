@@ -2,8 +2,19 @@
   text-decoration: none;
 }
 
-.suggestionsUl {
+.commonUl {
   display: flex;
   flex-direction: column;
   row-gap: 1.6rem;
+}
+
+.sugUl {
+  padding: 3.2rem 2.4rem;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .sugUl {
+    padding: 0;
+  }
 }

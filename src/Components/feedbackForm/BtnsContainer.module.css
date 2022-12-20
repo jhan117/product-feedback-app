@@ -1,0 +1,18 @@
+.BtnsCon {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .BtnsCon {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.6rem;
+    row-gap: 0;
+    justify-content: flex-end;
+
+    position: relative;
+  }
+}

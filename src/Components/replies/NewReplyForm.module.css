@@ -1,0 +1,17 @@
+.replyForm {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.6rem;
+}
+
+.replyForm textarea {
+  flex: 1;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .replyForm {
+    margin-top: 0.7rem;
+    margin-left: 7.2rem;
+  }
+}

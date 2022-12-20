@@ -1,0 +1,32 @@
+.editBtn {
+  background-color: var(--blue);
+  border-radius: 1rem;
+
+  height: 4rem;
+  width: 11.9rem;
+}
+
+.editBtn:hover {
+  background-color: hsl(230, 91%, 73%);
+}
+
+.editLink {
+  text-decoration: none;
+  color: var(--dark-white);
+
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.9rem;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .editBtn {
+    height: 4.4rem;
+    width: 14.2rem;
+  }
+  .editLink {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}

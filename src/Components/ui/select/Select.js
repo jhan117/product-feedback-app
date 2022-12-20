@@ -13,9 +13,7 @@ function Select(props) {
   const tagCtx = useContext(TagsContext);
   const sortCtx = useContext(SortContext);
   const statusCtx = useContext(StatusContext);
-
   const [isOpenOption, setIsOpenOption] = useState(false);
-
   const [selectedCat, setSelectedCat] = useState(
     props.valueC
       ? props.valueC.length === 2
@@ -23,29 +21,31 @@ function Select(props) {
         : props.valueC.charAt(0).toUpperCase() + props.valueC.slice(1)
       : "Feature"
   );
-
   const [selectedStat, setSelectedStat] = useState(
     props.valueS
       ? props.valueS.charAt(0).toUpperCase() + props.valueS.slice(1)
       : ""
   );
-
   const selectedDict = {
     category: selectedCat,
     status: selectedStat,
   };
-
   const setDict = {
     category: setSelectedCat,
     status: setSelectedStat,
   };
 
-  const sortContent = (
-    <Fragment>
-      <span>Sort by : </span>
-      {sortCtx.sortList[sortCtx.sortBy].name}
-    </Fragment>
-  );
+  function sortHandler(e) {
+    if (props.state === "sort" && props.num === 0) {
+      e.currentTarget.removeEventListener("click");
+    }
+
+    if (isOpenOption) {
+      setIsOpenOption(false);
+    } else {
+      setIsOpenOption(true);
+    }
+  }
 
   useEffect(() => {
     if (props.state === "category") {
@@ -61,25 +61,25 @@ function Select(props) {
     }
   }, [selectedCat, selectedStat]);
 
-  function sortHandler() {
-    if (isOpenOption) {
-      setIsOpenOption(false);
-    } else {
-      setIsOpenOption(true);
-    }
-  }
-
   let options = [];
-
+  let content = "";
   switch (props.state) {
     case "sort":
       options = sortCtx.sortList;
+      content = (
+        <Fragment>
+          <span>Sort by : </span>
+          {sortCtx.sortList[sortCtx.sortBy].name}
+        </Fragment>
+      );
       break;
     case "category":
       options = tagCtx.optionTagList;
+      content = selectedCat;
       break;
     case "status":
       options = statusCtx.status;
+      content = selectedStat;
       break;
     default:
       break;
@@ -91,15 +91,22 @@ function Select(props) {
         className={`${classes.selectCon} ${
           props.state === "sort" ? null : classes.selectConDefault
         }`}
+        style={
+          props.state === "sort" && props.num === 0
+            ? {
+                opacity: "0.5",
+                pointerEvents: "none",
+              }
+            : null
+        }
       >
-        <div className={classes.selectLabel} onClick={sortHandler}>
-          <p>
-            {props.state === "sort"
-              ? sortContent
-              : props.state === "status"
-              ? selectedStat
-              : selectedCat}
-          </p>
+        <div
+          className={`${classes.selectLabel} ${
+            props.state === "sort" ? classes.sortLabel : null
+          }`}
+          onClick={sortHandler}
+        >
+          <p>{content}</p>
           <IconArrowDown
             className={`${classes.iconArrow} ${
               props.state === "sort" ? classes.iconCustom : null

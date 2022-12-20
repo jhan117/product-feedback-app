@@ -1,38 +1,64 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useState, useEffect } from "react";
 
 import classes from "./RoadMapPage.module.css";
-import SuggestionsContext from "../store/suggestions-context";
 import StatusContext from "../store/status-context";
+import SuggestionsContext from "../store/suggestions-context";
+
+import useRootClass from "../utils/useRootClass";
+import request from "../utils/request";
+import useMediaQuery from "../utils/useMediaQuery";
 
 import GoBack from "../Components/ui/GoBack";
-import FeedbackButton from "../Components/ui/FeedbackButton";
-import SuggestionList from "../Components/suggestions/SuggestionList";
+import FeedbackButton from "../Components/ui/buttons/FeedbackButton";
 import RoadmapNav from "../Components/layout/RoadmapNav";
+import RoadmapItem from "../Components/roadmap/RoadmapItem";
+import RoadmapList from "../Components/roadmap/RoadmapList";
 
 function RoadMapPage() {
-  const [curStatus, setCurStatus] = useState("in-progress");
+  useRootClass("road");
   const suggestionsCtx = useContext(SuggestionsContext);
   const statusCtx = useContext(StatusContext);
+  const isTablet = useMediaQuery("tablet");
+  const [curStatus, setCurStatus] = useState("in-progress");
+  const [loadedData, setLoadedData] = useState([]);
 
-  const currSuggestions = suggestionsCtx.suggestions.filter(
+  const statusList = statusCtx.status.slice(1);
+  const currSuggestions = loadedData.filter(
     (suggestion) => suggestion.status === curStatus
   );
 
-  let headingContent = "";
+  useEffect(() => {
+    const timeoutId = setInterval(() => {
+      request
+        .get(
+          "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests.json"
+        )
+        .then((response) => {
+          if (!response.ok) throw new Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== loadedData) {
+            setLoadedData(data.filter(Boolean));
+            clearInterval(timeoutId);
+          }
+        })
+        .catch((err) => console.log(err));
+    }, 500);
+  }, [suggestionsCtx.userUpvoteId]);
 
-  switch (curStatus) {
-    case "planned":
-      headingContent = <p>Ideas prioritized for research</p>;
-      break;
-    case "in-progress":
-      // tablet과 desktop은 features가 없는데... 흠...!
-      headingContent = <p>Features currently being developed</p>;
-      break;
-    case "live":
-      headingContent = <p>Released features</p>;
-      break;
-    default:
-      break;
+  function getContent(status) {
+    switch (status) {
+      case "planned":
+        return <p>Ideas prioritized for research</p>;
+      case "in-progress":
+        // tablet과 desktop은 features가 없는데... 흠...!
+        return <p>Features currently being developed</p>;
+      case "live":
+        return <p>Released features</p>;
+      default:
+        break;
+    }
   }
 
   return (
@@ -44,21 +70,26 @@ function RoadMapPage() {
         </div>
         <FeedbackButton />
       </header>
-      <RoadmapNav curStatus={curStatus} setCurStatus={setCurStatus} />
-      <div className={classes.main}>
-        <div className={classes.mainHeading}>
-          <h2>
-            {statusCtx.changeStatusName(curStatus)} (
-            {statusCtx.statusSuggestionsLength(
-              curStatus,
-              suggestionsCtx.suggestions
-            )}
-            )
-          </h2>
-          {headingContent}
-        </div>
-        <SuggestionList status={curStatus} requests={currSuggestions} />
-      </div>
+      {isTablet ? null : (
+        <RoadmapNav curStatus={curStatus} setCurStatus={setCurStatus} />
+      )}
+      <main className={classes.main}>
+        {isTablet ? (
+          <RoadmapList
+            statusList={statusList}
+            data={loadedData}
+            getFunc={getContent}
+          />
+        ) : (
+          <RoadmapItem
+            title={statusCtx.changeStatusName(curStatus)}
+            length={currSuggestions.length}
+            desc={getContent(curStatus)}
+            status={curStatus}
+            requests={currSuggestions}
+          />
+        )}
+      </main>
     </Fragment>
   );
 }

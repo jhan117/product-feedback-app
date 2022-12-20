@@ -1,6 +1,6 @@
 import classes from "./RoadmapNav.module.css";
 
-import RoadmapBtn from "../ui/RoadmapBtn";
+import RoadmapBtn from "../ui/buttons/RoadmapBtn";
 
 function RoadmapNav(props) {
   const btnList = ["planned", "in-progress", "live"];

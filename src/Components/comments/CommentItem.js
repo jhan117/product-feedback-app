@@ -1,28 +1,37 @@
-import RepliesList from "./RepliesList";
-import CommentHeader from "../ui/CommentHeader";
-import NewReplyForm from "./NewReplyForm";
-import classes from "./CommentItem.module.css";
+import { useContext, useEffect, useRef, useState } from "react";
 
-import { useContext, useState, useEffect } from "react";
+import classes from "./CommentItem.module.css";
 import SuggestionsContext from "../../store/suggestions-context";
-import DummyData from "../../data.json";
+
+import RepliesList from "../replies/RepliesList";
+import CommentHeader from "./CommentHeader";
+import NewReplyForm from "../replies/NewReplyForm";
+import useMediaQuery from "../../utils/useMediaQuery";
 
 function CommentItem(props) {
   const suggestionsCtx = useContext(SuggestionsContext);
+  const isTablet = useMediaQuery("tablet");
+  const commentHeightRef = useRef(null);
+  const [commentHeight, setCommentHeight] = useState(0);
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   const [replyingToUser, setReplyingToUser] = useState("");
 
-  function addReplyHandler(ReplyData) {
-    suggestionsCtx.addReply(props.suggestionId, props.id, {
-      content: ReplyData,
-      replyingTo: replyingToUser,
-      user: DummyData.currentUser,
-    });
-  }
+  useEffect(() => {
+    setCommentHeight(commentHeightRef.current.clientHeight);
+  }, [commentHeightRef]);
 
-  const replies = suggestionsCtx.suggestions
-    .find((suggestion) => suggestion.id === props.suggestionId)
-    .comments.find((comment) => comment.id === props.id);
+  function addReplyHandler(ReplyData) {
+    suggestionsCtx.addReply(
+      props.suggestionId,
+      props.idx,
+      props.replies?.length || 0,
+      {
+        content: ReplyData,
+        replyingTo: replyingToUser,
+        user: suggestionsCtx.user,
+      }
+    );
+  }
 
   return (
     <li
@@ -37,23 +46,27 @@ function CommentItem(props) {
         isReplyOpen={isReplyOpen}
         setReplyingToUser={setReplyingToUser}
       />
-      <p className={classes.commentContent}>{props.content}</p>
-      {replies.replies ? (
+      <p className={classes.commentContent} ref={commentHeightRef}>
+        {props.content}
+      </p>
+      {props.replies ? (
         <RepliesList
           commentId={props.id}
-          replies={replies.replies}
+          replies={props.replies}
           isReplyOpen={isReplyOpen}
           setIsReplyOpen={setIsReplyOpen}
           setReplyingToUser={setReplyingToUser}
+          commentHeight={commentHeight}
         />
       ) : null}
       <NewReplyForm
         style={{
-          display: isReplyOpen ? "grid" : "none",
-          marginLeft: replies.replies ? "2.4rem" : null,
+          display: isReplyOpen ? "flex" : "none",
+          marginLeft: props.replies ? (isTablet ? "11.7rem" : "2.4rem") : null,
         }}
         onAddReply={addReplyHandler}
         setIsReplyOpen={setIsReplyOpen}
+        setIsReplySubmit={props.setIsReplySubmit}
       />
     </li>
   );

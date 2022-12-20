@@ -1,40 +1,17 @@
 import { ReactComponent as IconComments } from "../../assets/shared/icon-comments.svg";
-import { ReactComponent as IconArrowUp } from "../../assets/shared/icon-arrow-up.svg";
-import { useContext } from "react";
+import { Fragment, useState } from "react";
 
-import SuggestionsContext from "../../store/suggestions-context";
-
-import Card from "../ui/Card";
 import classes from "./SuggestionItem.module.css";
+
+import catToUpper from "../../utils/catToUpper";
+
 import StatusDeco from "../ui/StatusDeco";
+import UpvotesBtn from "./UpvotesBtn";
 
 function SuggestionItem(props) {
-  const suggestionsCtx = useContext(SuggestionsContext);
-
-  const idIsUpvote = suggestionsCtx.idIsUpvote(props.id);
-
-  const commentsCount = suggestionsCtx.totalComments.find(
-    (comment) => comment.id === props.id
-  ).AllCommentsCount;
-
-  const sugCardStyle = {
-    padding: "2.4rem",
-    display: "flex",
-    flexDirection: "column",
-  };
-
-  function toggleUpvoteStatusHandler(event) {
-    event.preventDefault();
-    if (idIsUpvote) {
-      suggestionsCtx.removeUpvote(props.id);
-    } else {
-      suggestionsCtx.addUpvote(props.id);
-    }
-  }
+  const [isHover, setIsHover] = useState(false);
 
   let borderColor = {};
-
-  // 색상만 넘겨주는 것도 좋을 것 같으니 생각해보기
   switch (props.status) {
     case "planned":
       borderColor = { backgroundColor: "var(--scarlet)" };
@@ -51,57 +28,48 @@ function SuggestionItem(props) {
   }
 
   return (
-    <li className={props.status ? classes.statusLi : null}>
-      <Card style={sugCardStyle}>
-        {props.status ? (
+    <li
+      className={`${classes.commonLi} ${
+        props.status ? classes.statusLi : classes.sugLi
+      }`}
+    >
+      {props.status ? (
+        <Fragment>
           <div className={classes.liBorder} style={borderColor} />
-        ) : null}
-        {props.status ? <StatusDeco status={props.status} /> : null}
-        <div className={classes.sugText}>
-          <h3 className={classes.suggestionH3}>{props.title}</h3>
-          <p className={classes.suggestionDesc}>{props.description}</p>
+          <StatusDeco status={props.status} />
+        </Fragment>
+      ) : null}
+      <UpvotesBtn
+        id={props.id}
+        upvotes={props.upvotes}
+        isRoad={props.status ? true : false}
+        setIsHover={setIsHover}
+      />
+      <div
+        className={`${classes.commonContent} ${
+          props.status ? classes.statusContent : classes.sugContent
+        }`}
+      >
+        <div
+          className={`${classes.commonText} ${
+            props.status ? classes.statusText : classes.sugText
+          }`}
+        >
+          <h3 className={isHover ? null : classes.haveTitle}>{props.title}</h3>
+          <p>{props.description}</p>
         </div>
-        <div className={classes.suggestionCat}>
-          <p>
-            {props.category.length === 2
-              ? props.category.toUpperCase()
-              : props.category.charAt(0).toUpperCase() +
-                props.category.slice(1)}
-          </p>
+        <div className={classes.sugCatCon}>
+          <p>{catToUpper(props.category)}</p>
         </div>
-        <div className={classes.suggestionFooter}>
-          <button
-            className={classes.upvoteBtn}
-            onClick={toggleUpvoteStatusHandler}
-            style={
-              idIsUpvote
-                ? {
-                    backgroundColor: "var(--blue)",
-                    color: "white",
-                  }
-                : null
-            }
-          >
-            <IconArrowUp className={idIsUpvote ? classes.isUpvoteIcon : null} />
-            <span
-              className={classes.upvoteNum}
-              style={
-                idIsUpvote
-                  ? {
-                      color: "white",
-                    }
-                  : null
-              }
-            >
-              {props.upvotes}
-            </span>
-          </button>
-          <div className={classes.commentContainer}>
-            <IconComments />
-            <p className={classes.commentNum}>{commentsCount}</p>
-          </div>
-        </div>
-      </Card>
+      </div>
+      <div
+        className={`${classes.commentContainer} ${
+          props.status ? classes.statusComCon : null
+        }`}
+      >
+        <IconComments />
+        <p className={classes.commentNum}>{props.commentsCnt}</p>
+      </div>
     </li>
   );
 }

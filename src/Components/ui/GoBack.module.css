@@ -22,3 +22,11 @@
 .whiteColor path {
   stroke: hsl(231, 49%, 87%);
 }
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .goBack p {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}

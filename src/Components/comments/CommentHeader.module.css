@@ -1,0 +1,47 @@
+.commentHCon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.userCon {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.6rem;
+  align-items: center;
+}
+
+.userIcon {
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+}
+
+.userTxt {
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+}
+
+.userTxt h4 {
+  font-weight: 700;
+  letter-spacing: -0.02rem;
+  color: var(--indigo);
+}
+
+.userTxt p {
+  font-weight: 400;
+  color: var(--light-gray);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .userCon {
+    column-gap: 3.2rem;
+  }
+  .userTxt {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}

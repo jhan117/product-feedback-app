@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 
 import classes from "./SuggestionList.module.css";
+
+import { getCommentsNum } from "../../utils/getCommentsCnt";
+
 import SuggestionItem from "./SuggestionItem";
 
 function SuggestionList(props) {
   return (
     <ul
-      className={`${classes.suggestionsUl} ${
-        props.status ? classes.statusUl : null
+      className={`${classes.commonUl} ${
+        props.status ? classes.statusUl : classes.sugUl
       }`}
     >
       {props.requests.map((request) => (
@@ -24,6 +27,7 @@ function SuggestionList(props) {
             description={request.description}
             category={request.category}
             upvotes={request.upvotes}
+            commentsCnt={getCommentsNum(request.comments)}
           />
         </Link>
       ))}
