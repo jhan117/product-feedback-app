@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./FeedbackForm.module.css";
 import SuggestionsContext from "../../store/suggestions-context";
 
-import useMediaQuery from "../../utils/useMediaQuery";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import BtnsContainer from "./BtnsContainer";
 import InputForm from "./InputForm";

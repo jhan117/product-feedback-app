@@ -1,0 +1,177 @@
+.commonLi {
+  display: grid;
+  grid-template: repeat(2, auto) / repeat(2, auto);
+  row-gap: 1.6rem;
+
+  padding: 2.4rem;
+
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.commonLi:hover .hoverTitle {
+  color: hsl(230, 76%, 59%);
+}
+
+.roadmapLi {
+  position: relative;
+}
+
+.liBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.6rem;
+
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.planned {
+  background-color: var(--scarlet);
+}
+.in-progress {
+  background-color: var(--purple);
+}
+.live {
+  background-color: var(--light-blue);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.8rem;
+
+  grid-column: 1 / 3;
+}
+
+.roadmapLi .content {
+  grid-row: 2 / 3;
+}
+
+.sugLi .content {
+  grid-row: 1 / 2;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.9rem;
+}
+
+.text h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.9rem;
+  letter-spacing: -0.02rem;
+  color: var(--indigo);
+}
+
+.text p {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--dark-white);
+  border-radius: 1rem;
+
+  padding: 0 1.6rem;
+  width: fit-content;
+  height: 3rem;
+}
+
+.category p {
+  text-align: center;
+  color: var(--blue);
+
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.9rem;
+}
+
+.commentCon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.4rem;
+
+  justify-self: end;
+}
+
+.commentCon p {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.9rem;
+  letter-spacing: -0.02rem;
+  color: var(--indigo);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .sugLi {
+    grid-template: repeat(1, auto) / minmax(auto, 8rem) repeat(2, auto);
+    row-gap: 0;
+
+    padding: 2.8rem 3.2rem;
+  }
+  .roadmapLi {
+    padding: 2.4rem 2rem;
+  }
+  .roadmapLi .content {
+    row-gap: 2.4rem;
+  }
+  .sugLi .content {
+    grid-column: 2 / 3;
+    row-gap: 1.2rem;
+  }
+  .sugLi .text {
+    row-gap: 0.4rem;
+  }
+  .sugLi .text h3 {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.025rem;
+  }
+  .sugLi .text p {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+  }
+  .commentCon {
+    column-gap: 0.8rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 82em) {
+  .roadmapLi {
+    grid-template: auto auto 0 auto / repeat(2, auto);
+
+    padding: 3.2rem;
+    row-gap: 0.8rem;
+  }
+  .roadmapLi .commentCon {
+    grid-row: 4 / 5;
+  }
+  .roadmapLi .content {
+    row-gap: 1.6rem;
+  }
+  .roadmapLi .text {
+    row-gap: 0.4rem;
+  }
+  .roadmapLi .text h3 {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.025rem;
+  }
+  .roadmapLi .text p {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+  }
+}

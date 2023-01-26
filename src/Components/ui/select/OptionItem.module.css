@@ -9,10 +9,10 @@
   padding: 1.2rem 2.4rem;
 }
 
-.optionItem:hover .optionText {
+.optionItem:hover .optionItem p {
   color: hsl(282, 83%, 52%);
 }
 
-.optionText {
+.optionItem p {
   color: var(--light-gray);
 }

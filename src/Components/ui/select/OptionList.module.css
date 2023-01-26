@@ -1,5 +1,6 @@
 .optionList {
-  position: absolute;
+  position: fixed;
+
   background-color: white;
   box-shadow: 0 1rem 4rem -0.7rem rgba(55, 63, 104, 0.350492);
   border-radius: 1rem;
@@ -8,4 +9,51 @@
   flex-direction: column;
 
   z-index: 2;
+}
+
+.sortUl {
+  width: 24rem;
+
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}
+
+.formUl {
+  width: calc(100vw - 9.6rem);
+
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--indigo);
+}
+
+.firstLi {
+  border-top: 0.1rem solid hsla(231, 33%, 34%, 0.15);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .sortUl {
+    width: 25.5rem;
+
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .formUl {
+    width: 45.6rem;
+
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 82em) {
+  .sortUl {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+  }
 }

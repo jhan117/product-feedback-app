@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 
 import classes from "./EditFeedbackPage.module.css";
 
-import useRootClass from "../utils/useRootClass";
+import useRootClass from "../utils/changeRootStyle";
 import request from "../utils/request";
 
-import FeedbackForm from "../Components/feedbackForm/FeedbackForm";
-import GoBack from "../Components/ui/GoBack";
+import FeedbackForm from "../components/feedbackForm/FeedbackForm";
+import GoBack from "../components/ui/GoBack";
 
 function EditFeedbackPage(props) {
   useRootClass("edit");

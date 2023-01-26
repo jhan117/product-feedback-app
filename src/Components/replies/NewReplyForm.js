@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import classes from "./NewReplyForm.module.css";
 
-import useMediaQuery from "../../utils/useMediaQuery";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import PostButton from "../ui/buttons/PostButton";
 

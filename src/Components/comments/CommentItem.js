@@ -6,7 +6,7 @@ import SuggestionsContext from "../../store/suggestions-context";
 import RepliesList from "../replies/RepliesList";
 import CommentHeader from "./CommentHeader";
 import NewReplyForm from "../replies/NewReplyForm";
-import useMediaQuery from "../../utils/useMediaQuery";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 function CommentItem(props) {
   const suggestionsCtx = useContext(SuggestionsContext);

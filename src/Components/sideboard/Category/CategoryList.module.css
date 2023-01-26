@@ -1,7 +1,0 @@
-.tagList {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  row-gap: 1.4rem;
-  column-gap: 0.8rem;
-}

@@ -1,6 +1,6 @@
 import classes from "./SelectForm.module.css";
 
-import Select from "../ui/select/Select";
+import Select from "../ui/Select/Select";
 
 function SelectForm(props) {
   let labelTitle = "";

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import classes from "./NewCommentForm.module.css";
 
-import useMediaQuery from "../../utils/useMediaQuery";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Card from "../ui/Card";
 import PostButton from "../ui/buttons/PostButton";

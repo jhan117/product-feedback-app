@@ -1,6 +1,6 @@
 import classes from "./RoadmapItem.module.css";
 
-import SuggestionList from "../suggestions/SuggestionList";
+import SuggestionList from "../suggestionsPage/Suggestion/SuggestionList";
 
 function RoadmapItem(props) {
   return (

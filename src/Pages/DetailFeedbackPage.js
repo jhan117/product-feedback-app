@@ -1,21 +1,24 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import classes from "./DetailFeedbackPage.module.css";
 import SuggestionsContext from "../store/suggestions-context";
 
+import NewCommentForm from "../components/comments/NewCommentForm";
+import SuggestionItem from "../components/suggestionsPage/Suggestion/SuggestionItem";
+import GoBack from "../components/ui/GoBack";
+import EditBtn from "../components/ui/buttons/EditBtn";
+import CommentsContainer from "../components/comments/CommentsContainer";
+import classes from "./DetailFeedbackPage.module.css";
+
 import request from "../utils/request";
-import useRootClass from "../utils/useRootClass";
-import { getCommentsNum } from "../utils/getCommentsCnt";
+import changeRootStyle from "../utils/changeRootStyle";
+import { getAllComments } from "../utils/getCommentsCnt";
 
-import NewCommentForm from "../Components/comments/NewCommentForm";
-import SuggestionItem from "../Components/suggestions/SuggestionItem";
-import GoBack from "../Components/ui/GoBack";
-import EditBtn from "../Components/ui/buttons/EditBtn";
-import CommentsContainer from "../Components/comments/CommentsContainer";
+const DetailFeedbackPage = (props) => {
+  useEffect(() => {
+    changeRootStyle("detail");
+  }, []);
 
-function DetailFeedbackPage(props) {
-  useRootClass("detail");
   const suggestionsCtx = useContext(SuggestionsContext);
   const { requestId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +80,7 @@ function DetailFeedbackPage(props) {
   let commentsCount = 0;
   let mainContent = "";
 
-  commentsCount = getCommentsNum(loadedCommentsData);
+  commentsCount = getAllComments(loadedCommentsData);
 
   if (isLoading) {
     mainContent = "loading...";
@@ -130,6 +133,6 @@ function DetailFeedbackPage(props) {
       </footer>
     </Fragment>
   );
-}
+};
 
 export default DetailFeedbackPage;

@@ -1,15 +1,13 @@
 .selectCon {
-  position: relative;
-
   cursor: pointer;
 }
 
-.sortLabel:hover {
-  opacity: 0.75;
+.sortNone {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-/* add, edit p */
-.selectConDefault {
+.formCon {
   background-color: var(--light-white);
   border-radius: 0.5rem;
 
@@ -30,13 +28,17 @@
   z-index: 2;
 }
 
+.sortLabel:hover {
+  opacity: 0.75;
+}
+
 .iconArrow {
   margin-left: 0.8rem;
 
   transition: transform 0.3s;
 }
 
-.iconCustom path {
+.sortIcon path {
   stroke: white;
 }
 
@@ -46,12 +48,12 @@
 
 /* tablet */
 @media only screen and (min-width: 40em) {
-  .iconArrow {
-    margin-left: 0.9rem;
-  }
-
-  .selectConDefault {
+  .formCon {
     font-size: 1.5rem;
     line-height: 2.2rem;
+  }
+
+  .iconArrow {
+    margin-left: 0.9rem;
   }
 }

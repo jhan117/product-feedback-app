@@ -2,10 +2,10 @@ import { Fragment, useEffect } from "react";
 
 import classes from "./NewFeedbackPage.module.css";
 
-import useRootClass from "../utils/useRootClass";
+import useRootClass from "../utils/changeRootStyle";
 
-import FeedbackForm from "../Components/feedbackForm/FeedbackForm";
-import GoBack from "../Components/ui/GoBack";
+import FeedbackForm from "../components/feedbackForm/FeedbackForm";
+import GoBack from "../components/ui/GoBack";
 
 function NewFeedbackPage(props) {
   useRootClass("new");

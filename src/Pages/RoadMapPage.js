@@ -4,15 +4,15 @@ import classes from "./RoadMapPage.module.css";
 import StatusContext from "../store/status-context";
 import SuggestionsContext from "../store/suggestions-context";
 
-import useRootClass from "../utils/useRootClass";
+import useRootClass from "../utils/changeRootStyle";
 import request from "../utils/request";
-import useMediaQuery from "../utils/useMediaQuery";
+import useMediaQuery from "../hooks/useMediaQuery";
 
-import GoBack from "../Components/ui/GoBack";
-import FeedbackButton from "../Components/ui/buttons/FeedbackButton";
-import RoadmapNav from "../Components/layout/RoadmapNav";
-import RoadmapItem from "../Components/roadmap/RoadmapItem";
-import RoadmapList from "../Components/roadmap/RoadmapList";
+import GoBack from "../components/ui/GoBack";
+import FeedbackButton from "../components/ui/buttons/FeedbackButton";
+import RoadmapNav from "../components/layout/RoadmapNav";
+import RoadmapItem from "../components/roadmap/RoadmapItem";
+import RoadmapList from "../components/roadmap/RoadmapList";
 
 function RoadMapPage() {
   useRootClass("road");
