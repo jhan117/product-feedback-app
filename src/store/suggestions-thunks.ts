@@ -13,21 +13,30 @@ interface UpvotePayload {
   isUpvoted: boolean;
 }
 
-export const fetchData = createAsyncThunk("suggestions/fetchData", async () => {
-  const requestResponse = await request.get(`${REQUEST_URL}.json`);
-  if (!requestResponse.ok) {
-    throw new Error("Could not fetch suggestions data!");
-  }
-  const requestData = await requestResponse.json();
+interface ErrorObj {
+  message: string;
+  stack: string;
+}
 
-  const userResponse = await request.get(`${USER_URL}.json`);
-  if (!userResponse.ok) {
-    throw new Error("Could not fetch user data!");
-  }
-  const userData = await userResponse.json();
-  return { requestData, userData };
-});
+export const fetchData = createAsyncThunk(
+  "suggestions/fetchData",
+  async (data, thunkAPI) => {
+    try {
+      const requestResponse = await request.get(`${REQUEST_URL}`);
+      const userResponse = await request.get(`${USER_URL}.json`);
 
+      const requestData = await requestResponse.json();
+      const userData = await userResponse.json();
+
+      return { requestData, userData };
+    } catch (error) {
+      const errorObj = error as ErrorObj;
+      return thunkAPI.rejectWithValue(errorObj.message);
+    }
+  }
+);
+
+// error 처리 잘못함 수정 해야함
 export const updateUpvoteData = createAsyncThunk(
   "suggestions/updateUpvoteData",
   async ({ sugId, upvotes, isUpvoted }: UpvotePayload) => {

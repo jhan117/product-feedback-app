@@ -1,7 +1,7 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
-import { getAllComments } from "../utils/getCommentsCnt";
 
 import { statusList } from "../utils/nameList";
+import { getAllComments } from "../utils/getCommentsCnt";
 import { fetchData, updateUpvoteData } from "./suggestions-thunks";
 
 interface SuggestionsState {
@@ -9,6 +9,7 @@ interface SuggestionsState {
   statusItems: StatusItem[];
   upvoteItems: number[];
   isLoading: boolean;
+  errorMessage: string | null;
 }
 
 const initialState: SuggestionsState = {
@@ -18,6 +19,7 @@ const initialState: SuggestionsState = {
     .map((item) => ({ ...item, items: [], length: 0 })),
   upvoteItems: [],
   isLoading: true,
+  errorMessage: null,
 };
 
 const suggestionsSlice = createSlice({
@@ -27,6 +29,7 @@ const suggestionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
+        state.errorMessage = null;
         state.isLoading = true;
       })
       .addCase(fetchData.fulfilled, (state, action) => {
@@ -49,6 +52,10 @@ const suggestionsSlice = createSlice({
         if (userData.upvoteItems) {
           state.upvoteItems = Object.keys(userData.upvoteItems).map(Number);
         }
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        const error = action.payload as string;
+        state.errorMessage = error;
       })
       .addCase(updateUpvoteData.fulfilled, (state, action) => {
         const { sugId, upvotes, isUpvoted } = action.payload;
