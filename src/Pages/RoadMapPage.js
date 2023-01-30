@@ -90,7 +90,7 @@ function RoadMapPage() {
     <Fragment>
       <header className={classes.roadmapHeader}>
         <div className={classes.headerLeftCon}>
-          <GoBack color={{ color: "white" }} />
+          <GoBack isRoadmap={true} />
           <h1>Roadmap</h1>
         </div>
         <FeedbackButton />

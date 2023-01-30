@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 
 import classes from "./EditBtn.module.css";
 
-function EditBtn(props) {
+interface Props {
+  id: string;
+}
+
+const EditBtn = (props: Props) => {
   return (
     <button className={classes.editBtn}>
       <Link className={classes.editLink} to={`/edit/${props.id}`}>
@@ -10,6 +14,6 @@ function EditBtn(props) {
       </Link>
     </button>
   );
-}
+};
 
 export default EditBtn;

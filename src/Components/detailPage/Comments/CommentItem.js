@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import classes from "./CommentItem.module.css";
-import SuggestionsContext from "../../store/suggestions-context";
+import SuggestionsContext from "../../../store/suggestions-context";
 
-import RepliesList from "../replies/RepliesList";
+import RepliesList from "../../replies/RepliesList";
 import CommentHeader from "./CommentHeader";
-import NewReplyForm from "../replies/NewReplyForm";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import NewReplyForm from "../../replies/NewReplyForm";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 function CommentItem(props) {
   const suggestionsCtx = useContext(SuggestionsContext);

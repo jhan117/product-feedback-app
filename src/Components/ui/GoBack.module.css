@@ -19,8 +19,12 @@
   color: hsl(224, 20%, 49%);
 }
 
-.whiteColor path {
+.whiteColor svg path {
   stroke: hsl(231, 49%, 87%);
+}
+
+.whiteColor p {
+  color: white;
 }
 
 /* tablet */

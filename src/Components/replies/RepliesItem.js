@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import CommentHeader from "../comments/CommentHeader";
+import CommentHeader from "../detailPage/Comments/CommentHeader";
 import classes from "./RepliesItem.module.css";
 
 function RepliesItem(props) {

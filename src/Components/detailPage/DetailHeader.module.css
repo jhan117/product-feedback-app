@@ -3,9 +3,3 @@
   flex-direction: row;
   justify-content: space-between;
 }
-
-.detailMain {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2.4rem;
-}

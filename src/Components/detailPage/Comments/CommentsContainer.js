@@ -1,8 +1,8 @@
 import classes from "./CommentsContainer.module.css";
 
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
-import Card from "../ui/Card";
+import Card from "../../ui/Card";
 import CommentList from "./CommentList";
 
 function CommentsContainer(props) {

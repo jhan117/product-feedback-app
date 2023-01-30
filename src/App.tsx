@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import {
-  DetailFeedbackPage,
+  DetailPage,
   EditFeedbackPage,
   NewFeedbackPage,
   SuggestionsPage,
@@ -15,10 +15,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<SuggestionsPage />}></Route>
-      <Route
-        path="/detail/:requestId"
-        element={<DetailFeedbackPage isSubmit={isSubmit} />}
-      ></Route>
+      <Route path="/detail/:requestId" element={<DetailPage />}></Route>
       <Route
         path="/add/*"
         element={
