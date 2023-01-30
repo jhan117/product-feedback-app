@@ -1,8 +1,8 @@
 import { ReactComponent as IconComments } from "../../../assets/shared/icon-comments.svg";
 import { Fragment, useState } from "react";
 
-import StatusDeco from "../../ui/StatusDeco";
 import UpvotesBtn from "./UpvotesBtn";
+import StatusDeco from "../../ui/StatusDeco";
 import classes from "./SuggestionItem.module.css";
 
 import { categoryToUpper } from "../../../utils/changeName";

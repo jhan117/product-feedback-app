@@ -2,9 +2,9 @@ import { Fragment, useState } from "react";
 
 import Card from "../ui/Card";
 import Navbar from "./Navbar/Navbar";
+import HamburgerIcon from "./HamburgerIcon";
 import CategoryList from "./Navbar/Category/CategoryList";
 import NavRoadmapContainer from "./Navbar/NavRoadmap/NavRoadmapContainer";
-import HamburgerIcon from "./HamburgerIcon";
 import classes from "./SugHeader.module.css";
 
 import useMediaQuery from "../../hooks/useMediaQuery";

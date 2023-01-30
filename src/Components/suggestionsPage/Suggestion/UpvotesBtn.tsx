@@ -1,9 +1,9 @@
 import { ReactComponent as IconArrowUp } from "../../../assets/shared/icon-arrow-up.svg";
-import React, { Fragment, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import React, { useEffect, useState } from "react";
 
 import classes from "./UpvotesBtn.module.css";
 
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { updateUpvoteData } from "../../../store/suggestions-thunks";
 
 interface Props {
@@ -44,21 +44,19 @@ const UpvotesBtn = (props: Props) => {
   } ${isUpvoted ? classes.isUpvoted : ""}`;
 
   return (
-    <Fragment>
-      <button
-        className={btnClass}
-        onClick={toggleUpvoteStatusHandler}
-        onMouseEnter={() => {
-          props.setIsHover(true);
-        }}
-        onMouseLeave={() => {
-          props.setIsHover(false);
-        }}
-      >
-        <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} />
-        <p>{props.upvotes}</p>
-      </button>
-    </Fragment>
+    <button
+      className={btnClass}
+      onClick={toggleUpvoteStatusHandler}
+      onMouseEnter={() => {
+        props.setIsHover(true);
+      }}
+      onMouseLeave={() => {
+        props.setIsHover(false);
+      }}
+    >
+      <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} />
+      <p>{props.upvotes}</p>
+    </button>
   );
 };
 

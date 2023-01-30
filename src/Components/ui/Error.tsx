@@ -6,22 +6,28 @@ interface Props {
   onClick: () => void;
 }
 
+const IconX = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-4 -4 32 32"
+      strokeWidth={3}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  );
+};
+
 const Error = (props: Props) => {
   return (
     <div className={classes.error}>
       <div className={classes.errorCon}>
         <div className={classes.circle}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="-4 -4 32 32"
-            strokeWidth={3}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <IconX />
         </div>
         <div className={classes.errorText}>
           <h3>Error!</h3>
@@ -29,17 +35,7 @@ const Error = (props: Props) => {
         </div>
       </div>
       <button className={classes.cancelBtn} onClick={props.onClick}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="-4 -4 32 32"
-          strokeWidth={3}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <IconX />
       </button>
     </div>
   );
