@@ -1,0 +1,126 @@
+.error {
+  align-self: center;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: hsl(338, 85%, 97%);
+  width: 24rem;
+  border-radius: 1rem;
+  box-shadow: 0px 5px 15px hsla(0, 0%, 0%, 0.25);
+
+  padding: 0.8rem;
+  z-index: 2;
+
+  animation: showErrorMobile 0.3s ease-out forwards;
+}
+
+.errorCon {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.8rem;
+  align-items: center;
+}
+
+.circle {
+  background-color: hsl(4, 52%, 79%);
+  border-radius: 50%;
+
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.circle svg {
+  stroke: hsl(1, 61%, 44%);
+}
+
+.errorText {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: -0.02rem;
+}
+
+.errorText h3 {
+  font-weight: 700;
+
+  color: hsl(1, 61%, 44%);
+  text-transform: uppercase;
+}
+
+.errorText p {
+  font-weight: 400;
+
+  color: hsl(0, 47%, 51%);
+}
+
+.cancelBtn {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.cancelBtn svg {
+  stroke: hsl(5, 54%, 79%);
+}
+
+.cancelBtn:hover svg {
+  stroke: hsl(1, 61%, 44%);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .error {
+    padding: 1.6rem;
+
+    width: 48rem;
+
+    animation: showErrorTablet 0.3s ease-out forwards;
+  }
+  .errorCon {
+    column-gap: 1.6rem;
+  }
+  .circle {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+  .errorText {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.025rem;
+  }
+  .cancelBtn {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 82em) {
+  .errorText {
+    font-size: 2.4rem;
+    line-height: 3.5rem;
+    letter-spacing: -0.033rem;
+  }
+}
+
+@keyframes showErrorMobile {
+  from {
+    top: -5.6rem;
+  }
+  to {
+    top: 0.8rem;
+  }
+}
+
+@keyframes showErrorTablet {
+  from {
+    top: -8.4rem;
+  }
+  to {
+    top: 1.6rem;
+  }
+}

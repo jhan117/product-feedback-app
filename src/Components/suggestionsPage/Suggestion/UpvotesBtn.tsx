@@ -1,5 +1,5 @@
 import { ReactComponent as IconArrowUp } from "../../../assets/shared/icon-arrow-up.svg";
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import classes from "./UpvotesBtn.module.css";
 
@@ -18,13 +18,18 @@ const UpvotesBtn = (props: Props) => {
 
   const upvoteItems = useAppSelector((state) => state.suggestions.upvoteItems);
   const dispatch = useAppDispatch();
-  const [isUpvoted, setIsUpvoted] = useState<boolean>(
-    upvoteItems.includes(sugId)
-  );
+  const [isUpvoted, setIsUpvoted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (upvoteItems.includes(sugId)) {
+      setIsUpvoted((state) => true);
+    } else {
+      setIsUpvoted((state) => false);
+    }
+  }, [upvoteItems, sugId]);
 
   const toggleUpvoteStatusHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    setIsUpvoted((state) => !state);
     dispatch(
       updateUpvoteData({
         sugId,
@@ -39,19 +44,21 @@ const UpvotesBtn = (props: Props) => {
   } ${isUpvoted ? classes.isUpvoted : ""}`;
 
   return (
-    <button
-      className={btnClass}
-      onClick={toggleUpvoteStatusHandler}
-      onMouseEnter={() => {
-        props.setIsHover(true);
-      }}
-      onMouseLeave={() => {
-        props.setIsHover(false);
-      }}
-    >
-      <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} />
-      <p>{props.upvotes}</p>
-    </button>
+    <Fragment>
+      <button
+        className={btnClass}
+        onClick={toggleUpvoteStatusHandler}
+        onMouseEnter={() => {
+          props.setIsHover(true);
+        }}
+        onMouseLeave={() => {
+          props.setIsHover(false);
+        }}
+      >
+        <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} />
+        <p>{props.upvotes}</p>
+      </button>
+    </Fragment>
   );
 };
 

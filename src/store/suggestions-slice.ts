@@ -9,7 +9,8 @@ interface SuggestionsState {
   statusItems: StatusItem[];
   upvoteItems: number[];
   isLoading: boolean;
-  errorMessage: string | null;
+  isDataError: boolean;
+  isUpvoteError: boolean;
 }
 
 const initialState: SuggestionsState = {
@@ -19,7 +20,8 @@ const initialState: SuggestionsState = {
     .map((item) => ({ ...item, items: [], length: 0 })),
   upvoteItems: [],
   isLoading: true,
-  errorMessage: null,
+  isDataError: false,
+  isUpvoteError: false,
 };
 
 const suggestionsSlice = createSlice({
@@ -29,7 +31,7 @@ const suggestionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
-        state.errorMessage = null;
+        state.isDataError = false;
         state.isLoading = true;
       })
       .addCase(fetchData.fulfilled, (state, action) => {
@@ -49,13 +51,16 @@ const suggestionsSlice = createSlice({
         state.suggestionItems = requestData;
         state.statusItems = statusItems;
         state.isLoading = false;
+        state.isDataError = false;
         if (userData.upvoteItems) {
           state.upvoteItems = Object.keys(userData.upvoteItems).map(Number);
         }
       })
-      .addCase(fetchData.rejected, (state, action) => {
-        const error = action.payload as string;
-        state.errorMessage = error;
+      .addCase(fetchData.rejected, (state) => {
+        state.isDataError = true;
+      })
+      .addCase(updateUpvoteData.pending, (state) => {
+        state.isUpvoteError = false;
       })
       .addCase(updateUpvoteData.fulfilled, (state, action) => {
         const { sugId, upvotes, isUpvoted } = action.payload;
@@ -68,6 +73,10 @@ const suggestionsSlice = createSlice({
         } else {
           state.upvoteItems.push(sugId);
         }
+        state.isUpvoteError = false;
+      })
+      .addCase(updateUpvoteData.rejected, (state) => {
+        state.isUpvoteError = true;
       });
   },
 });

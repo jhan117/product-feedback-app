@@ -13,59 +13,43 @@ interface UpvotePayload {
   isUpvoted: boolean;
 }
 
-interface ErrorObj {
-  message: string;
-  stack: string;
-}
+export const fetchData = createAsyncThunk("suggestions/fetchData", async () => {
+  const requestResponse = await request.get(`${REQUEST_URL}.json`);
+  const userResponse = await request.get(`${USER_URL}.json`);
 
-export const fetchData = createAsyncThunk(
-  "suggestions/fetchData",
-  async (data, thunkAPI) => {
-    try {
-      const requestResponse = await request.get(`${REQUEST_URL}`);
-      const userResponse = await request.get(`${USER_URL}.json`);
+  const requestData = await requestResponse.json();
+  const userData = await userResponse.json();
 
-      const requestData = await requestResponse.json();
-      const userData = await userResponse.json();
+  return { requestData, userData };
+});
 
-      return { requestData, userData };
-    } catch (error) {
-      const errorObj = error as ErrorObj;
-      return thunkAPI.rejectWithValue(errorObj.message);
-    }
-  }
-);
-
-// error 처리 잘못함 수정 해야함
 export const updateUpvoteData = createAsyncThunk(
   "suggestions/updateUpvoteData",
-  async ({ sugId, upvotes, isUpvoted }: UpvotePayload) => {
+  async ({ sugId, upvotes, isUpvoted }: UpvotePayload, thunkAPI) => {
     let editedUpvotes = upvotes + 1;
     if (isUpvoted) {
       editedUpvotes = upvotes - 1;
     }
 
-    const patchResponse = await request.patch(`${REQUEST_URL}/${sugId}.json`, {
+    const upvoteDataURL = `${REQUEST_URL}/${sugId}.json`;
+    const upvoteItemURL = `${USER_URL}/upvoteItems/${sugId}.json`;
+
+    await request.patch(upvoteDataURL, {
       upvotes: editedUpvotes,
     });
-    if (!patchResponse.ok) {
-      throw new Error("Could not update upvote data!");
-    }
 
-    let putResponse;
-    if (isUpvoted) {
-      putResponse = await request.delete(
-        `${USER_URL}/upvoteItems/${sugId}.json`
-      );
-    } else {
-      putResponse = await request.post(
-        `${USER_URL}/upvoteItems/${sugId}.json`,
-        sugId
-      );
+    try {
+      if (isUpvoted) {
+        await request.delete(upvoteItemURL);
+      } else {
+        await request.post(upvoteItemURL, sugId);
+      }
+      return { sugId, upvotes: editedUpvotes, isUpvoted };
+    } catch (error) {
+      await request.patch(upvoteDataURL, {
+        upvotes: upvotes,
+      });
+      return thunkAPI.rejectWithValue("error");
     }
-    if (!putResponse.ok) {
-      throw new Error("Could not update user upvote data!");
-    }
-    return { sugId, upvotes: editedUpvotes, isUpvoted };
   }
 );

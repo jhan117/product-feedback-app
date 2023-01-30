@@ -11,10 +11,8 @@ import { selectSortedSugs } from "../../store/suggestions-slice";
 const SugMain = () => {
   const state = useAppSelector((state) => state);
   const data: Suggestion[] = selectSortedSugs(state)!;
-  const errorMessage = useAppSelector(
-    (state) => state.suggestions.errorMessage
-  );
   const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const isDataError = useAppSelector((state) => state.suggestions.isDataError);
 
   const dataLength = data.length;
 
@@ -23,17 +21,13 @@ const SugMain = () => {
     content = <SuggestionList items={data} />;
   }
   if (isLoading) {
-    if (errorMessage) {
-      content = <p>{errorMessage}</p>;
-    } else {
-      content = <Loader />;
-    }
+    content = <Loader />;
   }
 
   return (
     <main className={classes.sugMain}>
       <MainBar length={dataLength} />
-      {content}
+      {!isDataError && content}
     </main>
   );
 };
