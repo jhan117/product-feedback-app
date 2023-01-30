@@ -33,7 +33,7 @@ Refactoring 기간 : 2023-01-09 ~ 진행중
 
 #### 진행 과정
 
-- ⬜ Suggestions Page
+- ✅ Suggestions Page
 - ⬜ Detail Page
 - ⬜ Edit Page
 - ⬜ Roadmap Page
