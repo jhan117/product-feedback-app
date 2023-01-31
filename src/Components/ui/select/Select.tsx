@@ -94,7 +94,7 @@ const Select = (props: Props) => {
       </div>
       {isOptionOpen && (
         <Option
-          onClick={optionClickHandler}
+          onClickOption={optionClickHandler}
           state={props.state}
           selectedState={selectedState}
           options={currentList}

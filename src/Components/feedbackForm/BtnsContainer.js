@@ -1,8 +1,8 @@
 import classes from "./BtnsContainer.module.css";
 
-import SubmitBtn from "../ui/buttons/SubmitBtn";
-import CancelBtn from "../ui/buttons/CancelBtn";
-import DeleteBtn from "../ui/buttons/DeleteBtn";
+import SubmitBtn from "../ui/Button/SubmitBtn";
+import CancelBtn from "../ui/Button/CancelBtn";
+import DeleteBtn from "../ui/Button/DeleteBtn";
 
 function BtnsContainer(props) {
   return (

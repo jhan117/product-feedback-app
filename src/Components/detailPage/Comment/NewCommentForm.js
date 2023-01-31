@@ -5,7 +5,7 @@ import classes from "./NewCommentForm.module.css";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import Card from "../../ui/Card";
-import PostButton from "../../ui/buttons/PostButton";
+import PostButton from "../../ui/Button/PostButton";
 
 function NewCommentForm(props) {
   const contentInputRef = useRef();

@@ -5,18 +5,18 @@ import Backdrop from "../Backdrop";
 import OptionList from "./OptionList";
 
 interface Props {
-  onClick: () => void;
   state: string;
   selectedState: [string, Dispatch<string>];
   options: Item[];
   position: Pos;
+  onClickOption: () => void;
 }
 
 const Option = (props: Props) => {
   return (
     <Fragment>
       {createPortal(
-        <Backdrop onClick={props.onClick} isOption={true} />,
+        <Backdrop onClick={props.onClickOption} isOption={true} />,
         document.getElementById("backdrop-root")!
       )}
       {createPortal(
@@ -24,7 +24,7 @@ const Option = (props: Props) => {
           state={props.state}
           selectedState={props.selectedState}
           options={props.options}
-          onClick={props.onClick}
+          onClickOption={props.onClickOption}
           position={props.position}
         />,
         document.getElementById("overlay-root")!

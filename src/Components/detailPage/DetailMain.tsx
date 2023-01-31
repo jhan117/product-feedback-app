@@ -1,30 +1,42 @@
 import { Fragment } from "react";
+import { useAppSelector } from "../../store/hooks";
 
+import Card from "../ui/Card";
+import Loader from "../ui/Loader";
+import CommentList from "./Comment/CommentList";
 import SuggestionItem from "../suggestionsPage/Suggestion/SuggestionItem";
 import classes from "./DetailMain.module.css";
 
-import useSugById from "../../hooks/useSugByID";
+import { getAllComments } from "../../utils/getCommentsCnt";
+import { selectSugById } from "../../store/suggestions-slice";
 
 interface Props {
   id: string;
 }
 
 const DetailMain = (props: Props) => {
-  const suggestion = useSugById(props.id)!;
+  const state = useAppSelector((state) => state);
+  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const suggestion: Suggestion = selectSugById(state)!;
 
-  const mainContent = (
-    <Fragment>
-      <SuggestionItem item={suggestion} isDetail={true} />
-      <CommentsContainer
-        id={loadedDetailData.id}
-        comments={loadedCommentsData}
-        commentsCnt={commentsCount}
-        setIsReplySubmit={setIsReplySubmit}
-      />
-    </Fragment>
-  );
+  let content;
+  if (isLoading) {
+    content = <Loader />;
+  } else {
+    content = (
+      <Fragment>
+        <SuggestionItem item={suggestion} isDetail={true} />
+        <Card className={classes.card}>
+          <h4>{getAllComments(suggestion.comments)} Comments</h4>
+          {suggestion.comments && (
+            <CommentList id={props.id} comments={suggestion.comments} />
+          )}
+        </Card>
+      </Fragment>
+    );
+  }
 
-  return <main className={classes.detailMain}>{mainContent}</main>;
+  return <main className={classes.detailMain}>{content}</main>;
 };
 
 export default DetailMain;

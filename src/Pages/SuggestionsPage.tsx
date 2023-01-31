@@ -28,7 +28,7 @@ const SuggestionsPage = () => {
     <Fragment>
       <SugHeader />
       <SugMain />
-      {isShowAlert && <ErrorNotification onClick={alertHandler} />}
+      {isShowAlert && <ErrorNotification onClickCancelBtn={alertHandler} />}
     </Fragment>
   );
 };

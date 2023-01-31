@@ -9,7 +9,7 @@ interface Props {
   state: string;
   selectedState: [string, Dispatch<string>];
   options: Item[];
-  onClick: () => void;
+  onClickOption: () => void;
   position: Pos;
 }
 
@@ -34,7 +34,7 @@ const OptionList = (props: Props) => {
           state={props.state}
           selectedState={props.selectedState}
           currentList={props.options}
-          onClick={props.onClick}
+          onClickOption={props.onClickOption}
           className={idx === 0 ? "" : classes.firstLi}
         />
       ))}

@@ -7,7 +7,7 @@ import NavRoadmapContainer from "./NavRoadmap/NavRoadmapContainer";
 import classes from "./Navbar.module.css";
 
 interface Props {
-  onClick: () => void;
+  onClickBackdrop: () => void;
 }
 
 const NavbarOverlay = () => {
@@ -23,7 +23,7 @@ const Navbar = (props: Props) => {
   return (
     <Fragment>
       {createPortal(
-        <Backdrop onClick={props.onClick} />,
+        <Backdrop onClick={props.onClickBackdrop} />,
         document.getElementById("backdrop-root")!
       )}
       {createPortal(

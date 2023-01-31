@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import CommentHeader from "../detailPage/Comments/CommentHeader";
+import Comment from "../../ui/Comment/Comment";
 import classes from "./RepliesItem.module.css";
 
 function RepliesItem(props) {
@@ -14,17 +14,9 @@ function RepliesItem(props) {
 
   return (
     <li ref={replyHeightRef} className={classes.replyCon}>
-      <CommentHeader
-        id={props.commentId}
-        user={props.user}
-        isReplyOpen={props.isReplyOpen}
-        setIsReplyOpen={props.setIsReplyOpen}
-        setReplyingToUser={props.setReplyingToUser}
-      />
-      <p className={classes.replyText}>
-        <span>@{props.replyingTo} </span>
+      <Comment user={props.user} replyingTo={props.replyingTo}>
         {props.content}
-      </p>
+      </Comment>
     </li>
   );
 }

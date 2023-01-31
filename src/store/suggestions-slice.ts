@@ -125,3 +125,13 @@ export const selectSortedSugs = createSelector(
     }
   }
 );
+
+export const selectSugById = createSelector(
+  [
+    (state): Suggestion[] => state.suggestions.suggestionItems,
+    (state): string => state.select.sugId,
+  ],
+  (items, sugId) => {
+    return items.find((item) => item.id === Number(sugId));
+  }
+);

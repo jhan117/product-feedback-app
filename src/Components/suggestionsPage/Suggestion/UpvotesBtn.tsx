@@ -22,9 +22,9 @@ const UpvotesBtn = (props: Props) => {
 
   useEffect(() => {
     if (upvoteItems.includes(sugId)) {
-      setIsUpvoted((state) => true);
+      setIsUpvoted(true);
     } else {
-      setIsUpvoted((state) => false);
+      setIsUpvoted(false);
     }
   }, [upvoteItems, sugId]);
 

@@ -12,7 +12,7 @@ interface Props {
   state: string;
   selectedState: [string, Dispatch<string>];
   currentList: Item[];
-  onClick: () => void;
+  onClickOption: () => void;
   className: string;
 }
 
@@ -28,7 +28,7 @@ const OptionItem = (props: Props) => {
     } else {
       props.selectedState[1](props.id);
     }
-    props.onClick();
+    props.onClickOption();
   };
 
   const currentId = isSort ? sortId : props.selectedState[0];

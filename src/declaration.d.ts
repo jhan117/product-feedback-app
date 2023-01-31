@@ -1,5 +1,6 @@
 declare module "*.module.css";
 declare module "*.svg";
+declare module "*.jpg";
 
 interface Suggestion {
   id: number;
@@ -12,14 +13,14 @@ interface Suggestion {
 }
 
 interface Comment {
-  user: {};
+  user: User;
   id: number;
   content: string;
   replies?: Reply[];
 }
 
 interface Reply {
-  user: {};
+  user: User;
   content: string;
   replyingTo: string;
 }
@@ -29,6 +30,12 @@ interface StatusItem {
   name: string;
   items: Suggestion[];
   length: number;
+}
+
+interface User {
+  image: string;
+  name: string;
+  username: string;
 }
 
 // nameList

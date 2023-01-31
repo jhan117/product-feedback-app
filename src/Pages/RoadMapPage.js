@@ -9,7 +9,7 @@ import request from "../utils/request";
 import useMediaQuery from "../hooks/useMediaQuery";
 
 import GoBack from "../components/ui/GoBack";
-import FeedbackButton from "../components/ui/buttons/FeedbackButton";
+import FeedbackButton from "../components/ui/Button/FeedbackButton";
 import RoadmapNav from "../components/layout/RoadmapNav";
 import RoadmapItem from "../components/roadmap/RoadmapItem";
 import RoadmapList from "../components/roadmap/RoadmapList";

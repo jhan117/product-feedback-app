@@ -40,7 +40,9 @@ const SugHeader = () => {
         </Card>
         {isTablet && wideHeader}
       </header>
-      {!isTablet && isNavbarOpen && <Navbar onClick={navbarClickHandler} />}
+      {!isTablet && isNavbarOpen && (
+        <Navbar onClickBackdrop={navbarClickHandler} />
+      )}
     </Fragment>
   );
 };

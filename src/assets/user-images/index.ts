@@ -12,7 +12,7 @@ import thomas from "./image-thomas.jpg";
 import victoria from "./image-victoria.jpg";
 import zena from "./image-zena.jpg";
 
-const images = {
+const images: { [fileName: string]: string } = {
   anne,
   elijah,
   george,

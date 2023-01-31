@@ -90,10 +90,10 @@ textarea:focus {
 
 input::placeholder,
 textarea::placeholder {
-  font-family: "Jost", sans-serif;
-  font-weight: 400;
-  font-size: 1.3rem;
-  line-height: 1.9rem;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
   color: hsl(231, 20%, 63%);
 }
 

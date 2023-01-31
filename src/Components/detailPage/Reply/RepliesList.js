@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 
 import classes from "./RepliesList.module.css";
 
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import RepliesItem from "./RepliesItem";
 

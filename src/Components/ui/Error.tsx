@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import classes from "./Error.module.css";
 
 interface Props {
-  onClick: () => void;
+  onClickCancelBtn: () => void;
 }
 
 const IconX = () => {
@@ -34,7 +34,7 @@ const Error = (props: Props) => {
           <p>Failed to fetch</p>
         </div>
       </div>
-      <button className={classes.cancelBtn} onClick={props.onClick}>
+      <button className={classes.cancelBtn} onClick={props.onClickCancelBtn}>
         <IconX />
       </button>
     </div>
@@ -43,7 +43,7 @@ const Error = (props: Props) => {
 
 const ErrorNotification = (props: Props) => {
   return createPortal(
-    <Error onClick={props.onClick} />,
+    <Error onClickCancelBtn={props.onClickCancelBtn} />,
     document.getElementById("overlay-root")!
   );
 };
