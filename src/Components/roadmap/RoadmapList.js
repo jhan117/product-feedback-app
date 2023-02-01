@@ -1,12 +1,12 @@
 import { useContext } from "react";
 
 import classes from "./RoadmapList.module.css";
-import StatusContext from "../../store/status-context";
+// import StatusContext from "../../store/status-context";
 
 import RoadmapItem from "./RoadmapItem";
 
 function RoadmapList(props) {
-  const statusCtx = useContext(StatusContext);
+  // const statusCtx = useContext(StatusContext);
 
   return (
     <ul className={classes.roadmapUl}>

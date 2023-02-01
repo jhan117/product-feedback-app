@@ -20,7 +20,7 @@ const DetailMain = (props: Props) => {
   const suggestion: Suggestion = selectSugById(state)!;
 
   let content;
-  if (isLoading) {
+  if (isLoading || !suggestion) {
     content = <Loader />;
   } else {
     content = (

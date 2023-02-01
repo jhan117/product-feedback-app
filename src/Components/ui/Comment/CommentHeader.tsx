@@ -1,15 +1,28 @@
+import { Dispatch, useEffect, useState } from "react";
 import images from "../../../assets/user-images";
 
 import classes from "./CommentHeader.module.css";
 
 interface Props {
   user: User;
-  onClickBtn: () => void;
+  setIsFormOpen: Dispatch<boolean>;
+  replyingToUserState: [string, Dispatch<string>];
 }
 
 const CommentHeader = (props: Props) => {
+  const [replyingToUser, setReplyingToUser] = props.replyingToUserState;
   const { image, name, username } = props.user;
   const userImageName = image.slice(27, -4);
+
+  const replyClickHandler = () => {
+    if (replyingToUser === username) {
+      props.setIsFormOpen(false);
+      setReplyingToUser("");
+    } else {
+      props.setIsFormOpen(true);
+      setReplyingToUser(username);
+    }
+  };
 
   return (
     <div className={classes.commentHCon}>
@@ -24,7 +37,7 @@ const CommentHeader = (props: Props) => {
           <p>@{username}</p>
         </div>
       </div>
-      <button className={classes.replyBtn} onClick={props.onClickBtn}>
+      <button className={classes.replyBtn} onClick={replyClickHandler}>
         Reply
       </button>
     </div>

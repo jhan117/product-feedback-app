@@ -1,9 +1,8 @@
 import { Dispatch, CSSProperties } from "react";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import OptionItem from "./OptionItem";
 import classes from "./OptionList.module.css";
-
-import useMediaQuery from "../../../hooks/useMediaQuery";
 
 interface Props {
   state: string;

@@ -3,10 +3,10 @@ import { Route, Routes } from "react-router-dom";
 
 import {
   DetailPage,
-  EditFeedbackPage,
-  NewFeedbackPage,
+  // EditFeedbackPage,
+  // NewFeedbackPage,
   SuggestionsPage,
-  RoadMapPage,
+  // RoadMapPage,
 } from "./pages";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<SuggestionsPage />}></Route>
       <Route path="/detail/:requestId" element={<DetailPage />}></Route>
-      <Route
+      {/* <Route
         path="/add/*"
         element={
           <NewFeedbackPage isSubmit={isSubmit} setIsSubmit={setIsSubmit} />
@@ -28,7 +28,7 @@ function App() {
           <EditFeedbackPage isSubmit={isSubmit} setIsSubmit={setIsSubmit} />
         }
       ></Route>
-      <Route path="/roadmap/*" element={<RoadMapPage />}></Route>
+      <Route path="/roadmap/*" element={<RoadMapPage />}></Route> */}
     </Routes>
   );
 }

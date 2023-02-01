@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState, useEffect } from "react";
 
 import classes from "./RoadMapPage.module.css";
-import StatusContext from "../store/status-context";
+// import StatusContext from "../store/status-context";
 import SuggestionsContext from "../store/suggestions-context";
 
 import useRootClass from "../utils/changeRootStyle";
@@ -17,7 +17,7 @@ import RoadmapList from "../components/roadmap/RoadmapList";
 function RoadMapPage() {
   useRootClass("road");
   const suggestionsCtx = useContext(SuggestionsContext);
-  const statusCtx = useContext(StatusContext);
+  // const statusCtx = useContext(StatusContext);
   const isTablet = useMediaQuery("tablet");
   const [curStatus, setCurStatus] = useState("in-progress");
   const [isLoading, setIsLoading] = useState(true);

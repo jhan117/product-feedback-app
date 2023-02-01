@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import Comment from "../../ui/Comment/Comment";
 import RepliesList from "../Reply/RepliesList";
@@ -14,14 +14,9 @@ interface Props {
 const CommentItem = (props: Props) => {
   const { user, id, content, replies } = props.comment;
 
-  const commentHeightRef = useRef(null);
   const [commentHeight, setCommentHeight] = useState(0);
-  const [isReplyOpen, setIsReplyOpen] = useState(false);
-  const [replyingToUser, setReplyingToUser] = useState("");
-
-  // useEffect(() => {
-  //   setCommentHeight(commentHeightRef.current.clientHeight);
-  // }, [commentHeightRef]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const replyingToUserState = useState("");
 
   // function addReplyHandler(ReplyData) {
   //   suggestionsCtx.addReply(
@@ -36,32 +31,33 @@ const CommentItem = (props: Props) => {
   //   );
   // }
 
-  const showReplyFormHandler = () => {
-    setReplyingToUser(user.username);
-    setIsReplyOpen((state) => !state);
+  const formCloseHandler = () => {
+    setIsFormOpen(false);
   };
 
   return (
     <li className={`${classes.commentCon} ${props.className}`}>
-      <Comment user={user} onClickBtn={showReplyFormHandler}>
+      <Comment
+        user={user}
+        replyingToUserState={replyingToUserState}
+        setCommentHeight={setCommentHeight}
+        setIsFormOpen={setIsFormOpen}
+      >
         {content}
       </Comment>
       {replies && (
         <RepliesList
-          commentId={id}
           replies={replies}
-          isReplyOpen={isReplyOpen}
-          setIsReplyOpen={setIsReplyOpen}
-          setReplyingToUser={setReplyingToUser}
           commentHeight={commentHeight}
-          onClick={showReplyFormHandler}
+          replyingToUserState={replyingToUserState}
+          setIsFormOpen={setIsFormOpen}
         />
       )}
-      {isReplyOpen && (
+      {isFormOpen && (
         <NewReplyForm
           className={replies ? classes.hasReplies : ""}
-          replyingToUser={replyingToUser}
-          onSubmit={showReplyFormHandler}
+          replyingToUser={replyingToUserState[0]}
+          onSubmit={formCloseHandler}
         />
       )}
     </li>

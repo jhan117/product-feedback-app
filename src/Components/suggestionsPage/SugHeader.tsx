@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Card from "../ui/Card";
 import Navbar from "./Navbar/Navbar";
@@ -6,8 +7,6 @@ import HamburgerIcon from "./HamburgerIcon";
 import CategoryList from "./Navbar/Category/CategoryList";
 import NavRoadmapContainer from "./Navbar/NavRoadmap/NavRoadmapContainer";
 import classes from "./SugHeader.module.css";
-
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 const SugHeader = () => {
   const isTablet = useMediaQuery("tablet");

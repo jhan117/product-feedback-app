@@ -1,10 +1,9 @@
 import { ReactComponent as IconSuggestions } from "../../assets/suggestions/icon-suggestions.svg";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Select from "../ui/Select/Select";
 import FeedbackButton from "../ui/Button/FeedbackButton";
 import classes from "./MainBar.module.css";
-
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface Props {
   length: number;

@@ -6,8 +6,8 @@ import RoadMapPage from "./RoadMapPage";
 
 export {
   DetailPage,
-  EditFeedbackPage,
-  NewFeedbackPage,
+  // EditFeedbackPage,
+  // NewFeedbackPage,
   SuggestionsPage,
-  RoadMapPage,
+  // RoadMapPage,
 };

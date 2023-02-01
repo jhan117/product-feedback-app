@@ -1,6 +1,7 @@
 import { ReactComponent as IconArrowDown } from "../../../assets/shared/icon-arrow-down.svg";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
+import useResize from "../../../hooks/useResize";
 
 import Option from "./Option";
 import classes from "./Select.module.css";
@@ -24,29 +25,21 @@ const Select = (props: Props) => {
   const conRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<Pos>({ top: 0, left: 0 });
 
-  const getPos = () => {
+  const getPos = useCallback(() => {
     const currentRef = conRef.current?.getBoundingClientRect();
     if (currentRef) {
-      setPosition((prevState) => ({
-        ...prevState,
+      setPosition({
         top: currentRef.top + currentRef.height,
         left: currentRef.left,
-      }));
+      });
     }
-  };
+  }, []);
 
   useEffect(() => {
     getPos();
-  }, [isOptionOpen]);
+  }, [isOptionOpen, getPos]);
 
-  useEffect(() => {
-    window.addEventListener("resize", getPos);
-    window.addEventListener("scroll", getPos);
-    return () => {
-      window.removeEventListener("resize", getPos);
-      window.removeEventListener("scroll", getPos);
-    };
-  }, []);
+  useResize(getPos, true);
 
   const optionClickHandler = () => {
     if (isOptionOpen) {

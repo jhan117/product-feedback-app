@@ -48,7 +48,7 @@ const NewReplyForm = (props: Props) => {
     >
       <textarea
         name="replyContent"
-        placeholder="Type your reply here"
+        placeholder={"@" + props.replyingToUser}
         value={replyContent}
         onChange={valueChangeHandler}
         maxLength={250}

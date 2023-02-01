@@ -1,10 +1,9 @@
 import { ReactComponent as ImageEmpty } from "../../../assets/suggestions/illustration-empty.svg";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import Card from "../../ui/Card";
 import FeedbackButton from "../../ui/Button/FeedbackButton";
 import classes from "./EmptyContent.module.css";
-
-import useMediaQuery from "../../../hooks/useMediaQuery";
 
 const EmptyContent = () => {
   const isTablet = useMediaQuery("tablet");
