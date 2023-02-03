@@ -15,6 +15,11 @@
 .editBtn:hover {
   background-color: hsl(230, 91%, 73%);
 }
+.editBtn:disabled,
+.linkDisabled {
+  background-color: hsl(0, 0%, 70%);
+  cursor: not-allowed;
+}
 
 .editLink {
   font-size: 1.3rem;

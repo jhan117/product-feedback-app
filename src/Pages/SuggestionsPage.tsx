@@ -8,9 +8,8 @@ import SugHeader from "../components/suggestionsPage/SugHeader";
 import changeRootStyle from "../utils/changeRootStyle";
 
 const SuggestionsPage = () => {
-  const isDataError = useAppSelector((state) => state.suggestions.isDataError);
-  const isUpvoteError = useAppSelector(
-    (state) => state.suggestions.isUpvoteError
+  const { data: isDataError, upvote: isUpvoteError } = useAppSelector(
+    (state) => state.suggestions.error
   );
   const [showAlert, setIsShowAlert] = useState(true);
 

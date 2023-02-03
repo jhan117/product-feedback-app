@@ -17,22 +17,11 @@ const CommentItem = (props: Props) => {
   const [commentHeight, setCommentHeight] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const replyingToUserState = useState("");
-
-  // function addReplyHandler(ReplyData) {
-  //   suggestionsCtx.addReply(
-  //     props.suggestionId,
-  //     props.idx,
-  //     props.replies?.length || 0,
-  //     {
-  //       content: ReplyData,
-  //       replyingTo: replyingToUser,
-  //       user: suggestionsCtx.user,
-  //     }
-  //   );
-  // }
+  const [replyingToUser, setReplyingToUser] = replyingToUserState;
 
   const formCloseHandler = () => {
     setIsFormOpen(false);
+    setReplyingToUser("");
   };
 
   return (
@@ -47,7 +36,7 @@ const CommentItem = (props: Props) => {
       </Comment>
       {replies && (
         <RepliesList
-          replies={replies}
+          replies={Object.values(replies)}
           commentHeight={commentHeight}
           replyingToUserState={replyingToUserState}
           setIsFormOpen={setIsFormOpen}
@@ -56,7 +45,8 @@ const CommentItem = (props: Props) => {
       {isFormOpen && (
         <NewReplyForm
           className={replies ? classes.hasReplies : ""}
-          replyingToUser={replyingToUserState[0]}
+          replyingToUser={replyingToUser}
+          commentId={id}
           onSubmit={formCloseHandler}
         />
       )}

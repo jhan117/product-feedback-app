@@ -14,14 +14,16 @@ interface Props {
 }
 
 const UpvotesBtn = (props: Props) => {
-  const sugId = props.sugId - 1;
+  const { sugId } = props;
 
-  const upvoteItems = useAppSelector((state) => state.suggestions.upvoteItems);
+  const upvoteItems = useAppSelector(
+    (state) => state.suggestions.currentUser.upvoteItems
+  );
   const dispatch = useAppDispatch();
   const [isUpvoted, setIsUpvoted] = useState<boolean>(false);
 
   useEffect(() => {
-    if (upvoteItems.includes(sugId)) {
+    if (upvoteItems?.includes(sugId)) {
       setIsUpvoted(true);
     } else {
       setIsUpvoted(false);

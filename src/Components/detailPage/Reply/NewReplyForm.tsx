@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
 import classes from "./NewReplyForm.module.css";
+
+import { addReply } from "../../../store/suggestions-thunks";
 
 interface Props {
   className: string;
   replyingToUser: string;
+  commentId: number;
   onSubmit: () => void;
 }
 
@@ -12,6 +16,10 @@ interface Props {
 const NewReplyForm = (props: Props) => {
   const [replyContent, setReplyContent] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const dispatch = useAppDispatch();
+  const { sugId, currentUser, curLastIds } = useAppSelector(
+    (state) => state.suggestions
+  );
 
   useEffect(() => {
     if (replyContent.trim() === "") {
@@ -34,8 +42,22 @@ const NewReplyForm = (props: Props) => {
       return;
     }
 
-    // side Effect 함수 추가
-    console.log("to " + props.replyingToUser, "content " + replyContent);
+    const { image, name, username } = currentUser;
+
+    const reply = {
+      id: curLastIds.reply + 1,
+      user: { image, name, username },
+      content: replyContent,
+      replyingTo: props.replyingToUser,
+    };
+
+    dispatch(
+      addReply({
+        sugId: sugId,
+        commentId: props.commentId,
+        reply: reply,
+      })
+    );
 
     setReplyContent("");
     props.onSubmit();

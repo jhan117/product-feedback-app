@@ -5,7 +5,6 @@ import { sortList, tagList } from "../utils/nameList";
 const initialState: { [name: string]: string } = {
   sort: sortList[0].id,
   filter: tagList[0].name,
-  sugId: "",
 };
 
 const selectSlice = createSlice({
@@ -17,9 +16,6 @@ const selectSlice = createSlice({
     },
     changeFilter(state, action) {
       state.filter = action.payload;
-    },
-    changeSug(state, action) {
-      state.sugId = action.payload;
     },
   },
 });

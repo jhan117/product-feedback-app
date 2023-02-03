@@ -6,7 +6,7 @@ import StatusDeco from "../../ui/StatusDeco";
 import classes from "./SuggestionItem.module.css";
 
 import { categoryToUpper } from "../../../utils/changeName";
-import { getAllComments } from "../../../utils/getCommentsCnt";
+import { getAllComments } from "../../../utils/getCnt";
 
 interface Props {
   isRoadmap?: boolean;

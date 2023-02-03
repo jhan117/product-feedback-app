@@ -1,43 +1,55 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 import { statusList } from "../utils/nameList";
-import { getAllComments } from "../utils/getCommentsCnt";
-import { fetchData, updateUpvoteData } from "./suggestions-thunks";
+import { getAllComments, getLastId } from "../utils/getCnt";
+import { addReply, fetchData, updateUpvoteData } from "./suggestions-thunks";
 
 interface SuggestionsState {
+  currentUser: CurrentUser;
   suggestionItems: Suggestion[];
   statusItems: StatusItem[];
-  upvoteItems: number[];
   isLoading: boolean;
-  isDataError: boolean;
-  isUpvoteError: boolean;
+  error: { data: boolean; upvote: boolean; reply: boolean };
+  sugId: string;
+  curLastIds: { sug: number; comment: number; reply: number };
 }
 
 const initialState: SuggestionsState = {
+  currentUser: {
+    image: "string",
+    name: "string",
+    username: "string",
+    upvoteItems: [],
+  },
   suggestionItems: [],
   statusItems: statusList
     .slice(1)
     .map((item) => ({ ...item, items: [], length: 0 })),
-  upvoteItems: [],
   isLoading: true,
-  isDataError: false,
-  isUpvoteError: false,
+  error: { data: false, upvote: false, reply: false },
+  sugId: "",
+  curLastIds: { sug: 0, comment: 0, reply: 0 },
 };
 
 const suggestionsSlice = createSlice({
   name: "suggestions",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    changeSug(state, action) {
+      state.sugId = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
-        state.isDataError = false;
+        state.error.data = false;
         state.isLoading = true;
       })
       .addCase(fetchData.fulfilled, (state, action) => {
-        const { requestData, userData } = action.payload;
+        const { request, user } = action.payload;
+
         const statusItems = state.statusItems.map((statusItem) => {
-          const items = requestData.filter(
+          const items = request.filter(
             (suggestion: Suggestion) =>
               suggestion.status === statusItem.name.toLowerCase()
           );
@@ -47,36 +59,55 @@ const suggestionsSlice = createSlice({
             length: items.length,
           };
         });
-
-        state.suggestionItems = requestData;
+        state.currentUser = user;
+        state.suggestionItems = request;
         state.statusItems = statusItems;
         state.isLoading = false;
-        state.isDataError = false;
-        if (userData.upvoteItems) {
-          state.upvoteItems = Object.keys(userData.upvoteItems).map(Number);
-        }
+        state.curLastIds = getLastId(request);
       })
       .addCase(fetchData.rejected, (state) => {
-        state.isDataError = true;
+        state.error.data = true;
       })
       .addCase(updateUpvoteData.pending, (state) => {
-        state.isUpvoteError = false;
+        state.error.upvote = false;
       })
       .addCase(updateUpvoteData.fulfilled, (state, action) => {
         const { sugId, upvotes, isUpvoted } = action.payload;
-        state.suggestionItems[sugId].upvotes = upvotes;
+
+        state.suggestionItems.find((item) => item.id === sugId)!.upvotes =
+          upvotes;
 
         if (isUpvoted) {
-          state.upvoteItems = state.upvoteItems.filter(
+          state.currentUser.upvoteItems = state.currentUser.upvoteItems!.filter(
             (item) => item !== sugId
           );
         } else {
-          state.upvoteItems.push(sugId);
+          state.currentUser.upvoteItems!.push(sugId);
         }
-        state.isUpvoteError = false;
       })
       .addCase(updateUpvoteData.rejected, (state) => {
-        state.isUpvoteError = true;
+        state.error.upvote = true;
+      })
+      .addCase(addReply.pending, (state) => {
+        state.error.reply = false;
+      })
+      .addCase(addReply.fulfilled, (state, action) => {
+        const { sugId, commentId, reply } = action.payload;
+
+        const cId = `c${commentId}`;
+        const rId = `r${reply.id}`;
+
+        const comment = state.suggestionItems.find(
+          (item) => item.id === Number(sugId)
+        )!.comments[cId]!;
+        if (comment.hasOwnProperty("replies")) comment.replies![rId] = reply;
+        else {
+          comment.replies = { [rId]: reply };
+        }
+        state.curLastIds.reply += 1;
+      })
+      .addCase(addReply.rejected, (state) => {
+        state.error.reply = true;
       });
   },
 });
@@ -129,7 +160,7 @@ export const selectSortedSugs = createSelector(
 export const selectSugById = createSelector(
   [
     (state): Suggestion[] => state.suggestions.suggestionItems,
-    (state): string => state.select.sugId,
+    (state): string => state.suggestions.sugId,
   ],
   (items, sugId) => {
     return items.find((item) => item.id === Number(sugId));

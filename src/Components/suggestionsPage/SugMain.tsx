@@ -12,7 +12,7 @@ const SugMain = () => {
   const state = useAppSelector((state) => state);
   const data: Suggestion[] = selectSortedSugs(state)!;
   const isLoading = useAppSelector((state) => state.suggestions.isLoading);
-  const isDataError = useAppSelector((state) => state.suggestions.isDataError);
+  const isDataError = useAppSelector((state) => state.suggestions.error.data);
 
   const dataLength = data.length;
 

@@ -7,7 +7,7 @@ import CommentList from "./Comment/CommentList";
 import SuggestionItem from "../suggestionsPage/Suggestion/SuggestionItem";
 import classes from "./DetailMain.module.css";
 
-import { getAllComments } from "../../utils/getCommentsCnt";
+import { getAllComments } from "../../utils/getCnt";
 import { selectSugById } from "../../store/suggestions-slice";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 const DetailMain = (props: Props) => {
   const state = useAppSelector((state) => state);
-  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const { isLoading } = state.suggestions;
   const suggestion: Suggestion = selectSugById(state)!;
 
   let content;
@@ -29,7 +29,10 @@ const DetailMain = (props: Props) => {
         <Card className={classes.card}>
           <h4>{getAllComments(suggestion.comments)} Comments</h4>
           {suggestion.comments && (
-            <CommentList id={props.id} comments={suggestion.comments} />
+            <CommentList
+              id={props.id}
+              comments={Object.values(suggestion.comments)}
+            />
           )}
         </Card>
       </Fragment>
