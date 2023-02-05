@@ -2,12 +2,12 @@ import { useState } from "react";
 
 import Comment from "../../ui/Comment/Comment";
 import RepliesList from "../Reply/RepliesList";
-import NewReplyForm from "../Reply/NewReplyForm";
+import NewCommentForm from "../../ui/NewCommentForm";
 import classes from "./CommentItem.module.css";
 
 interface Props {
   sugId: string;
-  comment: Comment;
+  comment: CommentItem;
   className: string;
 }
 
@@ -43,7 +43,7 @@ const CommentItem = (props: Props) => {
         />
       )}
       {isFormOpen && (
-        <NewReplyForm
+        <NewCommentForm
           className={replies ? classes.hasReplies : ""}
           replyingToUser={replyingToUser}
           commentId={id}

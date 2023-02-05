@@ -3,7 +3,7 @@ import classes from "./CommentList.module.css";
 
 interface Props {
   id: string;
-  comments: Comment[];
+  comments: CommentItem[];
 }
 
 const CommentList = (props: Props) => {

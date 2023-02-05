@@ -8,7 +8,17 @@
   flex: 1;
 }
 
-.postReplyBtn {
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+
+.commentForm textarea {
+  height: 8rem;
+}
+
+.formBtn {
   background-color: var(--purple);
   border-radius: 1rem;
 
@@ -18,16 +28,37 @@
   color: var(--dark-white);
 
   height: 4rem;
-  width: 9.7rem;
 }
 
-.postReplyBtn:hover {
+.formBtn:hover {
   background-color: hsl(282, 90%, 66%);
 }
 
-.postReplyBtn:disabled {
+.formBtn:disabled {
   background-color: hsl(0, 0%, 70%);
   cursor: not-allowed;
+}
+
+.postReplyBtn {
+  width: 9.7rem;
+}
+
+.postCommentBtn {
+  width: 11.9rem;
+}
+
+.commentFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.commentFooter p {
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--light-gray);
 }
 
 /* tablet */

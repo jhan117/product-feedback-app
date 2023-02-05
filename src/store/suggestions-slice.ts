@@ -1,15 +1,20 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 
 import { statusList } from "../utils/nameList";
 import { getAllComments, getLastId } from "../utils/getCnt";
-import { addReply, fetchData, updateUpvoteData } from "./suggestions-thunks";
+import {
+  addComment,
+  addReply,
+  fetchData,
+  updateUpvoteData,
+} from "./suggestions-thunks";
 
 interface SuggestionsState {
   currentUser: CurrentUser;
   suggestionItems: Suggestion[];
   statusItems: StatusItem[];
   isLoading: boolean;
-  error: { data: boolean; upvote: boolean; reply: boolean };
+  error: string | undefined;
   sugId: string;
   curLastIds: { sug: number; comment: number; reply: number };
 }
@@ -26,7 +31,7 @@ const initialState: SuggestionsState = {
     .slice(1)
     .map((item) => ({ ...item, items: [], length: 0 })),
   isLoading: true,
-  error: { data: false, upvote: false, reply: false },
+  error: undefined,
   sugId: "",
   curLastIds: { sug: 0, comment: 0, reply: 0 },
 };
@@ -42,7 +47,7 @@ const suggestionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state) => {
-        state.error.data = false;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(fetchData.fulfilled, (state, action) => {
@@ -65,11 +70,11 @@ const suggestionsSlice = createSlice({
         state.isLoading = false;
         state.curLastIds = getLastId(request);
       })
-      .addCase(fetchData.rejected, (state) => {
-        state.error.data = true;
+      .addCase(fetchData.rejected, (state, action) => {
+        state.error = action.payload as string;
       })
       .addCase(updateUpvoteData.pending, (state) => {
-        state.error.upvote = false;
+        state.error = undefined;
       })
       .addCase(updateUpvoteData.fulfilled, (state, action) => {
         const { sugId, upvotes, isUpvoted } = action.payload;
@@ -85,11 +90,11 @@ const suggestionsSlice = createSlice({
           state.currentUser.upvoteItems!.push(sugId);
         }
       })
-      .addCase(updateUpvoteData.rejected, (state) => {
-        state.error.upvote = true;
+      .addCase(updateUpvoteData.rejected, (state, action) => {
+        state.error = action.payload as string;
       })
       .addCase(addReply.pending, (state) => {
-        state.error.reply = false;
+        state.error = undefined;
       })
       .addCase(addReply.fulfilled, (state, action) => {
         const { sugId, commentId, reply } = action.payload;
@@ -99,15 +104,36 @@ const suggestionsSlice = createSlice({
 
         const comment = state.suggestionItems.find(
           (item) => item.id === Number(sugId)
-        )!.comments[cId]!;
+        )!.comments![cId];
         if (comment.hasOwnProperty("replies")) comment.replies![rId] = reply;
         else {
           comment.replies = { [rId]: reply };
         }
         state.curLastIds.reply += 1;
       })
-      .addCase(addReply.rejected, (state) => {
-        state.error.reply = true;
+      .addCase(addReply.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(addComment.pending, (state) => {
+        state.error = undefined;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        const { sugId, comment } = action.payload;
+
+        const cId = `c${comment.id}`;
+
+        const sug = state.suggestionItems.find(
+          (item) => item.id === Number(sugId)
+        )!;
+        if (sug.hasOwnProperty("comments")) sug.comments![cId] = comment;
+        else {
+          sug.comments = { [cId]: comment };
+        }
+
+        state.curLastIds.comment += 1;
+      })
+      .addCase(addComment.rejected, (state, action) => {
+        state.error = action.payload as string;
       });
   },
 });
@@ -145,11 +171,11 @@ export const selectSortedSugs = createSelector(
         return items.sort((a, b) => a.upvotes - b.upvotes);
       case "s3":
         return items.sort(
-          (a, b) => getAllComments(b.comments) - getAllComments(a.comments)
+          (a, b) => getAllComments(b.comments!) - getAllComments(a.comments!)
         );
       case "s4":
         return items.sort(
-          (a, b) => getAllComments(a.comments) - getAllComments(b.comments)
+          (a, b) => getAllComments(a.comments!) - getAllComments(b.comments!)
         );
       default:
         break;
@@ -159,8 +185,8 @@ export const selectSortedSugs = createSelector(
 
 export const selectSugById = createSelector(
   [
-    (state): Suggestion[] => state.suggestions.suggestionItems,
-    (state): string => state.suggestions.sugId,
+    (state): Suggestion[] => state.suggestionItems,
+    (state): string => state.sugId,
   ],
   (items, sugId) => {
     return items.find((item) => item.id === Number(sugId));

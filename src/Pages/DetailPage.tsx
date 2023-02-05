@@ -13,15 +13,10 @@ import { suggestionsActions } from "../store/suggestions-slice";
 const DetailFeedbackPage = () => {
   const { requestId: id } = useParams();
   const dispatch = useAppDispatch();
-  const {
-    data: isDataError,
-    upvote: isUpvoteError,
-    reply: isReplyError,
-  } = useAppSelector((state) => state.suggestions.error);
+  const error = useAppSelector((state) => state.suggestions.error);
   const [showAlert, setIsShowAlert] = useState(true);
 
-  const isShowAlert =
-    showAlert && (isDataError || isUpvoteError || isReplyError);
+  const isShowAlert = showAlert && error;
 
   useEffect(() => {
     changeRootStyle("detail");
@@ -37,8 +32,10 @@ const DetailFeedbackPage = () => {
     <Fragment>
       <DetailHeader id={id!} />
       <DetailMain id={id!} />
-      {/* <DetailFooter /> */}
-      {isShowAlert && <ErrorNotification onClickCancelBtn={alertHandler} />}
+      <DetailFooter />
+      {isShowAlert && (
+        <ErrorNotification message={error} onClickCancelBtn={alertHandler} />
+      )}
     </Fragment>
   );
 };

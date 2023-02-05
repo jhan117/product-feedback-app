@@ -52,7 +52,7 @@ const SuggestionItem = (props: Props) => {
       </div>
       <div className={classes.commentCon}>
         <IconComments />
-        <p>{getAllComments(comments)}</p>
+        <p>{getAllComments(comments!)}</p>
       </div>
     </li>
   );

@@ -1,24 +1,14 @@
+import Card from "../ui/Card";
+import NewCommentForm from "../ui/NewCommentForm";
 import classes from "./DetailFooter.module.css";
 
 const DetailFooter = () => {
-  function addCommentHandler(commentData) {
-    suggestionsCtx.addComment(
-      loadedDetailData.id,
-      loadedCommentsData?.length || 0,
-      {
-        id: suggestionsCtx.curCommentId,
-        content: commentData,
-        user: suggestionsCtx.user,
-      }
-    );
-  }
-
   return (
     <footer>
-      <NewCommentForm
-        setIsCommentSubmit={setIsCommentSubmit}
-        onAddComment={addCommentHandler}
-      />
+      <Card className={classes.card}>
+        <h4>Add Comment</h4>
+        <NewCommentForm isComment={true} />
+      </Card>
     </footer>
   );
 };

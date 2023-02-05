@@ -15,19 +15,18 @@ interface Props {
 }
 
 const DetailMain = (props: Props) => {
-  const state = useAppSelector((state) => state);
-  const { isLoading } = state.suggestions;
-  const suggestion: Suggestion = selectSugById(state)!;
+  const sugState = useAppSelector((state) => state.suggestions);
+  const suggestion: Suggestion = selectSugById(sugState)!;
 
   let content;
-  if (isLoading || !suggestion) {
+  if (sugState.isLoading || !suggestion) {
     content = <Loader />;
   } else {
     content = (
       <Fragment>
         <SuggestionItem item={suggestion} isDetail={true} />
         <Card className={classes.card}>
-          <h4>{getAllComments(suggestion.comments)} Comments</h4>
+          <h4>{getAllComments(suggestion.comments!)} Comments</h4>
           {suggestion.comments && (
             <CommentList
               id={props.id}

@@ -16,14 +16,14 @@ interface Suggestion {
   status: string;
   title: string;
   upvotes: number;
-  comments: Comments;
+  comments?: Comments;
 }
 
 interface Suggestions {
-  [id: string]: Suggestion;
+  [key: string]: Suggestion;
 }
 
-interface Comment {
+interface CommentItem {
   id: number;
   user: User;
   content: string;
@@ -31,7 +31,7 @@ interface Comment {
 }
 
 interface Comments {
-  [id: string]: Comment;
+  [key: string]: CommentItem;
 }
 
 interface Reply {

@@ -25,23 +25,34 @@ interface ReplyThunk {
   reply: Reply;
 }
 
-export const fetchData = createAsyncThunk<{
-  request: any[];
-  user: CurrentUser;
-}>("suggestions/fetchData", async () => {
-  const requestResponse = await request.get(`${REQUEST_URL}.json`);
-  const userResponse = await request.get(`${USER_URL}.json`);
+interface CommentThunk {
+  sugId: string;
+  comment: CommentItem;
+}
 
-  const requestData = await requestResponse.json();
-  const userData = await userResponse.json();
+export const fetchData = createAsyncThunk<
+  {
+    request: any[];
+    user: CurrentUser;
+  },
+  void
+>("suggestions/fetchData", async (data, thunkAPI) => {
+  try {
+    const requestResponse = await request.get(`${REQUEST_URL}.json`);
+    const userResponse = await request.get(`${USER_URL}.json`);
+    const requestData = await requestResponse.json();
+    const userData = await userResponse.json();
 
-  const upvoteItems =
-    userData.upvoteItems && Object.keys(userData.upvoteItems).map(Number);
+    const upvoteItems =
+      userData.upvoteItems && Object.keys(userData.upvoteItems).map(Number);
 
-  return {
-    request: Object.values(requestData),
-    user: { ...userData, upvoteItems },
-  };
+    return {
+      request: Object.values(requestData),
+      user: { ...userData, upvoteItems },
+    };
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Failed to get data");
+  }
 });
 
 export const updateUpvoteData = createAsyncThunk<UpvoteResponse, UpvotePayload>(
@@ -55,9 +66,13 @@ export const updateUpvoteData = createAsyncThunk<UpvoteResponse, UpvotePayload>(
     const upvoteDataURL = `${REQUEST_URL}/p${sugId}.json`;
     const upvoteItemURL = `${USER_URL}/upvoteItems/${sugId}.json`;
 
-    await request.patch(upvoteDataURL, {
-      upvotes: editedUpvotes,
-    });
+    try {
+      await request.patch(upvoteDataURL, {
+        upvotes: editedUpvotes,
+      });
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to update upvote data");
+    }
 
     try {
       if (isUpvoted) {
@@ -70,7 +85,7 @@ export const updateUpvoteData = createAsyncThunk<UpvoteResponse, UpvotePayload>(
       await request.patch(upvoteDataURL, {
         upvotes: upvotes,
       });
-      return thunkAPI.rejectWithValue("error");
+      return thunkAPI.rejectWithValue("Failed to update upvote data");
     }
   }
 );
@@ -84,7 +99,21 @@ export const addReply = createAsyncThunk<ReplyThunk, ReplyThunk>(
       await request.patch(replyURL, reply);
       return { sugId, commentId, reply };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue("Failed to add reply");
+    }
+  }
+);
+
+export const addComment = createAsyncThunk<CommentThunk, CommentThunk>(
+  "suggestions/addComment",
+  async ({ sugId, comment }, thunkAPI) => {
+    const commentURL = `${REQUEST_URL}/p${sugId}/comments/c${comment.id}.json`;
+
+    try {
+      await request.patch(commentURL, comment);
+      return { sugId, comment };
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to add comment");
     }
   }
 );

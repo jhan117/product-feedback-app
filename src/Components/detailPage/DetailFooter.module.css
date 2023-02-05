@@ -1,0 +1,20 @@
+.card {
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
+}
+
+.card H4 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  letter-spacing: -0.025rem;
+  color: var(--indigo);
+}
+
+@media only screen and (min-width: 40em) {
+  .card {
+    padding: 2.4rem 3.2rem 3.2rem;
+  }
+}

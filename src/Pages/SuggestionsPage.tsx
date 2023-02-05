@@ -8,16 +8,14 @@ import SugHeader from "../components/suggestionsPage/SugHeader";
 import changeRootStyle from "../utils/changeRootStyle";
 
 const SuggestionsPage = () => {
-  const { data: isDataError, upvote: isUpvoteError } = useAppSelector(
-    (state) => state.suggestions.error
-  );
+  const error = useAppSelector((state) => state.suggestions.error);
   const [showAlert, setIsShowAlert] = useState(true);
 
   useEffect(() => {
     changeRootStyle("sug");
   }, []);
 
-  const isShowAlert = showAlert && (isDataError || isUpvoteError);
+  const isShowAlert = showAlert && error;
 
   const alertHandler = () => {
     setIsShowAlert((state) => !state);
@@ -27,7 +25,9 @@ const SuggestionsPage = () => {
     <Fragment>
       <SugHeader />
       <SugMain />
-      {isShowAlert && <ErrorNotification onClickCancelBtn={alertHandler} />}
+      {isShowAlert && (
+        <ErrorNotification message={error} onClickCancelBtn={alertHandler} />
+      )}
     </Fragment>
   );
 };
