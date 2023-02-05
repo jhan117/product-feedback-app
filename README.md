@@ -29,12 +29,12 @@ Refactoring 기간 : 2023-01-09 ~ 진행중
 - Context가 너무 많아져서 Reducer로 변경 (비동기 처리는 Thunk 사용)
 - 값이 변경될 때마다 호출해서 너무 많은 API 호출을 Reducer에 값을 업데이트 하여 호출 횟수 줄이기
 - 로딩 화면은 애니메이션으로 변경, 에러 컴포넌트 추가
-- 그 외 : 폴더 정리, 파일명 수정, 컴포넌트화 수정 등
+- 그 외 : 폴더 정리, 파일명 수정, 컴포넌트화 수정, data 형식 변경해 API 호출하기 쉽게 변경, 버튼 비활성화 기능 추가 등
 
 #### 진행 과정
 
 - ✅ Suggestions Page
-- ⬜ Detail Page
+- ✅ Detail Page
 - ⬜ Edit Page
 - ⬜ Roadmap Page
 - ⬜ Add Page
