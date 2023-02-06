@@ -1,12 +1,12 @@
-import { Dispatch, useEffect, useState } from "react";
-import images from "../../../assets/user-images";
+import { Dispatch, SetStateAction } from "react";
+import images from "../../assets/user-images";
 
 import classes from "./CommentHeader.module.css";
 
 interface Props {
   user: User;
-  setIsFormOpen: Dispatch<boolean>;
-  replyingToUserState: [string, Dispatch<string>];
+  setIsFormOpen: Dispatch<SetStateAction<boolean>>;
+  replyingToUserState: [string, Dispatch<SetStateAction<string>>];
 }
 
 const CommentHeader = (props: Props) => {

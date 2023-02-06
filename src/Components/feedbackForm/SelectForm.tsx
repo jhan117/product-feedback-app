@@ -1,8 +1,14 @@
+import { Dispatch, SetStateAction } from "react";
+
+import Select from "../Select/Select";
 import classes from "./SelectForm.module.css";
 
-import Select from "../ui/Select/Select";
+interface Props {
+  state: string;
+  dataState: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+}
 
-function SelectForm(props) {
+const SelectForm = (props: Props) => {
   let labelTitle = "";
   let labelDesc = "";
   if (props.state === "category") {
@@ -19,15 +25,9 @@ function SelectForm(props) {
         {labelTitle}
         <p>{labelDesc}</p>
       </label>
-      <Select
-        state={props.state}
-        setSugData={props.setSugData}
-        setSugStatus={props.setSugStatus}
-        valueS={props.valueS}
-        valueC={props.valueC}
-      />
+      <Select state={props.state} dataState={props.dataState} />
     </div>
   );
-}
+};
 
 export default SelectForm;

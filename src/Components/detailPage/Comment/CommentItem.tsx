@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import Comment from "../../ui/Comment/Comment";
+import Comment from "../../Comment/Comment";
 import RepliesList from "../Reply/RepliesList";
-import NewCommentForm from "../../ui/NewCommentForm";
+import NewCommentForm from "../NewCommentForm";
 import classes from "./CommentItem.module.css";
 
 interface Props {

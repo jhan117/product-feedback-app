@@ -1,12 +1,12 @@
-import DetailPage from "./DetailPage";
-import EditFeedbackPage from "./EditFeedbackPage";
-import NewFeedbackPage from "./NewFeedbackPage";
 import SuggestionsPage from "./SuggestionsPage";
-import RoadMapPage from "./RoadMapPage";
+import DetailPage from "./DetailPage";
+import EditPage from "./EditPage";
+// import NewFeedbackPage from "./NewFeedbackPage";
+// import RoadMapPage from "./RoadMapPage";
 
 export {
   DetailPage,
-  // EditFeedbackPage,
+  EditPage,
   // NewFeedbackPage,
   SuggestionsPage,
   // RoadMapPage,

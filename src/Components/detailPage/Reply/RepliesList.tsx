@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Dispatch } from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import useHeight from "../../../hooks/useHeight";
 
@@ -9,8 +9,8 @@ import RepliesItem from "./RepliesItem";
 interface Props {
   replies: Reply[];
   commentHeight: number;
-  setIsFormOpen: Dispatch<boolean>;
-  replyingToUserState: [string, Dispatch<string>];
+  setIsFormOpen: Dispatch<SetStateAction<boolean>>;
+  replyingToUserState: [string, Dispatch<SetStateAction<string>>];
 }
 
 const RepliesList = (props: Props) => {

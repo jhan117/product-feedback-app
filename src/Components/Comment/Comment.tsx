@@ -1,5 +1,5 @@
-import { Dispatch, Fragment, ReactNode, useRef } from "react";
-import useHeight from "../../../hooks/useHeight";
+import { Dispatch, Fragment, ReactNode, SetStateAction, useRef } from "react";
+import useHeight from "../../hooks/useHeight";
 
 import CommentHeader from "./CommentHeader";
 import classes from "./Comment.module.css";
@@ -8,9 +8,9 @@ interface Props {
   children: ReactNode;
   user: User;
   replyingTo?: string;
-  setCommentHeight?: Dispatch<number>;
-  setIsFormOpen: Dispatch<boolean>;
-  replyingToUserState: [string, Dispatch<string>];
+  setCommentHeight?: Dispatch<SetStateAction<number>>;
+  setIsFormOpen: Dispatch<SetStateAction<boolean>>;
+  replyingToUserState: [string, Dispatch<SetStateAction<string>>];
 }
 
 const Comment = (props: Props) => {

@@ -9,6 +9,13 @@ interface CurrentUser {
   upvoteItems?: number[];
 }
 
+interface FeedbackItem {
+  title: string;
+  category: string;
+  status: string;
+  description: string;
+}
+
 interface Suggestion {
   id: number;
   category: string;

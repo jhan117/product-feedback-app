@@ -4,7 +4,7 @@ import classes from "./NewFeedbackPage.module.css";
 
 import useRootClass from "../utils/changeRootStyle";
 
-import FeedbackForm from "../components/feedbackForm/FeedbackForm";
+import FeedbackForm from "../components/FeedbackForm/FeedbackForm";
 import GoBack from "../components/ui/GoBack";
 
 function NewFeedbackPage(props) {

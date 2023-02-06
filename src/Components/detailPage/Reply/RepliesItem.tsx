@@ -1,14 +1,14 @@
-import { Dispatch, useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import useHeight from "../../../hooks/useHeight";
 
-import Comment from "../../ui/Comment/Comment";
+import Comment from "../../Comment/Comment";
 import classes from "./RepliesItem.module.css";
 
 interface Props {
   reply: Reply;
-  setLastReplyHeight?: Dispatch<number>;
-  setIsFormOpen: Dispatch<boolean>;
-  replyingToUserState: [string, Dispatch<string>];
+  setLastReplyHeight?: Dispatch<SetStateAction<number>>;
+  setIsFormOpen: Dispatch<SetStateAction<boolean>>;
+  replyingToUserState: [string, Dispatch<SetStateAction<string>>];
 }
 
 const RepliesItem = (props: Props) => {

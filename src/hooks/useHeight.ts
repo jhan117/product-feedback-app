@@ -1,9 +1,9 @@
-import React, { Dispatch, useCallback, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import useResize from "./useResize";
 
 const useHeight = (
   ref: React.RefObject<HTMLElement>,
-  dispatch: Dispatch<number>,
+  dispatch: Dispatch<SetStateAction<number>>,
   payload = 0
 ) => {
   const getHeight = useCallback(() => {

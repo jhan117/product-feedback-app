@@ -4,6 +4,40 @@
   row-gap: 1.6rem;
 }
 
+.BtnsCon button {
+  height: 4rem;
+  border-radius: 1rem;
+
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--dark-white);
+}
+
+.cancelBtn {
+  background-color: var(--indigo);
+}
+
+.cancelBtn:hover {
+  background-color: hsl(231, 26%, 52%);
+}
+
+.deleteBtn {
+  background-color: hsl(0, 67%, 53%);
+}
+
+.deleteBtn:hover {
+  background-color: hsl(0, 69%, 72%);
+}
+
+.submitBtn {
+  background-color: var(--purple);
+}
+
+.submitBtn:hover {
+  background-color: hsl(282, 90%, 66%);
+}
+
 /* tablet */
 @media only screen and (min-width: 40em) {
   .BtnsCon {
@@ -14,5 +48,24 @@
     justify-content: flex-end;
 
     position: relative;
+  }
+
+  .deleteBtn,
+  .cancelBtn {
+    width: 9.3rem;
+  }
+
+  .deleteBtn {
+    position: absolute;
+
+    left: 0;
+  }
+
+  .submitBtn {
+    width: 14.4rem;
+  }
+
+  .BtnsCon button {
+    height: 4.4rem;
   }
 }

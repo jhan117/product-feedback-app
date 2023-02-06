@@ -1,12 +1,12 @@
-import { Dispatch, Fragment } from "react";
+import { Dispatch, Fragment, SetStateAction } from "react";
 import { createPortal } from "react-dom";
 
-import Backdrop from "../Backdrop";
+import Backdrop from "../ui/Backdrop";
 import OptionList from "./OptionList";
 
 interface Props {
   state: string;
-  selectedState: [string, Dispatch<string>];
+  dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
   options: Item[];
   position: Pos;
   onClickOption: () => void;
@@ -22,7 +22,7 @@ const Option = (props: Props) => {
       {createPortal(
         <OptionList
           state={props.state}
-          selectedState={props.selectedState}
+          dataState={props.dataState}
           options={props.options}
           onClickOption={props.onClickOption}
           position={props.position}

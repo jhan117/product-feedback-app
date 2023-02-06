@@ -10,7 +10,7 @@ import ErrorNotification from "../components/ui/Error";
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";
 
-const DetailFeedbackPage = () => {
+const DetailPage = () => {
   const { requestId: id } = useParams();
   const dispatch = useAppDispatch();
   const error = useAppSelector((state) => state.suggestions.error);
@@ -40,4 +40,4 @@ const DetailFeedbackPage = () => {
   );
 };
 
-export default DetailFeedbackPage;
+export default DetailPage;

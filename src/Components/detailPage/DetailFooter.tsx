@@ -1,5 +1,5 @@
 import Card from "../ui/Card";
-import NewCommentForm from "../ui/NewCommentForm";
+import NewCommentForm from "./NewCommentForm";
 import classes from "./DetailFooter.module.css";
 
 const DetailFooter = () => {

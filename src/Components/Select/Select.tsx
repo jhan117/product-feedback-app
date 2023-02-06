@@ -1,29 +1,36 @@
-import { ReactComponent as IconArrowDown } from "../../../assets/shared/icon-arrow-down.svg";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../../../store/hooks";
-import useResize from "../../../hooks/useResize";
+import { ReactComponent as IconArrowDown } from "../../assets/shared/icon-arrow-down.svg";
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useAppSelector } from "../../store/hooks";
 
 import Option from "./Option";
 import classes from "./Select.module.css";
 
-import { listIdToName } from "../../../utils/changeName";
-import { optionTagList, sortList, statusList } from "../../../utils/nameList";
+import { listIdToName } from "../../utils/changeName";
+import { optionTagList, sortList, statusList } from "../../utils/nameList";
+import useResize from "../../hooks/useResize";
 
 interface Props {
   state: string;
-  length: number;
+  length?: number;
+  dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
 }
 
 const Select = (props: Props) => {
-  const isSort = props.state === "sort";
-  const initialState =
-    props.state === "status" ? statusList[0].id : optionTagList[0].id;
-
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const selectedState = useState<string>(initialState);
   const sortId = useAppSelector((state) => state.select.sort);
   const conRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<Pos>({ top: 0, left: 0 });
+
+  const { state, dataState } = props;
+  const isSort = state === "sort";
 
   const getPos = useCallback(() => {
     const currentRef = conRef.current?.getBoundingClientRect();
@@ -49,23 +56,23 @@ const Select = (props: Props) => {
     }
   };
 
-  let currentList = sortList;
-  if (props.state === "status") {
+  let content;
+  let currentList;
+  if (isSort) {
+    currentList = sortList;
+    content = (
+      <Fragment>
+        <span>Sort by : </span>
+        {listIdToName(state, sortId)}
+      </Fragment>
+    );
+  } else if (state === "status") {
     currentList = statusList;
-  }
-  if (props.state === "category") {
+    content = dataState![0].status;
+  } else {
     currentList = optionTagList;
+    content = dataState![0].category;
   }
-
-  const sortText = (
-    <Fragment>
-      <span>Sort by : </span>
-      {listIdToName(currentList, sortId)}
-    </Fragment>
-  );
-  const content = isSort
-    ? sortText
-    : listIdToName(currentList, selectedState[0]);
 
   // form style, sort style
   const sugNone = props.length === 0 ? classes.sortNone : "";
@@ -88,8 +95,8 @@ const Select = (props: Props) => {
       {isOptionOpen && (
         <Option
           onClickOption={optionClickHandler}
-          state={props.state}
-          selectedState={selectedState}
+          state={state}
+          dataState={dataState}
           options={currentList}
           position={position}
         />

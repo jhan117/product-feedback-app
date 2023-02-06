@@ -1,4 +1,4 @@
-import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 import { statusList } from "../utils/nameList";
 import { getAllComments, getLastId } from "../utils/getCnt";

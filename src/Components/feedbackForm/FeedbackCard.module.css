@@ -1,15 +1,20 @@
-.editMain {
+.card {
   display: flex;
   flex-direction: column;
   row-gap: 2.4rem;
 
   padding: 4.4rem 2.4rem 2.4rem;
-
-  background-color: white;
-  border-radius: 1rem;
 }
 
-.editMain h2 {
+.icon {
+  position: absolute;
+  top: -2rem;
+  left: 2.4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.card h2 {
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 2.6rem;
@@ -19,13 +24,20 @@
 
 /* tablet */
 @media only screen and (min-width: 40em) {
-  .editMain {
+  .icon {
+    top: -2.8rem;
+    left: 4.2rem;
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  .card {
     row-gap: 7.5rem;
 
     padding: 5.2rem 4.2rem 4rem;
   }
 
-  .editMain h2 {
+  .card h2 {
     font-size: 2.4rem;
     line-height: 3.5rem;
     letter-spacing: -0.033rem;
