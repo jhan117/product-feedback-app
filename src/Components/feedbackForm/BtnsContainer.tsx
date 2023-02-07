@@ -1,36 +1,27 @@
-import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import classes from "./BtnsContainer.module.css";
 
+import { deleteSug } from "../../store/suggestions-thunks";
+
 interface Props {
   page: string;
-  dataState: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  sugId: number;
 }
 
 const BtnsContainer = (props: Props) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const { page, dataState } = props;
+  const { page, sugId } = props;
 
   const cancelHandler = () => {
     navigate(-1);
-    dataState[1]({
-      title: "",
-      category: "",
-      status: "",
-      description: "",
-    });
   };
 
   const deleteHandler = () => {
-    navigate(-1);
-    dataState[1]({
-      title: "",
-      category: "",
-      status: "",
-      description: "",
-    });
+    dispatch(deleteSug(sugId));
   };
 
   return (
@@ -38,11 +29,19 @@ const BtnsContainer = (props: Props) => {
       <button className={classes.submitBtn} type="submit">
         {page === "edit" ? "Save Changes" : "Add Feedback"}
       </button>
-      <button className={classes.cancelBtn} onClick={cancelHandler}>
+      <button
+        className={classes.cancelBtn}
+        onClick={cancelHandler}
+        type="button"
+      >
         Cancel
       </button>
       {page === "edit" && (
-        <button className={classes.deleteBtn} onClick={deleteHandler}>
+        <button
+          className={classes.deleteBtn}
+          onClick={deleteHandler}
+          type="button"
+        >
           Delete
         </button>
       )}

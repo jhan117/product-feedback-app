@@ -14,15 +14,8 @@ const EditMain = () => {
   if (sugState.isLoading || !suggestion) {
     content = <Loader />;
   } else {
-    const data = {
-      title: suggestion.title,
-      category: suggestion.category,
-      status: suggestion.status,
-      description: suggestion.description,
-    };
-
     content = (
-      <FeedbackCard page="edit" prevData={data}>
+      <FeedbackCard page="edit" prevData={suggestion}>
         Editing '{suggestion.title}'
       </FeedbackCard>
     );

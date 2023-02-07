@@ -8,7 +8,7 @@ import classes from "./FeedbackCard.module.css";
 
 interface Props {
   page: string;
-  prevData: FeedbackItem;
+  prevData: Suggestion;
   children: ReactNode;
 }
 

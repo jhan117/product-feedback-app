@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from ".";
 
 import request from "../utils/request";
 
@@ -114,6 +115,63 @@ export const addComment = createAsyncThunk<CommentThunk, CommentThunk>(
       return { sugId, comment };
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to add comment");
+    }
+  }
+);
+
+export const editSug = createAsyncThunk<Suggestion, Suggestion>(
+  "suggestions/editSug",
+  async (feedback, thunkAPI) => {
+    const sugURL = `${REQUEST_URL}/p${feedback.id}.json`;
+
+    try {
+      await request.put(sugURL, feedback);
+      return feedback;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to edit current feedback");
+    }
+  }
+);
+
+export const deleteSug = createAsyncThunk<
+  { sugId: number; hasUpvote: boolean },
+  number,
+  { state: RootState }
+>("suggestions/deleteSug", async (sugId, thunkAPI) => {
+  const { upvoteItems } = thunkAPI.getState().suggestions.currentUser;
+  let hasUpvote = false;
+  const upvoteItemsURL = `${USER_URL}/upvoteItems/${sugId}.json`;
+  const sugURL = `${REQUEST_URL}/p${sugId}.json`;
+
+  if (upvoteItems?.find((v) => v === sugId)) {
+    hasUpvote = true;
+
+    try {
+      await request.delete(upvoteItemsURL);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to delete your upvote data");
+    }
+  }
+
+  try {
+    await request.delete(sugURL);
+    return { sugId, hasUpvote };
+  } catch (error) {
+    if (hasUpvote) await request.patch(upvoteItemsURL, { sugId });
+    return thunkAPI.rejectWithValue("Failed to delete current feedback");
+  }
+});
+
+export const addSug = createAsyncThunk<Suggestion, Suggestion>(
+  "suggestions/addSug",
+  async (feedback, thunkAPI) => {
+    const sugURL = `${REQUEST_URL}/p${feedback.id}.json`;
+
+    try {
+      await request.put(sugURL, feedback);
+      return feedback;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to add new feedback");
     }
   }
 );

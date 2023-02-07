@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 import ErrorNotification from "../components/ui/Error";
@@ -8,9 +8,8 @@ import SugHeader from "../components/suggestionsPage/SugHeader";
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";
 
-const SuggestionsPage = () => {
+const SuggestionsPage = (props: PageProps) => {
   const error = useAppSelector((state) => state.suggestions.error);
-  const [showAlert, setIsShowAlert] = useState(true);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,18 +17,12 @@ const SuggestionsPage = () => {
     dispatch(suggestionsActions.changeSug(""));
   }, []);
 
-  const isShowAlert = showAlert && error;
-
-  const alertHandler = () => {
-    setIsShowAlert((state) => !state);
-  };
-
   return (
     <Fragment>
       <SugHeader />
       <SugMain />
-      {isShowAlert && (
-        <ErrorNotification message={error} onClickCancelBtn={alertHandler} />
+      {props.showError && (
+        <ErrorNotification message={error!} onClickCancelBtn={props.handler} />
       )}
     </Fragment>
   );

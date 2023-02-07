@@ -5,6 +5,8 @@ import { getAllComments, getLastId } from "../utils/getCnt";
 import {
   addComment,
   addReply,
+  deleteSug,
+  editSug,
   fetchData,
   updateUpvoteData,
 } from "./suggestions-thunks";
@@ -17,6 +19,7 @@ interface SuggestionsState {
   error: string | undefined;
   sugId: string;
   curLastIds: { sug: number; comment: number; reply: number };
+  fulfilled: string;
 }
 
 const initialState: SuggestionsState = {
@@ -34,6 +37,7 @@ const initialState: SuggestionsState = {
   error: undefined,
   sugId: "",
   curLastIds: { sug: 0, comment: 0, reply: 0 },
+  fulfilled: "",
 };
 
 const suggestionsSlice = createSlice({
@@ -42,6 +46,9 @@ const suggestionsSlice = createSlice({
   reducers: {
     changeSug(state, action) {
       state.sugId = action.payload;
+    },
+    cancelError(state) {
+      state.error = undefined;
     },
   },
   extraReducers(builder) {
@@ -133,6 +140,44 @@ const suggestionsSlice = createSlice({
         state.curLastIds.comment += 1;
       })
       .addCase(addComment.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(editSug.pending, (state) => {
+        state.error = undefined;
+      })
+      .addCase(editSug.fulfilled, (state, action) => {
+        const feedback = action.payload;
+
+        const sug = state.suggestionItems.find(
+          (item) => item.id === feedback.id
+        )!;
+        sug.title = feedback.title;
+        sug.category = feedback.category;
+        sug.description = feedback.description;
+        sug.status = feedback.status;
+        state.fulfilled = "edit";
+      })
+      .addCase(editSug.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(deleteSug.pending, (state) => {
+        state.error = undefined;
+      })
+      .addCase(deleteSug.fulfilled, (state, action) => {
+        const { sugId, hasUpvote } = action.payload;
+
+        state.suggestionItems = state.suggestionItems.filter(
+          (item) => item.id !== sugId
+        );
+
+        if (hasUpvote) {
+          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
+            (v) => v !== sugId
+          );
+        }
+        state.fulfilled = "delete";
+      })
+      .addCase(deleteSug.rejected, (state, action) => {
         state.error = action.payload as string;
       });
   },

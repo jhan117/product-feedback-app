@@ -16,9 +16,11 @@ const SugMain = () => {
 
   const dataLength = data.length;
 
-  let content = <EmptyContent />;
+  let content;
   if (dataLength > 0) {
     content = <SuggestionList items={data} />;
+  } else {
+    content = <EmptyContent />;
   }
   if (isLoading) {
     content = <Loader />;

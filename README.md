@@ -35,6 +35,6 @@ Refactoring 기간 : 2023-01-09 ~ 진행중
 
 - ✅ Suggestions Page
 - ✅ Detail Page
-- ⬜ Edit Page
+- ✅ Edit Page
 - ⬜ Roadmap Page
 - ⬜ Add Page

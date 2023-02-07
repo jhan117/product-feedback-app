@@ -75,3 +75,8 @@ interface Pos {
   top: number;
   left: number;
 }
+
+interface PageProps {
+  showError: boolean;
+  handler: () => void;
+}
