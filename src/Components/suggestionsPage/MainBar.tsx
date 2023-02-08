@@ -1,7 +1,7 @@
 import { ReactComponent as IconSuggestions } from "../../assets/suggestions/icon-suggestions.svg";
 
 import Select from "../Select/Select";
-import FeedbackButton from "../ui/Button/FeedbackButton";
+import FeedbackButton from "../ui/Button/AddButton";
 import classes from "./MainBar.module.css";
 
 import useMediaQuery from "../../hooks/useMediaQuery";

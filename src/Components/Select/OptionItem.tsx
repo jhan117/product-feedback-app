@@ -16,18 +16,24 @@ interface Props {
 }
 
 const OptionItem = (props: Props) => {
-  const [data, setData] = props.dataState!;
   const sortId = useAppSelector((state) => state.select.sort);
   const dispatch = useAppDispatch();
 
   const { state } = props;
   const isSort = state === "sort";
 
+  let currentId;
+  if (isSort) currentId = sortId;
+  else if (state === "status") {
+    currentId = listIdToName(state, props.dataState![0].status, true);
+  } else currentId = listIdToName(state, props.dataState![0].category, true);
+
   const optionItemClickHandler = () => {
     if (state === "sort") {
       dispatch(selectActions.changeSort(props.id));
     } else {
-      const name = listIdToName(state, props.id)!;
+      const setData = props.dataState![1];
+      const name = listIdToName(state, props.id)!.toLowerCase();
       if (state === "status") {
         setData((prevState) => ({
           ...prevState,
@@ -42,12 +48,6 @@ const OptionItem = (props: Props) => {
     }
     props.onClickOption();
   };
-
-  let currentId;
-  if (isSort) currentId = sortId;
-  else if (state === "status") {
-    currentId = listIdToName(state, data.status, true);
-  } else currentId = listIdToName(state, data.category, true);
 
   return (
     <li

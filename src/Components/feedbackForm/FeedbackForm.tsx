@@ -1,5 +1,4 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import BtnsContainer from "./BtnsContainer";
@@ -8,51 +7,59 @@ import TextareaForm from "./TextareaForm";
 import SelectForm from "./SelectForm";
 import classes from "./FeedbackForm.module.css";
 
-import { categoryToUpper, statusToUpper } from "../../utils/changeName";
-import { editSug } from "../../store/suggestions-thunks";
+import { addSug, editSug } from "../../store/suggestions-thunks";
 
 interface Props {
   page: string;
-  prevData: Suggestion;
+  prevData?: Suggestion;
 }
 
 const FeedbackForm = (props: Props) => {
   const dataState = useState<FeedbackItem>({
     title: "",
-    category: "",
-    status: "",
+    category: "feature",
+    status: "suggestion",
     description: "",
   });
   const [data, setData] = dataState;
   const dispatch = useAppDispatch();
   const { curLastIds } = useAppSelector((state) => state.suggestions);
+  const [isValid, setIsValid] = useState(false);
 
   const { page, prevData } = props;
-  const id = prevData.id;
+  const id = prevData?.id;
+  const { title, description } = data;
 
   useEffect(() => {
     if (page === "edit") {
       setData({
-        title: prevData.title,
-        description: prevData.description,
-        category: categoryToUpper(prevData.category),
-        status: statusToUpper(prevData.status),
+        title: prevData!.title,
+        description: prevData!.description,
+        category: prevData!.category,
+        status: prevData!.status,
       });
     }
   }, []);
 
+  useEffect(() => {
+    if (title.trim() === "" || description.trim() === "") setIsValid(false);
+    else setIsValid(true);
+  }, [title, description]);
+
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
+
+    if (data.title.trim() === "" || data.description.trim() === "") return;
+
     if (page === "edit") {
-      dispatch(editSug({ ...prevData, ...data }));
+      dispatch(editSug({ ...prevData!, ...data }));
     } else {
       const newItem = {
-        id: curLastIds.sug,
+        id: curLastIds.sug + 1,
         upvotes: 0,
         ...data,
       };
-      console.log(newItem);
-      // dispatch(addSug(newItem));
+      dispatch(addSug(newItem));
     }
   };
 
@@ -64,7 +71,7 @@ const FeedbackForm = (props: Props) => {
         {page === "edit" && <SelectForm state="status" dataState={dataState} />}
         <TextareaForm dataState={dataState} />
       </div>
-      <BtnsContainer page={page} sugId={id} />
+      <BtnsContainer page={page} sugId={id} isValid={isValid} />
     </form>
   );
 };

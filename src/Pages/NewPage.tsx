@@ -1,47 +1,37 @@
 import { Fragment, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 import GoBack from "../components/ui/GoBack";
-import EditMain from "../components/edit&newPage/EditMain";
+import NewMain from "../components/edit&newPage/NewMain";
 import ErrorNotification from "../components/ui/Error";
 
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";
 
-const EditPage = (props: PageProps) => {
+const NewFeedbackPage = (props: PageProps) => {
   const navigate = useNavigate();
-  const { requestId } = useParams();
-  const { sugId, error, fulfilled } = useAppSelector(
-    (state) => state.suggestions
-  );
+  const { error, fulfilled } = useAppSelector((state) => state.suggestions);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (sugId === "") {
-      return navigate(`/detail/${requestId}`, { replace: true });
-    }
-    changeRootStyle("edit");
+    changeRootStyle("new");
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    if (fulfilled === "delete") {
+    if (fulfilled === "new") {
       navigate("/", { replace: true });
       dispatch(suggestionsActions.changeFulfilled());
     }
-    if (fulfilled === "edit") {
-      navigate(`/detail/${requestId}`, { replace: true });
-      dispatch(suggestionsActions.changeFulfilled());
-    }
-  }, [fulfilled, requestId, navigate, dispatch]);
+  }, [fulfilled, navigate, dispatch]);
 
   return (
     <Fragment>
       <header>
         <GoBack />
       </header>
-      <EditMain />
+      <NewMain />
       {props.showError && (
         <ErrorNotification message={error!} onClickCancelBtn={props.handler} />
       )}
@@ -49,4 +39,4 @@ const EditPage = (props: PageProps) => {
   );
 };
 
-export default EditPage;
+export default NewFeedbackPage;

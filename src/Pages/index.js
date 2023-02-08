@@ -1,13 +1,13 @@
 import SuggestionsPage from "./SuggestionsPage";
 import DetailPage from "./DetailPage";
 import EditPage from "./EditPage";
-// import NewFeedbackPage from "./NewFeedbackPage";
+import NewPage from "./NewPage";
 // import RoadMapPage from "./RoadMapPage";
 
 export {
+  SuggestionsPage,
   DetailPage,
   EditPage,
-  // NewFeedbackPage,
-  SuggestionsPage,
+  NewPage,
   // RoadMapPage,
 };

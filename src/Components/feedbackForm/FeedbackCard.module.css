@@ -32,9 +32,15 @@
   }
 
   .card {
-    row-gap: 7.5rem;
-
     padding: 5.2rem 4.2rem 4rem;
+  }
+
+  .editCard {
+    row-gap: 7.5rem;
+  }
+
+  .newCard {
+    row-gap: 4rem;
   }
 
   .card h2 {

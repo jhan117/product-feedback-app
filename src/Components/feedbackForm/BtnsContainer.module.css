@@ -38,6 +38,10 @@
   background-color: hsl(282, 90%, 66%);
 }
 
+.submitBtn:disabled {
+  cursor: not-allowed;
+}
+
 /* tablet */
 @media only screen and (min-width: 40em) {
   .BtnsCon {

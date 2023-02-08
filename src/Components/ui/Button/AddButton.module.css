@@ -1,4 +1,4 @@
-.feedbackBtn {
+.addBtn {
   border-radius: 1rem;
   background-color: var(--purple);
 
@@ -6,25 +6,25 @@
   height: 4rem;
 }
 
-.feedbackBtnText {
+.addBtnText {
   font-size: 1.3rem;
   font-weight: 600;
   line-height: 1.9rem;
   color: var(--dark-white);
 }
 
-.feedbackBtn:hover {
+.addBtn:hover {
   background-color: hsl(282, 90%, 66%);
 }
 
 /* tablet */
 @media only screen and (min-width: 40em) {
-  .feedbackBtn {
+  .addBtn {
     width: 15.8rem;
     height: 4.4rem;
   }
 
-  .feedbackBtnText {
+  .addBtnText {
     font-size: 1.4rem;
     line-height: 2rem;
   }

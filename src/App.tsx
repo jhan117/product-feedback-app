@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
 import {
+  SuggestionsPage,
   DetailPage,
   EditPage,
-  // NewFeedbackPage,
-  SuggestionsPage,
+  NewPage,
   // RoadMapPage,
 } from "./pages";
 
@@ -42,13 +42,11 @@ const App = () => {
         path="/edit/:requestId"
         element={<EditPage showError={showError} handler={errorHandler} />}
       />
-      {/* <Route
-        path="/add/*"
-        element={
-          <NewFeedbackPage isSubmit={isSubmit} setIsSubmit={setIsSubmit} />
-        }
+      <Route
+        path="/add"
+        element={<NewPage showError={showError} handler={errorHandler} />}
       />
-      <Route path="/roadmap/*" element={<RoadMapPage />} /> */}
+      {/* <Route path="/roadmap/*" element={<RoadMapPage />} /> */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

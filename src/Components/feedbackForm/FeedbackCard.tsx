@@ -8,19 +8,23 @@ import classes from "./FeedbackCard.module.css";
 
 interface Props {
   page: string;
-  prevData: Suggestion;
+  prevData?: Suggestion;
   children: ReactNode;
 }
 
 const FeedbackCard = (props: Props) => {
   return (
     <Fragment>
-      {props.page === "new" ? (
-        <IconNewFeedback viewBox="0 0 56 56" className={classes.icon} />
-      ) : (
+      {props.page === "edit" ? (
         <IconEditFeedback viewBox="0 0 40 40" className={classes.icon} />
+      ) : (
+        <IconNewFeedback viewBox="0 0 56 56" className={classes.icon} />
       )}
-      <Card className={classes.card}>
+      <Card
+        className={`${classes.card} ${
+          props.page === "edit" ? classes.editCard : classes.newCard
+        }`}
+      >
         <h2>{props.children}</h2>
         <FeedbackForm page={props.page} prevData={props.prevData} />
       </Card>

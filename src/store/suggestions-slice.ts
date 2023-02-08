@@ -5,6 +5,7 @@ import { getAllComments, getLastId } from "../utils/getCnt";
 import {
   addComment,
   addReply,
+  addSug,
   deleteSug,
   editSug,
   fetchData,
@@ -49,6 +50,9 @@ const suggestionsSlice = createSlice({
     },
     cancelError(state) {
       state.error = undefined;
+    },
+    changeFulfilled(state) {
+      state.fulfilled = "";
     },
   },
   extraReducers(builder) {
@@ -178,6 +182,19 @@ const suggestionsSlice = createSlice({
         state.fulfilled = "delete";
       })
       .addCase(deleteSug.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(addSug.pending, (state) => {
+        state.error = undefined;
+      })
+      .addCase(addSug.fulfilled, (state, action) => {
+        const feedback = action.payload;
+
+        state.suggestionItems.push(feedback);
+
+        state.fulfilled = "new";
+      })
+      .addCase(addSug.rejected, (state, action) => {
         state.error = action.payload as string;
       });
   },

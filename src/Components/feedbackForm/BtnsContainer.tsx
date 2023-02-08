@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 
 import classes from "./BtnsContainer.module.css";
 
@@ -7,7 +7,8 @@ import { deleteSug } from "../../store/suggestions-thunks";
 
 interface Props {
   page: string;
-  sugId: number;
+  sugId?: number;
+  isValid: boolean;
 }
 
 const BtnsContainer = (props: Props) => {
@@ -21,12 +22,16 @@ const BtnsContainer = (props: Props) => {
   };
 
   const deleteHandler = () => {
-    dispatch(deleteSug(sugId));
+    dispatch(deleteSug(sugId!));
   };
 
   return (
     <div className={classes.BtnsCon}>
-      <button className={classes.submitBtn} type="submit">
+      <button
+        className={classes.submitBtn}
+        type="submit"
+        disabled={!props.isValid}
+      >
         {page === "edit" ? "Save Changes" : "Add Feedback"}
       </button>
       <button

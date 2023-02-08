@@ -13,7 +13,11 @@ import { useAppSelector } from "../../store/hooks";
 import Option from "./Option";
 import classes from "./Select.module.css";
 
-import { listIdToName } from "../../utils/changeName";
+import {
+  categoryToUpper,
+  listIdToName,
+  statusToUpper,
+} from "../../utils/changeName";
 import { optionTagList, sortList, statusList } from "../../utils/nameList";
 import useResize from "../../hooks/useResize";
 
@@ -68,10 +72,10 @@ const Select = (props: Props) => {
     );
   } else if (state === "status") {
     currentList = statusList;
-    content = dataState![0].status;
+    content = statusToUpper(dataState![0].status);
   } else {
     currentList = optionTagList;
-    content = dataState![0].category;
+    content = categoryToUpper(dataState![0].category);
   }
 
   // form style, sort style
