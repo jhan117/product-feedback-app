@@ -30,7 +30,7 @@ export function SuggestionsContextProvider(props) {
   useEffect(() => {
     request
       .get(
-        "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests.json"
+        "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests.json"
       )
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
@@ -49,7 +49,7 @@ export function SuggestionsContextProvider(props) {
 
     request
       .get(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/currentUser.json`
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/currentUser.json`
       )
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
@@ -65,7 +65,7 @@ export function SuggestionsContextProvider(props) {
     // id, title, category, upvotes, status, description
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           curSuggestionId - 1
         }.json`,
         suggestion
@@ -82,7 +82,7 @@ export function SuggestionsContextProvider(props) {
     // id, title, category, upvotes, status, description
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }.json`,
         editedData
@@ -96,7 +96,7 @@ export function SuggestionsContextProvider(props) {
   function removeSuggestionHandler(suggestionId) {
     request
       .delete(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }.json`
       )
@@ -111,7 +111,7 @@ export function SuggestionsContextProvider(props) {
     // content, id, user
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }/comments/${commentCnt}.json`,
         comment
@@ -128,7 +128,7 @@ export function SuggestionsContextProvider(props) {
     // content, replyingTo, user
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }/comments/${commentCnt}/replies/${replyCnt}.json`,
         reply
@@ -143,7 +143,7 @@ export function SuggestionsContextProvider(props) {
   function addUpvoteHandler(suggestionId, prevUpvotes) {
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }.json`,
         {
@@ -164,7 +164,7 @@ export function SuggestionsContextProvider(props) {
   function removeUpvoteHandler(suggestionId, prevUpvotes) {
     request
       .patch(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           suggestionId - 1
         }.json`,
         {

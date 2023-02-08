@@ -32,7 +32,7 @@ function SuggestionsPage() {
     const timeoutId = setInterval(() => {
       request
         .get(
-          "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests.json"
+          "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests.json"
         )
         .then((response) => {
           if (!response.ok) throw new Error(response.statusText);

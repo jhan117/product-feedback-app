@@ -19,7 +19,7 @@ function EditFeedbackPage(props) {
     setIsLoading(true);
     request
       .get(
-        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests/${
+        `https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/dummy/productRequests/${
           requestId - 1
         }.json`
       )
