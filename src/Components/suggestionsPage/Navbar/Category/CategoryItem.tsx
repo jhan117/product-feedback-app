@@ -1,29 +1,32 @@
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { useSearchParams } from "react-router-dom";
 
 import classes from "./CategoryItem.module.css";
-
-import { selectActions } from "../../../../store/select-slice";
 
 interface Props {
   name: string;
 }
 
 const CategoryItem = (props: Props) => {
-  const filter = useAppSelector((state) => state.select.filter);
-  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get("category");
 
-  const className = `${classes.tagBtn} ${
-    filter === props.name && classes.onTagBtn
-  }`;
+  const { name } = props;
 
   const changeCategoryHandler = () => {
-    dispatch(selectActions.changeFilter(props.name));
+    searchParams.set("category", name.toLowerCase());
+    setSearchParams(searchParams);
   };
+
+  console.log(name);
+
+  const className = `${classes.tagBtn} ${
+    filter === name.toLowerCase() && classes.onTagBtn
+  }`;
 
   return (
     <li>
       <button className={className} onClick={changeCategoryHandler}>
-        {props.name}
+        {name}
       </button>
     </li>
   );

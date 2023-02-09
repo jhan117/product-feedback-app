@@ -7,7 +7,6 @@ import OptionList from "./OptionList";
 interface Props {
   state: string;
   dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
-  options: Item[];
   position: Pos;
   onClickOption: () => void;
 }
@@ -23,7 +22,6 @@ const Option = (props: Props) => {
         <OptionList
           state={props.state}
           dataState={props.dataState}
-          options={props.options}
           onClickOption={props.onClickOption}
           position={props.position}
         />,

@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../store/hooks";
+import { useSearchParams } from "react-router-dom";
 
 import MainBar from "./MainBar";
 import Loader from "../ui/Loader";
@@ -9,18 +10,23 @@ import classes from "./SugMain.module.css";
 import { selectSortedSugs } from "../../store/suggestions-slice";
 
 const SugMain = () => {
+  const searchParams = useSearchParams()[0];
   const state = useAppSelector((state) => state);
-  const data: Suggestion[] = selectSortedSugs(state)!;
-  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
-  const error = useAppSelector((state) => state.suggestions.error);
+  const data: Suggestion[] | undefined = selectSortedSugs(
+    state,
+    searchParams.get("category") || "all",
+    searchParams.get("sort") || "most_upvotes"
+  );
 
-  const dataLength = data.length;
+  const { isLoading, error } = state.suggestions;
 
   let content;
-  if (dataLength > 0) {
-    content = <SuggestionList items={data} />;
-  } else {
-    content = <EmptyContent />;
+  if (data) {
+    if (data.length > 0) {
+      content = <SuggestionList items={data} />;
+    } else {
+      content = <EmptyContent />;
+    }
   }
   if (isLoading) {
     content = <Loader />;
@@ -28,7 +34,7 @@ const SugMain = () => {
 
   return (
     <main className={classes.sugMain}>
-      <MainBar length={dataLength} />
+      <MainBar length={data?.length || 0} />
       {error !== "Failed to get data" && content}
     </main>
   );

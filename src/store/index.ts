@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import suggestionsSlice from "./suggestions-slice";
-import selectSlice from "./select-slice";
 
 const store = configureStore({
   reducer: {
     suggestions: suggestionsSlice.reducer,
-    select: selectSlice.reducer,
   },
 });
 

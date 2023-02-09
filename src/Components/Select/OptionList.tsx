@@ -4,11 +4,11 @@ import OptionItem from "./OptionItem";
 import classes from "./OptionList.module.css";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { sortList, statusList, optionTagList } from "../../utils/nameList";
 
 interface Props {
   state: string;
   dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
-  options: Item[];
   onClickOption: () => void;
   position: Pos;
 }
@@ -25,12 +25,17 @@ const OptionList = (props: Props) => {
     isSort ? classes.sortUl : classes.formUl
   }`;
 
+  let options: Item[];
+  if (isSort) options = sortList;
+  else if (props.state === "status") options = statusList;
+  else options = optionTagList;
+
   return (
     <ul className={ulStyle} style={ulPos}>
-      {props.options.map((option, idx) => (
+      {options.map((option, idx) => (
         <OptionItem
           key={option.id}
-          id={option.id}
+          name={option.name}
           state={props.state}
           dataState={props.dataState}
           onClickOption={props.onClickOption}

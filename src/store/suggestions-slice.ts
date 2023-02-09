@@ -207,35 +207,32 @@ export default suggestionsSlice;
 export const selectFilteredSugs = createSelector(
   [
     (state): Suggestion[] => state.suggestions.suggestionItems,
-    (state): string => state.select.filter,
+    (state, filter): string => filter,
   ],
   (items, filter) => {
-    if (filter === "All") {
+    if (filter === "all") {
       return { items, length: items.length };
     }
-
-    const filteredItems = items.filter(
-      (item) => item.category === filter.toLowerCase()
-    );
+    const filteredItems = items.filter((item) => item.category === filter);
     return { items: filteredItems, length: filteredItems.length };
   }
 );
 
 export const selectSortedSugs = createSelector(
-  [selectFilteredSugs, (state): string => state.select.sort],
+  [selectFilteredSugs, (state, filter, sort): string => sort],
   (sugs, sort) => {
     const items = [...sugs.items];
 
     switch (sort) {
-      case "s1":
+      case "most_upvotes":
         return items.sort((a, b) => b.upvotes - a.upvotes);
-      case "s2":
+      case "least_upvotes":
         return items.sort((a, b) => a.upvotes - b.upvotes);
-      case "s3":
+      case "most_comments":
         return items.sort(
           (a, b) => getAllComments(b.comments!) - getAllComments(a.comments!)
         );
-      case "s4":
+      case "least_comments":
         return items.sort(
           (a, b) => getAllComments(a.comments!) - getAllComments(b.comments!)
         );

@@ -8,17 +8,16 @@ import {
   useRef,
   useState,
 } from "react";
-import { useAppSelector } from "../../store/hooks";
+import { useSearchParams } from "react-router-dom";
 
 import Option from "./Option";
 import classes from "./Select.module.css";
 
 import {
   categoryToUpper,
-  listIdToName,
   statusToUpper,
+  queryToName,
 } from "../../utils/changeName";
-import { optionTagList, sortList, statusList } from "../../utils/nameList";
 import useResize from "../../hooks/useResize";
 
 interface Props {
@@ -29,9 +28,9 @@ interface Props {
 
 const Select = (props: Props) => {
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const sortId = useAppSelector((state) => state.select.sort);
   const conRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<Pos>({ top: 0, left: 0 });
+  const searchParams = useSearchParams()[0];
 
   const { state, dataState } = props;
   const isSort = state === "sort";
@@ -61,20 +60,16 @@ const Select = (props: Props) => {
   };
 
   let content;
-  let currentList;
   if (isSort) {
-    currentList = sortList;
     content = (
       <Fragment>
         <span>Sort by : </span>
-        {listIdToName(state, sortId)}
+        {queryToName(searchParams.get("sort") || "most_upvotes")}
       </Fragment>
     );
   } else if (state === "status") {
-    currentList = statusList;
     content = statusToUpper(dataState![0].status);
   } else {
-    currentList = optionTagList;
     content = categoryToUpper(dataState![0].category);
   }
 
@@ -101,7 +96,6 @@ const Select = (props: Props) => {
           onClickOption={optionClickHandler}
           state={state}
           dataState={dataState}
-          options={currentList}
           position={position}
         />
       )}
