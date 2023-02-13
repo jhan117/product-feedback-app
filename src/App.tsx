@@ -2,13 +2,11 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
-import {
-  SuggestionsPage,
-  DetailPage,
-  EditPage,
-  NewPage,
-  // RoadMapPage,
-} from "./pages";
+import SuggestionsPage from "./pages/SuggestionsPage";
+import DetailPage from "./pages/DetailPage";
+import EditPage from "./pages/EditPage";
+import NewPage from "./pages/NewPage";
+import RoadmapPage from "./pages/RoadmapPage";
 
 import { suggestionsActions } from "./store/suggestions-slice";
 
@@ -46,7 +44,10 @@ const App = () => {
         path="/add"
         element={<NewPage showError={showError} handler={errorHandler} />}
       />
-      {/* <Route path="/roadmap/*" element={<RoadMapPage />} /> */}
+      <Route
+        path="/roadmap"
+        element={<RoadmapPage showError={showError} handler={errorHandler} />}
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

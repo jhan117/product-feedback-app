@@ -2,7 +2,7 @@ import { ReactComponent as ImageEmpty } from "../../../assets/suggestions/illust
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import Card from "../../ui/Card";
-import FeedbackButton from "../../ui/Button/AddButton";
+import FeedbackButton from "../../ui/AddButton";
 import classes from "./EmptyContent.module.css";
 
 const EmptyContent = () => {

@@ -147,7 +147,7 @@ label p {
 
   .sugBody,
   .detailBody,
-  .roadBody {
+  .roadmapBody {
     width: 76.9rem;
   }
 
@@ -164,7 +164,7 @@ label p {
     width: 62rem;
   }
 
-  .roadBody {
+  .roadmapBody {
     display: flex;
     flex-direction: column;
     row-gap: 3.2rem;
@@ -206,7 +206,7 @@ label p {
     width: 54rem;
   }
 
-  .roadBody {
+  .roadmapBody {
     row-gap: 4.8rem;
     width: 111rem;
   }

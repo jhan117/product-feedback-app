@@ -1,8 +1,8 @@
 import classes from "./RoadmapItem.module.css";
 
-import SuggestionList from "../suggestionsPage/Suggestion/SuggestionList";
+import SuggestionList from "../../suggestionsPage/Suggestion/SuggestionList";
 
-function RoadmapItem(props) {
+const RoadmapItem = (props) => {
   return (
     <li className={classes.roadmapLi}>
       <header className={classes.roadHeader}>
@@ -14,6 +14,6 @@ function RoadmapItem(props) {
       <SuggestionList status={props.status} requests={props.requests} />
     </li>
   );
-}
+};
 
 export default RoadmapItem;

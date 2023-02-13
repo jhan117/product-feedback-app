@@ -9,7 +9,7 @@ import ErrorNotification from "../components/ui/Error";
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";
 
-const NewFeedbackPage = (props: PageProps) => {
+const NewPage = (props: PageProps) => {
   const navigate = useNavigate();
   const { error, fulfilled } = useAppSelector((state) => state.suggestions);
   const dispatch = useAppDispatch();
@@ -39,4 +39,4 @@ const NewFeedbackPage = (props: PageProps) => {
   );
 };
 
-export default NewFeedbackPage;
+export default NewPage;

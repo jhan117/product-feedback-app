@@ -1,6 +1,0 @@
-.roadmapNav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  border-bottom: 0.1rem solid hsla(231, 20%, 63%, 0.25);
-}

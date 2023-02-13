@@ -5,7 +5,7 @@ import classes from "./RoadmapList.module.css";
 
 import RoadmapItem from "./RoadmapItem";
 
-function RoadmapList(props) {
+const RoadmapList = (props) => {
   // const statusCtx = useContext(StatusContext);
 
   return (
@@ -30,6 +30,6 @@ function RoadmapList(props) {
       })}
     </ul>
   );
-}
+};
 
 export default RoadmapList;
