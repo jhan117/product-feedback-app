@@ -1,43 +1,39 @@
+import { useAppSelector } from "../../store/hooks";
+
+import Loader from "../ui/Loader";
+import RoadmapItem from "./Roadmap/RoadmapItem";
+import RoadmapList from "./Roadmap/RoadmapList";
 import classes from "./RoadmapMain.module.css";
 
-const RoadmapMain = () => {
-  const getContent = (status) => {
-    switch (status) {
-      case "planned":
-        return <p>Ideas prioritized for research</p>;
-      case "in-progress":
-        // tablet과 desktop은 features가 없는데... 흠...!
-        return <p>Features currently being developed</p>;
-      case "live":
-        return <p>Released features</p>;
-      default:
-        break;
-    }
-  };
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { selectStatusSugs } from "../../store/suggestions-slice";
 
-  let mainContent = "";
+const RoadmapMain = ({ selectStatus }: { selectStatus: string }) => {
+  const { isLoading, statusItems, error } = useAppSelector(
+    (state) => state.suggestions
+  );
+  const isTablet = useMediaQuery("tablet");
+  const statusItem: StatusItem | undefined = selectStatusSugs(
+    statusItems,
+    selectStatus
+  );
 
+  let content;
   if (isLoading) {
-    mainContent = "loading...";
-  } else {
-    mainContent = isTablet ? (
-      <RoadmapList
-        statusList={statusList}
-        data={loadedData}
-        getFunc={getContent}
-      />
-    ) : (
-      <RoadmapItem
-        title={statusCtx.changeStatusName(curStatus)}
-        length={currSuggestions.length}
-        desc={getContent(curStatus)}
-        status={curStatus}
-        requests={currSuggestions}
-      />
-    );
+    content = <Loader />;
+  } else if (statusItem) {
+    if (isTablet) {
+      content = <RoadmapList />;
+    } else {
+      content = <RoadmapItem statusItem={statusItem} />;
+    }
   }
 
-  return <main className={classes.main}>{mainContent}</main>;
+  return (
+    <main className={classes.main}>
+      {error !== "Failed to get data" && content}
+    </main>
+  );
 };
 
 export default RoadmapMain;

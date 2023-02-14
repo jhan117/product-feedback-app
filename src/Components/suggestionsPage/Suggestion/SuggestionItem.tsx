@@ -5,7 +5,7 @@ import UpvotesBtn from "./UpvotesBtn";
 import StatusDeco from "../../ui/StatusDeco";
 import classes from "./SuggestionItem.module.css";
 
-import { categoryToUpper } from "../../../utils/changeName";
+import { categoryToUpper, statusToUpper } from "../../../utils/changeName";
 import { getAllComments } from "../../../utils/getCnt";
 
 interface Props {
@@ -26,7 +26,7 @@ const SuggestionItem = (props: Props) => {
   const roadmapHeader = (
     <Fragment>
       <div className={classes.liBorder} />
-      <StatusDeco status={status} />
+      <StatusDeco status={statusToUpper(status)} />
     </Fragment>
   );
 

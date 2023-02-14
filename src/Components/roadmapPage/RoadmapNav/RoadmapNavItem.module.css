@@ -5,8 +5,13 @@
   font-size: 1.3rem;
   line-height: 1.9rem;
   letter-spacing: -0.018rem;
-  color: hsla(230, 31%, 31%, 0.4);
+  color: var(--dark-indigo);
+  opacity: 0.4;
 
   cursor: pointer;
   text-align: center;
+}
+
+.roadmapLi:hover {
+  opacity: 0.6;
 }

@@ -17,8 +17,6 @@ const CategoryItem = (props: Props) => {
     setSearchParams(searchParams);
   };
 
-  console.log(name);
-
   const className = `${classes.tagBtn} ${
     filter === name.toLowerCase() && classes.onTagBtn
   }`;

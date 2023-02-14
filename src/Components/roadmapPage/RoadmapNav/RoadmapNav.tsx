@@ -1,25 +1,26 @@
-import { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
+import { Dispatch, SetStateAction } from "react";
 
-import RoadmapItem from "./RoadmapItem";
+import RoadmapNavItem from "./RoadmapNavItem";
 import classes from "./RoadmapNav.module.css";
 
-const RoadmapNav = () => {
-  const [selectStatus, setSelectStatus] = useState("planned");
+const RoadmapNav = (props: {
+  selectStatusState: [string, Dispatch<SetStateAction<string>>];
+}) => {
   const { statusItems } = useAppSelector((state) => state.suggestions);
+  const [selectStatus, setSelectStatus] = props.selectStatusState;
 
   return (
     <nav className={classes.roadmapNav}>
-      {statusItems.map(({ id, name, length }) => {
-        const lowerName = name.toLowerCase();
+      {statusItems.map((items) => {
+        const lowerName = items.name.toLowerCase();
         return (
-          <RoadmapItem
-            key={id}
-            name={name}
-            length={length}
+          <RoadmapNavItem
+            key={items.id}
+            items={items}
             setSelectStatus={setSelectStatus}
             className={
-              lowerName === selectStatus
+              items.id === selectStatus
                 ? `${classes[lowerName]} ${classes.btnClicked}`
                 : ""
             }

@@ -1,17 +1,24 @@
+import SuggestionList from "../../suggestionsPage/Suggestion/SuggestionList";
 import classes from "./RoadmapItem.module.css";
 
-import SuggestionList from "../../suggestionsPage/Suggestion/SuggestionList";
+const RoadmapItem = (props: { statusItem: StatusItem }) => {
+  const { id, name, items, length } = props.statusItem;
 
-const RoadmapItem = (props) => {
+  let describe;
+
+  if (id === "st2") describe = "Ideas prioritized for research";
+  if (id === "st3") describe = "Features currently being developed";
+  if (id === "st4") describe = "Released features";
+
   return (
     <li className={classes.roadmapLi}>
       <header className={classes.roadHeader}>
         <h2>
-          {props.title} ({props.length})
+          {name} ({length})
         </h2>
-        {props.desc}
+        <p>{describe}</p>
       </header>
-      <SuggestionList status={props.status} requests={props.requests} />
+      <SuggestionList isRoadmap={true} items={items} />
     </li>
   );
 };

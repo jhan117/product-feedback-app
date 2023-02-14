@@ -204,9 +204,16 @@ export const suggestionsActions = suggestionsSlice.actions;
 
 export default suggestionsSlice;
 
+export const selectStatusSugs = createSelector(
+  [(state): StatusItem[] => state, (state, status): string => status],
+  (items, status) => {
+    return items.find((item) => item.id === status);
+  }
+);
+
 export const selectFilteredSugs = createSelector(
   [
-    (state): Suggestion[] => state.suggestions.suggestionItems,
+    (state): Suggestion[] => state.suggestionItems,
     (state, filter): string => filter,
   ],
   (items, filter) => {

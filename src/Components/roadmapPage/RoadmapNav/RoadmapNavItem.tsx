@@ -1,30 +1,28 @@
 import { Dispatch, SetStateAction } from "react";
 
-import classes from "./RoadmapItem.module.css";
+import classes from "./RoadmapNavItem.module.css";
 
 interface Props {
-  name: string;
-  length: number;
+  items: StatusItem;
   setSelectStatus: Dispatch<SetStateAction<string>>;
   className: string;
 }
 
-const RoadmapItem = (props: Props) => {
-  const { name } = props;
+const RoadmapNavItem = (props: Props) => {
+  const { id, name, length } = props.items;
 
   const navClickHandler = () => {
-    props.setSelectStatus(name.toLowerCase());
+    props.setSelectStatus(id);
   };
 
   return (
-    // hover 기능 추가
     <li
       className={`${classes.roadmapLi} ${props.className}`}
       onClick={navClickHandler}
     >
-      {name} ({props.length})
+      {name} ({length})
     </li>
   );
 };
 
-export default RoadmapItem;
+export default RoadmapNavItem;

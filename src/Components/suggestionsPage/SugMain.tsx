@@ -11,14 +11,14 @@ import { selectSortedSugs } from "../../store/suggestions-slice";
 
 const SugMain = () => {
   const searchParams = useSearchParams()[0];
-  const state = useAppSelector((state) => state);
+  const state = useAppSelector((state) => state.suggestions);
   const data: Suggestion[] | undefined = selectSortedSugs(
     state,
     searchParams.get("category") || "all",
     searchParams.get("sort") || "most_upvotes"
   );
 
-  const { isLoading, error } = state.suggestions;
+  const { isLoading, error } = state;
 
   let content;
   if (data) {

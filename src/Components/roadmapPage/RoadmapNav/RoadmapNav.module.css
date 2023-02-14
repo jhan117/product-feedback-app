@@ -7,7 +7,7 @@
 
 .btnClicked {
   padding-bottom: 1.65rem;
-  color: var(--dark-indigo);
+  opacity: 1;
 }
 
 .planned {
