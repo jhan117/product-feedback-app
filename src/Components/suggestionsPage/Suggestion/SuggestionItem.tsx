@@ -25,7 +25,7 @@ const SuggestionItem = (props: Props) => {
   }`;
   const roadmapHeader = (
     <Fragment>
-      <div className={classes.liBorder} />
+      <div className={`${classes.liBorder} ${classes[status]}`} />
       <StatusDeco status={statusToUpper(status)} />
     </Fragment>
   );

@@ -15,7 +15,6 @@ import {
 interface SuggestionsState {
   currentUser: CurrentUser;
   suggestionItems: Suggestion[];
-  statusItems: StatusItem[];
   isLoading: boolean;
   error: string | undefined;
   sugId: string;
@@ -31,9 +30,6 @@ const initialState: SuggestionsState = {
     upvoteItems: [],
   },
   suggestionItems: [],
-  statusItems: statusList
-    .slice(1)
-    .map((item) => ({ ...item, items: [], length: 0 })),
   isLoading: true,
   error: undefined,
   sugId: "",
@@ -64,20 +60,8 @@ const suggestionsSlice = createSlice({
       .addCase(fetchData.fulfilled, (state, action) => {
         const { request, user } = action.payload;
 
-        const statusItems = state.statusItems.map((statusItem) => {
-          const items = request.filter(
-            (suggestion: Suggestion) =>
-              suggestion.status === statusItem.name.toLowerCase()
-          );
-          return {
-            ...statusItem,
-            items,
-            length: items.length,
-          };
-        });
         state.currentUser = user;
         state.suggestionItems = request;
-        state.statusItems = statusItems;
         state.isLoading = false;
         state.curLastIds = getLastId(request);
       })
@@ -204,8 +188,22 @@ export const suggestionsActions = suggestionsSlice.actions;
 
 export default suggestionsSlice;
 
-export const selectStatusSugs = createSelector(
-  [(state): StatusItem[] => state, (state, status): string => status],
+const FilteredStatus = statusList.slice(1);
+export const selectSugsByStatusAll = createSelector(
+  [(state): Suggestion[] => state],
+  (sugs) => {
+    return FilteredStatus.map((status) => {
+      const items = sugs.filter(
+        (sug) => sug.status === status.name.toLowerCase()
+      );
+
+      return { ...status, items, length: items.length };
+    });
+  }
+);
+
+export const selectSugsByStatus = createSelector(
+  [selectSugsByStatusAll, (state, status): string => status],
   (items, status) => {
     return items.find((item) => item.id === status);
   }

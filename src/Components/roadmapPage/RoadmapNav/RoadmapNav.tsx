@@ -4,10 +4,13 @@ import { Dispatch, SetStateAction } from "react";
 import RoadmapNavItem from "./RoadmapNavItem";
 import classes from "./RoadmapNav.module.css";
 
+import { selectSugsByStatusAll } from "../../../store/suggestions-slice";
+
 const RoadmapNav = (props: {
   selectStatusState: [string, Dispatch<SetStateAction<string>>];
 }) => {
-  const { statusItems } = useAppSelector((state) => state.suggestions);
+  const sugs = useAppSelector((state) => state.suggestions.suggestionItems);
+  const statusItems = selectSugsByStatusAll(sugs);
   const [selectStatus, setSelectStatus] = props.selectStatusState;
 
   return (

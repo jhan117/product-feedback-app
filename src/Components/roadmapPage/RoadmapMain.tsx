@@ -6,15 +6,15 @@ import RoadmapList from "./Roadmap/RoadmapList";
 import classes from "./RoadmapMain.module.css";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { selectStatusSugs } from "../../store/suggestions-slice";
+import { selectSugsByStatus } from "../../store/suggestions-slice";
 
 const RoadmapMain = ({ selectStatus }: { selectStatus: string }) => {
-  const { isLoading, statusItems, error } = useAppSelector(
+  const { isLoading, suggestionItems, error } = useAppSelector(
     (state) => state.suggestions
   );
   const isTablet = useMediaQuery("tablet");
-  const statusItem: StatusItem | undefined = selectStatusSugs(
-    statusItems,
+  const statusItem: StatusItem | undefined = selectSugsByStatus(
+    suggestionItems,
     selectStatus
   );
 
