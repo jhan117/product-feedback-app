@@ -1,0 +1,19 @@
+.inputCon {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  letter-spacing: -0.018rem;
+  color: hsl(0, 67%, 53%);
+
+  margin-top: -1.2rem;
+}
+
+.textError:focus {
+  outline: 0.1rem solid hsl(0, 67%, 53%);
+}

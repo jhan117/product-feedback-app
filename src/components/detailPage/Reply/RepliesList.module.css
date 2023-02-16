@@ -1,0 +1,30 @@
+.leftBorder {
+  position: absolute;
+  left: -2.4rem;
+  width: 0.1rem;
+  background-color: hsla(224, 20%, 49%, 0.1);
+}
+
+.repliesUl {
+  margin-left: 2.4rem;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .repliesUl {
+    margin-top: 1.5rem;
+    margin-left: 4.5rem;
+
+    row-gap: 3.2rem;
+  }
+
+  .leftBorder {
+    left: -2.9rem;
+  }
+}

@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.2rem;
+  padding: 2.1rem 2.4rem;
+}
+
+.roadHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roadHeader h2 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  letter-spacing: -0.025rem;
+  color: var(--indigo);
+}
+
+.roadViewLink {
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--blue);
+
+  text-decoration: underline;
+}
+
+.roadViewLink:hover {
+  color: hsla(230, 89%, 74%, 1);
+}
+
+/* desktop */
+@media only screen and (min-width: 82em) {
+  .container {
+    height: 17.8rem;
+  }
+}
