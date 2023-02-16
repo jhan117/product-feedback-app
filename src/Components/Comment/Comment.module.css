@@ -1,0 +1,21 @@
+.content {
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: var(--light-gray);
+}
+
+.content span {
+  font-weight: 700;
+  color: var(--purple);
+}
+
+/* tablet */
+@media only screen and (min-width: 40em) {
+  .content {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+
+    margin-left: 7.2rem;
+  }
+}

@@ -1,0 +1,19 @@
+.container {
+  padding: 3rem 2.1rem;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  row-gap: 1.4rem;
+  column-gap: 0.8rem;
+}
+
+/* desktop */
+@media only screen and (min-width: 82em) {
+  .container {
+    padding: 2.4rem;
+    height: 16.6rem;
+  }
+}

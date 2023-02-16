@@ -1,0 +1,21 @@
+.roadmapNav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  border-bottom: 0.1rem solid hsla(231, 20%, 63%, 0.25);
+}
+
+.btnClicked {
+  padding-bottom: 1.65rem;
+  opacity: 1;
+}
+
+.planned {
+  border-bottom: 0.35rem solid var(--scarlet);
+}
+.in-progress {
+  border-bottom: 0.35rem solid var(--purple);
+}
+.live {
+  border-bottom: 0.35rem solid var(--light-blue);
+}
