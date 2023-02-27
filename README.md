@@ -20,7 +20,7 @@
 
 ## Refactoring
 
-Refactoring 기간 : 2023-01-09 ~ 진행중
+Refactoring 기간 : 2023-01-09 ~ 2023-02-16
 
 #### 목표
 
