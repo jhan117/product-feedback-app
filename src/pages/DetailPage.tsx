@@ -18,8 +18,7 @@ const DetailPage = (props: PageProps) => {
   useEffect(() => {
     changeRootStyle("detail");
     dispatch(suggestionsActions.changeSug(id));
-    window.scrollTo(0, 0);
-  }, []);
+  }, [id, dispatch]);
 
   return (
     <Fragment>

@@ -22,7 +22,7 @@ const SuggestionsPage = (props: PageProps) => {
       pathname: location.pathname,
       search: "?sort=most_upvotes&category=all",
     });
-  }, []);
+  }, [dispatch, location.pathname, navigate]);
 
   return (
     <Fragment>

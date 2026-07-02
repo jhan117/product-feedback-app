@@ -23,7 +23,7 @@ const EditPage = (props: PageProps) => {
     }
     changeRootStyle("edit");
     window.scrollTo(0, 0);
-  }, []);
+  }, [navigate, requestId, sugId]);
 
   useEffect(() => {
     if (fulfilled === "delete") {
