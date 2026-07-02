@@ -3,10 +3,9 @@ import { RootState } from ".";
 
 import request from "../utils/request";
 
-const REQUEST_URL =
-  "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/productRequests";
-const USER_URL =
-  "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com/currentUser";
+const BASE_URL = process.env.REACT_APP_FIREBASE_URL || "https://product-feedback-app-33a7d-default-rtdb.firebaseio.com";
+const REQUEST_URL = `${BASE_URL}/productRequests`;
+const USER_URL = `${BASE_URL}/currentUser`;
 
 interface UpvotePayload {
   sugId: number;
