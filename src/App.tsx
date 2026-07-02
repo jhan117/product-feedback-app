@@ -33,15 +33,15 @@ const App = () => {
         }
       />
       <Route
-        path="/detail/:requestId"
+        path="/feedbacks/:requestId"
         element={<DetailPage showError={showError} handler={errorHandler} />}
       />
       <Route
-        path="/edit/:requestId"
+        path="/feedbacks/:requestId/edit"
         element={<EditPage showError={showError} handler={errorHandler} />}
       />
       <Route
-        path="/add"
+        path="/feedbacks/new"
         element={<NewPage showError={showError} handler={errorHandler} />}
       />
       <Route

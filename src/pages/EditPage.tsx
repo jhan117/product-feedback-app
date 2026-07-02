@@ -19,7 +19,7 @@ const EditPage = (props: PageProps) => {
 
   useEffect(() => {
     if (sugId === "") {
-      return navigate(`/detail/${requestId}`, { replace: true });
+      return navigate(`/feedbacks/${requestId}`, { replace: true });
     }
     changeRootStyle("edit");
     window.scrollTo(0, 0);
@@ -31,7 +31,7 @@ const EditPage = (props: PageProps) => {
       dispatch(suggestionsActions.changeFulfilled());
     }
     if (fulfilled === "edit") {
-      navigate(`/detail/${requestId}`, { replace: true });
+      navigate(`/feedbacks/${requestId}`, { replace: true });
       dispatch(suggestionsActions.changeFulfilled());
     }
   }, [fulfilled, requestId, navigate, dispatch]);

@@ -23,7 +23,8 @@ import useResize from "../../hooks/useResize";
 interface Props {
   state: string;
   length?: number;
-  dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  data?: FeedbackItem;
+  setData?: Dispatch<SetStateAction<FeedbackItem>>;
 }
 
 const Select = (props: Props) => {
@@ -32,7 +33,7 @@ const Select = (props: Props) => {
   const [position, setPosition] = useState<Pos>({ top: 0, left: 0 });
   const searchParams = useSearchParams()[0];
 
-  const { state, dataState } = props;
+  const { state, data, setData } = props;
   const isSort = state === "sort";
 
   const getPos = useCallback(() => {
@@ -68,9 +69,9 @@ const Select = (props: Props) => {
       </Fragment>
     );
   } else if (state === "status") {
-    content = statusToUpper(dataState![0].status);
+    content = statusToUpper(data!.status);
   } else {
-    content = categoryToUpper(dataState![0].category);
+    content = categoryToUpper(data!.category);
   }
 
   // form style, sort style
@@ -95,7 +96,8 @@ const Select = (props: Props) => {
         <Option
           onClickOption={optionClickHandler}
           state={state}
-          dataState={dataState}
+          data={data}
+          setData={setData}
           position={position}
         />
       )}

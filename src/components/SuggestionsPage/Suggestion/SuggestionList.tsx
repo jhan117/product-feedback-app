@@ -15,7 +15,7 @@ const SuggestionList = (props: Props) => {
     <ul className={ulClass}>
       {props.items.map((item) => (
         <li key={item.id}>
-          <Link to={`/detail/${item.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+          <Link to={`/feedbacks/${item.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <SuggestionItem
               isRoadmap={props.isRoadmap || false}
               item={item}

@@ -9,13 +9,11 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import { selectSugsByStatus } from "../../store/suggestions-slice";
 
 const RoadmapMain = ({ selectStatus }: { selectStatus: string }) => {
-  const { isLoading, suggestionItems, error } = useAppSelector(
-    (state) => state.suggestions
-  );
+  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const error = useAppSelector((state) => state.suggestions.error);
   const isTablet = useMediaQuery("tablet");
-  const statusItem: StatusItem | undefined = selectSugsByStatus(
-    suggestionItems,
-    selectStatus
+  const statusItem: StatusItem | undefined = useAppSelector((state) =>
+    selectSugsByStatus(state, selectStatus)
   );
 
   let content;

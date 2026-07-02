@@ -6,8 +6,7 @@ import classes from "./NavRoadmapList.module.css";
 import { selectSugsByStatusAll } from "../../../../store/suggestions-slice";
 
 const NavRoadmapList = () => {
-  const sugs = useAppSelector((state) => state.suggestions.suggestionItems);
-  const statusItems = selectSugsByStatusAll(sugs);
+  const statusItems = useAppSelector(selectSugsByStatusAll);
 
   return (
     <ul className={classes.roadList}>

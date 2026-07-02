@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { RootState } from ".";
 
 import { statusList } from "../utils/nameList";
 import { getAllComments, getLastId } from "../utils/getCnt";
@@ -197,7 +198,7 @@ export default suggestionsSlice;
 
 const FilteredStatus = statusList.slice(1);
 export const selectSugsByStatusAll = createSelector(
-  [(state): Suggestion[] => state],
+  [(state: RootState): Suggestion[] => state.suggestions.suggestionItems],
   (sugs) => {
     return FilteredStatus.map((status) => {
       const items = sugs.filter(
@@ -210,7 +211,7 @@ export const selectSugsByStatusAll = createSelector(
 );
 
 export const selectSugsByStatus = createSelector(
-  [selectSugsByStatusAll, (state, status): string => status],
+  [selectSugsByStatusAll, (state: RootState, status: string): string => status],
   (items, status) => {
     return items.find((item) => item.id === status);
   }
@@ -218,8 +219,8 @@ export const selectSugsByStatus = createSelector(
 
 export const selectFilteredSugs = createSelector(
   [
-    (state): Suggestion[] => state.suggestionItems,
-    (state, filter): string => filter,
+    (state: RootState): Suggestion[] => state.suggestions.suggestionItems,
+    (state: RootState, filter: string): string => filter,
   ],
   (items, filter) => {
     if (filter === "all") {
@@ -231,7 +232,7 @@ export const selectFilteredSugs = createSelector(
 );
 
 export const selectSortedSugs = createSelector(
-  [selectFilteredSugs, (state, filter, sort): string => sort],
+  [selectFilteredSugs, (state: RootState, filter: string, sort: string): string => sort],
   (sugs, sort) => {
     const items = [...sugs.items];
 
@@ -256,8 +257,8 @@ export const selectSortedSugs = createSelector(
 
 export const selectSugById = createSelector(
   [
-    (state): Suggestion[] => state.suggestionItems,
-    (state): string => state.sugId,
+    (state: RootState): Suggestion[] => state.suggestions.suggestionItems,
+    (state: RootState): string => state.suggestions.sugId,
   ],
   (items, sugId) => {
     return items.find((item) => item.id === Number(sugId));

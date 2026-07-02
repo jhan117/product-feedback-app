@@ -7,11 +7,11 @@ import classes from "./RoadmapNav.module.css";
 import { selectSugsByStatusAll } from "../../../store/suggestions-slice";
 
 const RoadmapNav = (props: {
-  selectStatusState: [string, Dispatch<SetStateAction<string>>];
+  selectStatus: string;
+  setSelectStatus: Dispatch<SetStateAction<string>>;
 }) => {
-  const sugs = useAppSelector((state) => state.suggestions.suggestionItems);
-  const statusItems = selectSugsByStatusAll(sugs);
-  const [selectStatus, setSelectStatus] = props.selectStatusState;
+  const statusItems = useAppSelector(selectSugsByStatusAll);
+  const { selectStatus, setSelectStatus } = props;
 
   return (
     <nav className={classes.roadmapNav}>

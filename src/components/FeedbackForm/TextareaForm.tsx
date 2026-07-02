@@ -9,11 +9,12 @@ import {
 import classes from "./TextareaForm.module.css";
 
 interface Props {
-  dataState: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  data: FeedbackItem;
+  setData: Dispatch<SetStateAction<FeedbackItem>>;
 }
 
 const TextareaForm = (props: Props) => {
-  const [data, setData] = props.dataState;
+  const { data, setData } = props;
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 

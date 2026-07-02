@@ -7,11 +7,11 @@ import classes from "./EditMain.module.css";
 import { selectSugById } from "../../store/suggestions-slice";
 
 const EditMain = () => {
-  const sugState = useAppSelector((state) => state.suggestions);
-  const suggestion: Suggestion = selectSugById(sugState)!;
+  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const suggestion: Suggestion | undefined = useAppSelector(selectSugById);
 
   let content;
-  if (sugState.isLoading || !suggestion) {
+  if (isLoading || !suggestion) {
     content = <Loader />;
   } else {
     content = (

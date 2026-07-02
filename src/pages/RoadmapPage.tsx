@@ -8,7 +8,7 @@ import ErrorNotification from "../components/UI/Error";
 import changeRootStyle from "../utils/changeRootStyle";
 
 const RoadmapPage = (props: PageProps) => {
-  const selectStatusState = useState("st2");
+  const [selectStatus, setSelectStatus] = useState("st2");
   const { error } = useAppSelector((state) => state.suggestions);
 
   useEffect(() => {
@@ -18,8 +18,8 @@ const RoadmapPage = (props: PageProps) => {
 
   return (
     <Fragment>
-      <RoadmapHeader selectStatusState={selectStatusState} />
-      <RoadmapMain selectStatus={selectStatusState[0]} />
+      <RoadmapHeader selectStatus={selectStatus} setSelectStatus={setSelectStatus} />
+      <RoadmapMain selectStatus={selectStatus} />
       {props.showError && (
         <ErrorNotification message={error!} onClickCancelBtn={props.handler} />
       )}

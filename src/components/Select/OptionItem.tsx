@@ -7,7 +7,8 @@ import classes from "./OptionItem.module.css";
 interface Props {
   name: string;
   state: string;
-  dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  data?: FeedbackItem;
+  setData?: Dispatch<SetStateAction<FeedbackItem>>;
   onClickOption: () => void;
   className: string;
 }
@@ -23,9 +24,9 @@ const OptionItem = (props: Props) => {
   if (isSort) {
     currentName = searchParams.get("sort");
   } else if (state === "status") {
-    currentName = props.dataState![0].status;
+    currentName = props.data!.status;
   } else {
-    currentName = props.dataState![0].category;
+    currentName = props.data!.category;
   }
 
   const optionItemClickHandler = () => {
@@ -33,7 +34,7 @@ const OptionItem = (props: Props) => {
       searchParams.set("sort", lowerName.replace(" ", "_"));
       setSearchParams(searchParams);
     } else {
-      const setData = props.dataState![1];
+      const setData = props.setData!;
       if (state === "status") {
         setData((prevState) => ({
           ...prevState,

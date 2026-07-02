@@ -15,11 +15,11 @@ interface Props {
 }
 
 const DetailMain = (props: Props) => {
-  const sugState = useAppSelector((state) => state.suggestions);
-  const suggestion: Suggestion = selectSugById(sugState)!;
+  const isLoading = useAppSelector((state) => state.suggestions.isLoading);
+  const suggestion: Suggestion | undefined = useAppSelector(selectSugById);
 
   let content;
-  if (sugState.isLoading || !suggestion) {
+  if (isLoading || !suggestion) {
     content = <Loader />;
   } else {
     content = (

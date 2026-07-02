@@ -19,7 +19,7 @@ const DetailHeader = (props: Props) => {
     <header className={classes.detailHeader}>
       <GoBack />
       <button className={classes.editBtn} disabled={isLoading}>
-        <Link className={linkStyle} to={`/edit/${props.id}`}>
+        <Link className={linkStyle} to={`/feedbacks/${props.id}/edit`}>
           Edit Feedback
         </Link>
       </button>

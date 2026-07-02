@@ -15,13 +15,12 @@ interface Props {
 }
 
 const FeedbackForm = (props: Props) => {
-  const dataState = useState<FeedbackItem>({
+  const [data, setData] = useState<FeedbackItem>({
     title: "",
     category: "feature",
     status: "suggestion",
     description: "",
   });
-  const [data, setData] = dataState;
   const dispatch = useAppDispatch();
   const { curLastIds } = useAppSelector((state) => state.suggestions);
   const [isValid, setIsValid] = useState(false);
@@ -66,10 +65,10 @@ const FeedbackForm = (props: Props) => {
   return (
     <form className={classes.feedbackForm} onSubmit={submitHandler}>
       <div className={classes.formText}>
-        <InputForm dataState={dataState} />
-        <SelectForm state="category" dataState={dataState} />
-        {page === "edit" && <SelectForm state="status" dataState={dataState} />}
-        <TextareaForm dataState={dataState} />
+        <InputForm data={data} setData={setData} />
+        <SelectForm state="category" data={data} setData={setData} />
+        {page === "edit" && <SelectForm state="status" data={data} setData={setData} />}
+        <TextareaForm data={data} setData={setData} />
       </div>
       <BtnsContainer page={page} sugId={id} isValid={isValid} />
     </form>

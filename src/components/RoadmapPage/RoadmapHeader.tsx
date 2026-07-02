@@ -8,9 +8,11 @@ import classes from "./RoadmapHeader.module.css";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const RoadmapHeader = ({
-  selectStatusState,
+  selectStatus,
+  setSelectStatus,
 }: {
-  selectStatusState: [string, Dispatch<SetStateAction<string>>];
+  selectStatus: string;
+  setSelectStatus: Dispatch<SetStateAction<string>>;
 }) => {
   const isTablet = useMediaQuery("tablet");
 
@@ -23,7 +25,7 @@ const RoadmapHeader = ({
         </div>
         <AddButton />
       </header>
-      {!isTablet && <RoadmapNav selectStatusState={selectStatusState} />}
+      {!isTablet && <RoadmapNav selectStatus={selectStatus} setSelectStatus={setSelectStatus} />}
     </Fragment>
   );
 };

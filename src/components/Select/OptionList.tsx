@@ -8,7 +8,8 @@ import { sortList, statusList, optionTagList } from "../../utils/nameList";
 
 interface Props {
   state: string;
-  dataState?: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  data?: FeedbackItem;
+  setData?: Dispatch<SetStateAction<FeedbackItem>>;
   onClickOption: () => void;
   position: Pos;
 }
@@ -37,7 +38,8 @@ const OptionList = (props: Props) => {
           key={option.id}
           name={option.name}
           state={props.state}
-          dataState={props.dataState}
+          data={props.data}
+          setData={props.setData}
           onClickOption={props.onClickOption}
           className={idx === 0 ? "" : classes.firstLi}
         />

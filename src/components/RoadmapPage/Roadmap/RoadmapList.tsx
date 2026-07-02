@@ -6,8 +6,7 @@ import classes from "./RoadmapList.module.css";
 import { selectSugsByStatusAll } from "../../../store/suggestions-slice";
 
 const RoadmapList = () => {
-  const { suggestionItems } = useAppSelector((state) => state.suggestions);
-  const statusItems = selectSugsByStatusAll(suggestionItems);
+  const statusItems = useAppSelector(selectSugsByStatusAll);
 
   return (
     <ul className={classes.roadmapUl}>

@@ -5,7 +5,8 @@ import classes from "./SelectForm.module.css";
 
 interface Props {
   state: string;
-  dataState: [FeedbackItem, Dispatch<SetStateAction<FeedbackItem>>];
+  data: FeedbackItem;
+  setData: Dispatch<SetStateAction<FeedbackItem>>;
 }
 
 const SelectForm = (props: Props) => {
@@ -25,7 +26,7 @@ const SelectForm = (props: Props) => {
         {labelTitle}
         <p>{labelDesc}</p>
       </label>
-      <Select state={props.state} dataState={props.dataState} />
+      <Select state={props.state} data={props.data} setData={props.setData} />
     </div>
   );
 };
