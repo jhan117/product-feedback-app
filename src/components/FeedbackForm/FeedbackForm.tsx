@@ -39,7 +39,7 @@ const FeedbackForm = (props: Props) => {
         status: prevData!.status,
       });
     }
-  }, []);
+  }, [page, prevData, setData]);
 
   useEffect(() => {
     if (title.trim() === "" || description.trim() === "") setIsValid(false);
