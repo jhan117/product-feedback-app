@@ -1,30 +1,40 @@
 const request = {
-  get(url: string) {
-    return fetch(url);
+  async get(url: string) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res;
   },
-  post(url: string, payload: {}) {
-    return fetch(url, {
+  async post(url: string, payload: unknown) {
+    const res = await fetch(url, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res;
   },
-  put(url: string, payload: {}) {
-    return fetch(url, {
+  async put(url: string, payload: unknown) {
+    const res = await fetch(url, {
       method: "PUT",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res;
   },
-  patch(url: string, payload: {}) {
-    return fetch(url, {
+  async patch(url: string, payload: unknown) {
+    const res = await fetch(url, {
       method: "PATCH",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res;
   },
-  delete(url: string) {
-    return fetch(url, { method: "DELETE" });
+  async delete(url: string) {
+    const res = await fetch(url, { method: "DELETE" });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res;
   },
 };
 

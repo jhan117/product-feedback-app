@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import { useAppSelector } from "../store/hooks";
 
-import RoadmapHeader from "../components/roadmapPage/RoadmapHeader";
-import RoadmapMain from "../components/roadmapPage/RoadmapMain";
-import ErrorNotification from "../components/ui/Error";
+import RoadmapHeader from "../components/RoadmapPage/RoadmapHeader";
+import RoadmapMain from "../components/RoadmapPage/RoadmapMain";
+import ErrorNotification from "../components/UI/Error";
 
 import changeRootStyle from "../utils/changeRootStyle";
 

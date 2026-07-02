@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import { useAppSelector } from "../../store/hooks";
 
-import Card from "../ui/Card";
-import Loader from "../ui/Loader";
+import Card from "../UI/Card";
+import Loader from "../UI/Loader";
 import CommentList from "./Comment/CommentList";
-import SuggestionItem from "../suggestionsPage/Suggestion/SuggestionItem";
+import SuggestionItem from "../SuggestionsPage/Suggestion/SuggestionItem";
 import classes from "./DetailMain.module.css";
 
 import { getAllComments } from "../../utils/getCnt";

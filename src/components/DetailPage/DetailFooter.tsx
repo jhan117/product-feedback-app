@@ -1,4 +1,4 @@
-import Card from "../ui/Card";
+import Card from "../UI/Card";
 import NewCommentForm from "./NewCommentForm";
 import classes from "./DetailFooter.module.css";
 

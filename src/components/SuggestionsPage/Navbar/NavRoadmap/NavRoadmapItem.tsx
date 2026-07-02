@@ -1,4 +1,4 @@
-import StatusDeco from "../../../ui/StatusDeco";
+import StatusDeco from "../../../UI/StatusDeco";
 import classes from "./NavRoadmapItem.module.css";
 
 interface Props {

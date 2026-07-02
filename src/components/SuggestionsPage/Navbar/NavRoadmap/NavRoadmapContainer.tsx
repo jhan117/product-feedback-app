@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import Card from "../../../ui/Card";
+import Card from "../../../UI/Card";
 import NavRoadmapList from "./NavRoadmapList";
 import classes from "./NavRoadmapContainer.module.css";
 

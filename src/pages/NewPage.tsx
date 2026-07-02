@@ -2,9 +2,9 @@ import { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-import GoBack from "../components/ui/GoBack";
-import NewMain from "../components/edit&newPage/NewMain";
-import ErrorNotification from "../components/ui/Error";
+import GoBack from "../components/UI/GoBack";
+import NewMain from "../components/EditAndNewPage/NewMain";
+import ErrorNotification from "../components/UI/Error";
 
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";

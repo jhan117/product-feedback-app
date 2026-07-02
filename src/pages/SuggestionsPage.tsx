@@ -2,9 +2,9 @@ import { Fragment, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import ErrorNotification from "../components/ui/Error";
-import SugMain from "../components/suggestionsPage/SugMain";
-import SugHeader from "../components/suggestionsPage/SugHeader";
+import ErrorNotification from "../components/UI/Error";
+import SugMain from "../components/SuggestionsPage/SugMain";
+import SugHeader from "../components/SuggestionsPage/SugHeader";
 
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";

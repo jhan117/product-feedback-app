@@ -13,9 +13,9 @@ export const getAllComments = (comments: Comments) => {
 };
 
 export const getLastId = (data: Suggestion[]) => {
-  const sugIds: number[] = [],
-    commentIds: number[] = [],
-    replyIds: number[] = [];
+  const sugIds: number[] = [0],
+    commentIds: number[] = [0],
+    replyIds: number[] = [0];
 
   for (const d of data) {
     sugIds.push(d.id);

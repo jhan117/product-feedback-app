@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../store/hooks";
 
-import Loader from "../ui/Loader";
+import Loader from "../UI/Loader";
 import RoadmapItem from "./Roadmap/RoadmapItem";
 import RoadmapList from "./Roadmap/RoadmapList";
 import classes from "./RoadmapMain.module.css";

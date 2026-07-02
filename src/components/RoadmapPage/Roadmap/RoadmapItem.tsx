@@ -1,4 +1,4 @@
-import SuggestionList from "../../suggestionsPage/Suggestion/SuggestionList";
+import SuggestionList from "../../SuggestionsPage/Suggestion/SuggestionList";
 import classes from "./RoadmapItem.module.css";
 
 const RoadmapItem = (props: { statusItem: StatusItem }) => {

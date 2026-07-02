@@ -33,7 +33,7 @@ interface CommentThunk {
 
 export const fetchData = createAsyncThunk<
   {
-    request: any[];
+    request: Suggestion[];
     user: CurrentUser;
   },
   void
@@ -48,7 +48,7 @@ export const fetchData = createAsyncThunk<
       userData.upvoteItems && Object.keys(userData.upvoteItems).map(Number);
 
     return {
-      request: Object.values(requestData),
+      request: requestData ? Object.values(requestData) : [],
       user: { ...userData, upvoteItems },
     };
   } catch (error) {

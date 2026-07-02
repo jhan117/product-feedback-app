@@ -14,13 +14,14 @@ const SuggestionList = (props: Props) => {
   return (
     <ul className={ulClass}>
       {props.items.map((item) => (
-        <Link key={item.id} to={`/detail/${item.id}`}>
-          <SuggestionItem
-            key={item.id}
-            isRoadmap={props.isRoadmap || false}
-            item={item}
-          />
-        </Link>
+        <li key={item.id}>
+          <Link to={`/detail/${item.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <SuggestionItem
+              isRoadmap={props.isRoadmap || false}
+              item={item}
+            />
+          </Link>
+        </li>
       ))}
     </ul>
   );

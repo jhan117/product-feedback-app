@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../store/hooks";
 
-import Loader from "../ui/Loader";
+import Loader from "../UI/Loader";
 import FeedbackCard from "../FeedbackForm/FeedbackCard";
 import classes from "./EditMain.module.css";
 

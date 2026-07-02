@@ -2,7 +2,7 @@ import { ReactComponent as IconNewFeedback } from "../../assets/shared/icon-new-
 import { ReactComponent as IconEditFeedback } from "../../assets/shared/icon-edit-feedback.svg";
 import { ReactNode, Fragment } from "react";
 
-import Card from "../ui/Card";
+import Card from "../UI/Card";
 import FeedbackForm from "./FeedbackForm";
 import classes from "./FeedbackCard.module.css";
 

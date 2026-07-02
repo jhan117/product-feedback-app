@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 
-import GoBack from "../ui/GoBack";
+import GoBack from "../UI/GoBack";
 import classes from "./DetailHeader.module.css";
 
 interface Props {

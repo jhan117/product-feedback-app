@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction } from "react";
 
-import GoBack from "../ui/GoBack";
-import AddButton from "../ui/AddButton";
+import GoBack from "../UI/GoBack";
+import AddButton from "../UI/AddButton";
 import RoadmapNav from "./RoadmapNav/RoadmapNav";
 import classes from "./RoadmapHeader.module.css";
 

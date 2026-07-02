@@ -2,7 +2,7 @@ import { useAppSelector } from "../../store/hooks";
 import { useSearchParams } from "react-router-dom";
 
 import MainBar from "./MainBar";
-import Loader from "../ui/Loader";
+import Loader from "../UI/Loader";
 import EmptyContent from "./Suggestion/EmptyContent";
 import SuggestionList from "./Suggestion/SuggestionList";
 import classes from "./SugMain.module.css";

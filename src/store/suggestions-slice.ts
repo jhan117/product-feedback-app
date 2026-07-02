@@ -67,6 +67,7 @@ const suggestionsSlice = createSlice({
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.error = action.payload as string;
+        state.isLoading = false;
       })
       .addCase(updateUpvoteData.pending, (state) => {
         state.error = undefined;
@@ -74,15 +75,16 @@ const suggestionsSlice = createSlice({
       .addCase(updateUpvoteData.fulfilled, (state, action) => {
         const { sugId, upvotes, isUpvoted } = action.payload;
 
-        state.suggestionItems.find((item) => item.id === sugId)!.upvotes =
-          upvotes;
+        const item = state.suggestionItems.find((item) => item.id === sugId);
+        if (item) item.upvotes = upvotes;
 
         if (isUpvoted) {
-          state.currentUser.upvoteItems = state.currentUser.upvoteItems!.filter(
+          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
             (item) => item !== sugId
           );
         } else {
-          state.currentUser.upvoteItems!.push(sugId);
+          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = [];
+          state.currentUser.upvoteItems.push(sugId);
         }
       })
       .addCase(updateUpvoteData.rejected, (state, action) => {
@@ -97,12 +99,16 @@ const suggestionsSlice = createSlice({
         const cId = `c${commentId}`;
         const rId = `r${reply.id}`;
 
-        const comment = state.suggestionItems.find(
-          (item) => item.id === Number(sugId)
-        )!.comments![cId];
-        if (comment.hasOwnProperty("replies")) comment.replies![rId] = reply;
-        else {
-          comment.replies = { [rId]: reply };
+        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        if (sug && sug.comments) {
+          const comment = sug.comments[cId];
+          if (comment) {
+            if (comment.hasOwnProperty("replies") && comment.replies) {
+              comment.replies[rId] = reply;
+            } else {
+              comment.replies = { [rId]: reply };
+            }
+          }
         }
         state.curLastIds.reply += 1;
       })
@@ -117,12 +123,13 @@ const suggestionsSlice = createSlice({
 
         const cId = `c${comment.id}`;
 
-        const sug = state.suggestionItems.find(
-          (item) => item.id === Number(sugId)
-        )!;
-        if (sug.hasOwnProperty("comments")) sug.comments![cId] = comment;
-        else {
-          sug.comments = { [cId]: comment };
+        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        if (sug) {
+          if (sug.hasOwnProperty("comments") && sug.comments) {
+            sug.comments[cId] = comment;
+          } else {
+            sug.comments = { [cId]: comment };
+          }
         }
 
         state.curLastIds.comment += 1;
@@ -136,13 +143,13 @@ const suggestionsSlice = createSlice({
       .addCase(editSug.fulfilled, (state, action) => {
         const feedback = action.payload;
 
-        const sug = state.suggestionItems.find(
-          (item) => item.id === feedback.id
-        )!;
-        sug.title = feedback.title;
-        sug.category = feedback.category;
-        sug.description = feedback.description;
-        sug.status = feedback.status;
+        const sug = state.suggestionItems.find((item) => item.id === feedback.id);
+        if (sug) {
+          sug.title = feedback.title;
+          sug.category = feedback.category;
+          sug.description = feedback.description;
+          sug.status = feedback.status;
+        }
         state.fulfilled = "edit";
       })
       .addCase(editSug.rejected, (state, action) => {
@@ -235,11 +242,11 @@ export const selectSortedSugs = createSelector(
         return items.sort((a, b) => a.upvotes - b.upvotes);
       case "most_comments":
         return items.sort(
-          (a, b) => getAllComments(b.comments!) - getAllComments(a.comments!)
+          (a, b) => getAllComments(b.comments || {}) - getAllComments(a.comments || {})
         );
       case "least_comments":
         return items.sort(
-          (a, b) => getAllComments(a.comments!) - getAllComments(b.comments!)
+          (a, b) => getAllComments(a.comments || {}) - getAllComments(b.comments || {})
         );
       default:
         break;

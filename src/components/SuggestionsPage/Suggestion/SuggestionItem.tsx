@@ -2,7 +2,7 @@ import { ReactComponent as IconComments } from "../../../assets/shared/icon-comm
 import { Fragment, useState } from "react";
 
 import UpvotesBtn from "./UpvotesBtn";
-import StatusDeco from "../../ui/StatusDeco";
+import StatusDeco from "../../UI/StatusDeco";
 import classes from "./SuggestionItem.module.css";
 
 import { categoryToUpper, statusToUpper } from "../../../utils/changeName";
@@ -23,16 +23,16 @@ const SuggestionItem = (props: Props) => {
   const liClass = `${classes.commonLi} ${
     props.isRoadmap ? classes.roadmapLi : classes.sugLi
   }`;
-  const roadmapHeader = (
-    <Fragment>
-      <div className={`${classes.liBorder} ${classes[status]}`} />
-      <StatusDeco status={statusToUpper(status)} />
-    </Fragment>
-  );
+
 
   return (
-    <li className={liClass}>
-      {props.isRoadmap && roadmapHeader}
+    <div className={liClass}>
+      {props.isRoadmap && (
+        <Fragment>
+          <div className={`${classes.liBorder} ${classes[status]}`} />
+          <StatusDeco status={statusToUpper(status)} />
+        </Fragment>
+      )}
       <UpvotesBtn
         sugId={id}
         upvotes={upvotes}
@@ -52,9 +52,9 @@ const SuggestionItem = (props: Props) => {
       </div>
       <div className={classes.commentCon}>
         <IconComments />
-        <p>{getAllComments(comments!)}</p>
+        <p>{getAllComments(comments || {})}</p>
       </div>
-    </li>
+    </div>
   );
 };
 

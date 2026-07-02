@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction } from "react";
 import { createPortal } from "react-dom";
 
-import Backdrop from "../ui/Backdrop";
+import Backdrop from "../UI/Backdrop";
 import OptionList from "./OptionList";
 
 interface Props {

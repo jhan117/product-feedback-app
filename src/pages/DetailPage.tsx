@@ -2,10 +2,10 @@ import { Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-import DetailHeader from "../components/detailPage/DetailHeader";
-import DetailMain from "../components/detailPage/DetailMain";
-import DetailFooter from "../components/detailPage/DetailFooter";
-import ErrorNotification from "../components/ui/Error";
+import DetailHeader from "../components/DetailPage/DetailHeader";
+import DetailMain from "../components/DetailPage/DetailMain";
+import DetailFooter from "../components/DetailPage/DetailFooter";
+import ErrorNotification from "../components/UI/Error";
 
 import changeRootStyle from "../utils/changeRootStyle";
 import { suggestionsActions } from "../store/suggestions-slice";

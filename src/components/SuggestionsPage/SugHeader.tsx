@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
-import Card from "../ui/Card";
+import Card from "../UI/Card";
 import Navbar from "./Navbar/Navbar";
 import HamburgerIcon from "./HamburgerIcon";
 import CategoryList from "./Navbar/Category/CategoryList";

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { createPortal } from "react-dom";
 
-import Backdrop from "../../ui/Backdrop";
+import Backdrop from "../../UI/Backdrop";
 import CategoryList from "./Category/CategoryList";
 import NavRoadmapContainer from "./NavRoadmap/NavRoadmapContainer";
 import classes from "./Navbar.module.css";
