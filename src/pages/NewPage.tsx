@@ -20,8 +20,9 @@ const NewPage = (props: PageProps) => {
   }, []);
 
   useEffect(() => {
-    if (fulfilled === "new") {
-      navigate("/", { replace: true });
+    if (fulfilled.startsWith("new:")) {
+      const newId = fulfilled.split(":")[1];
+      navigate(`/feedbacks/${newId}`, { replace: true });
       dispatch(suggestionsActions.changeFulfilled());
     }
   }, [fulfilled, navigate, dispatch]);

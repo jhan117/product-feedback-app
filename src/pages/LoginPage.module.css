@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   width: 100vw;
-  background: linear-gradient(135deg, var(--purple), var(--blue));
+  background-color: var(--dark-white);
   position: fixed;
   top: 0;
   left: 0;
@@ -12,64 +12,50 @@
 }
 
 .loginCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 5rem 4rem;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 4rem 3.2rem;
   text-align: center;
-  color: white;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-  max-width: 450px;
+  color: var(--indigo);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
   width: 90%;
-  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+/* removed fadeIn animation */
 
 .title {
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
+  color: var(--indigo);
+  font-size: 2.4rem;
+  margin-bottom: 1.2rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
 .subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 4rem;
-  opacity: 0.9;
+  color: var(--grey);
+  font-size: 1.4rem;
+  margin-bottom: 3.2rem;
   line-height: 1.6;
 }
 
 .guestBtn {
-  background-color: var(--dark-indigo);
+  background-color: var(--purple);
   color: white;
-  padding: 1.6rem 3rem;
-  border-radius: 12px;
+  padding: 1.4rem 3rem;
+  border-radius: 1rem;
   font-weight: 700;
-  font-size: 1.5rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 1.4rem;
+  transition: background-color 0.2s ease;
   width: 100%;
 }
 
 .guestBtn:hover:not(:disabled) {
-  background-color: var(--blue);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  background-color: hsl(282, 90%, 65%);
 }
 
 .guestBtn:active:not(:disabled) {
-  transform: translateY(0);
+  background-color: hsl(282, 90%, 55%);
 }
 
 .guestBtn:disabled {

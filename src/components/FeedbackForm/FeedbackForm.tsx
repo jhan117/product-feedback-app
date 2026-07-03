@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 
 import BtnsContainer from "./BtnsContainer";
 import InputForm from "./InputForm";
@@ -22,7 +22,7 @@ const FeedbackForm = (props: Props) => {
     description: "", // Not used in state anymore
   });
   const dispatch = useAppDispatch();
-  const { curLastIds } = useAppSelector((state) => state.suggestions);
+  const [showErrors, setShowErrors] = useState(false);
 
   const { page, prevData } = props;
   const id = prevData?.id;
@@ -44,7 +44,12 @@ const FeedbackForm = (props: Props) => {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
 
-    if (title.trim() === "" || description.trim() === "") return;
+    if (title.trim() === "" || description.trim() === "") {
+      setShowErrors(true);
+      return;
+    }
+
+    setShowErrors(false);
 
     const finalData = { ...data, title, description };
 
@@ -52,7 +57,7 @@ const FeedbackForm = (props: Props) => {
       dispatch(editSug({ ...prevData!, ...finalData }));
     } else {
       const newItem = {
-        id: curLastIds.sug + 1,
+        id: Date.now(),
         upvotes: 0,
         ...finalData,
       };
@@ -63,10 +68,16 @@ const FeedbackForm = (props: Props) => {
   return (
     <form className={classes.feedbackForm} onSubmit={submitHandler}>
       <div className={classes.formText}>
-        <InputForm initialValue={page === "edit" ? prevData!.title : ""} />
+        <InputForm
+          initialValue={page === "edit" ? prevData!.title : ""}
+          showError={showErrors}
+        />
         <SelectForm state="category" data={data} setData={setData} />
         {page === "edit" && <SelectForm state="status" data={data} setData={setData} />}
-        <TextareaForm initialValue={page === "edit" ? prevData!.description : ""} />
+        <TextareaForm
+          initialValue={page === "edit" ? prevData!.description : ""}
+          showError={showErrors}
+        />
       </div>
       <BtnsContainer page={page} sugId={id} isValid={true} />
     </form>

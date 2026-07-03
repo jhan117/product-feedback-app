@@ -208,13 +208,16 @@ const suggestionsSlice = createSlice({
       .addCase(deleteSug.pending, (state, action) => {
         state.error = undefined;
         const sugId = action.meta.arg;
+        const item = state.suggestionItems.find((item) => item.id === sugId);
+        const status = item ? item.status : "suggestion";
+
         state.suggestionItems = state.suggestionItems.filter(
           (item) => item.id !== sugId
         );
         state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
           (v) => v !== sugId
         );
-        state.fulfilled = "delete";
+        state.fulfilled = `delete:${status}`;
       })
       .addCase(deleteSug.fulfilled, () => {})
       .addCase(deleteSug.rejected, (state, action) => {
@@ -225,7 +228,8 @@ const suggestionsSlice = createSlice({
         state.error = undefined;
         const feedback = action.meta.arg;
         state.suggestionItems.push(feedback);
-        state.fulfilled = "new";
+        state.curLastIds.sug = Math.max(state.curLastIds.sug, feedback.id);
+        state.fulfilled = `new:${feedback.id}`;
       })
       .addCase(addSug.fulfilled, () => {})
       .addCase(addSug.rejected, (state, action) => {

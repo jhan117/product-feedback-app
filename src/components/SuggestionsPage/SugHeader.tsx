@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { suggestionsActions } from "../../store/suggestions-slice";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import images from "../../assets/user-images";
 
 import Card from "../UI/Card";
 import Navbar from "./Navbar/Navbar";
@@ -16,7 +17,9 @@ const SugHeader = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn } = useAppSelector((state) => state.suggestions);
+  const { isLoggedIn, currentUser } = useAppSelector((state) => state.suggestions);
+  const userImageName = currentUser.image ? currentUser.image.slice(27, -4) : "";
+  const avatarSrc = images[userImageName];
 
   const handleLogout = () => {
     dispatch(suggestionsActions.logout());
@@ -48,7 +51,17 @@ const SugHeader = () => {
           </div>
           {isLoggedIn && (
             <div className={classes.authInfo}>
-              <div className={classes.guestProfile}>G</div>
+              {avatarSrc ? (
+                <img
+                  className={classes.guestProfile}
+                  src={avatarSrc}
+                  alt={currentUser.name}
+                />
+              ) : (
+                <div className={classes.guestProfile}>
+                  {currentUser.name ? currentUser.name[0] : "G"}
+                </div>
+              )}
               <button className={classes.logoutBtn} onClick={handleLogout}>
                 Logout
               </button>

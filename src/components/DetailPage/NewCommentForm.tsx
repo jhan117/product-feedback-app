@@ -86,6 +86,24 @@ const NewCommentForm = (props: Props) => {
     }
 
     setContent("");
+
+    if (isComment) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }, 50);
+    }
+  };
+
+  const keyDownHandler = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (isValid) {
+        submitHandler(event as unknown as React.FormEvent);
+      }
+    }
   };
 
   const formFooter = isComment ? (
@@ -115,6 +133,7 @@ const NewCommentForm = (props: Props) => {
         placeholder={placeholder}
         value={content}
         onChange={valueChangeHandler}
+        onKeyDown={keyDownHandler}
         maxLength={isComment ? 250 : undefined}
       />
       {formFooter}

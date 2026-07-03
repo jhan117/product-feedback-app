@@ -46,7 +46,10 @@ export const fetchData = createAsyncThunk<
     const userData = await userResponse.json();
 
     const upvoteItems =
-      userData.upvoteItems && Object.keys(userData.upvoteItems).map(Number);
+      userData.upvoteItems &&
+      Object.values(userData.upvoteItems)
+        .filter((item: any) => item && typeof item === "object" && "sugId" in item)
+        .map((item: any) => Number(item.sugId));
 
     return {
       request: requestData ? Object.values(requestData) : [],

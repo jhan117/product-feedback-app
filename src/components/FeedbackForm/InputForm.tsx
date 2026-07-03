@@ -8,6 +8,7 @@ import classes from "./InputForm.module.css";
 
 interface Props {
   initialValue: string;
+  showError?: boolean;
 }
 
 const InputForm = (props: Props) => {
@@ -24,6 +25,8 @@ const InputForm = (props: Props) => {
     setIsValid(event.target.value.trim() !== "");
   };
 
+  const hasError = (!isValid && isTouched) || (props.showError && value.trim() === "");
+
   return (
     <div className={classes.inputCon}>
       <label htmlFor="title">
@@ -32,7 +35,7 @@ const InputForm = (props: Props) => {
       <input
         id="title"
         name="title"
-        className={!isValid && isTouched ? classes.textError : ""}
+        className={hasError ? classes.textError : ""}
         value={value}
         onChange={titleChangeHandler}
         onBlur={() => {
@@ -40,7 +43,7 @@ const InputForm = (props: Props) => {
           setIsValid(value.trim() !== "");
         }}
       />
-      {!isValid && isTouched && <p className={classes.error}>Can't be empty</p>}
+      {hasError && <p className={classes.error}>Can't be empty</p>}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import classes from "./TextareaForm.module.css";
 
 interface Props {
   initialValue: string;
+  showError?: boolean;
 }
 
 const TextareaForm = (props: Props) => {
@@ -24,8 +25,10 @@ const TextareaForm = (props: Props) => {
     setIsValid(event.target.value.trim() !== "");
   };
 
+  const hasError = (!isValid && isTouched) || (props.showError && value.trim() === "");
+
   const textareaStyle = `${classes.textarea} ${
-    !isValid && isTouched ? classes.textError : ""
+    hasError ? classes.textError : ""
   }`;
 
   return (
@@ -47,7 +50,7 @@ const TextareaForm = (props: Props) => {
           setIsValid(value.trim() !== "");
         }}
       />
-      {!isValid && isTouched && <p className={classes.error}>Can't be empty</p>}
+      {hasError && <p className={classes.error}>Can't be empty</p>}
     </div>
   );
 };

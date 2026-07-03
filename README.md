@@ -39,3 +39,36 @@ Refactoring 기간 : 2023-01-09 ~ 2023-02-16
 - ✅ Edit Page
 - ✅ New Page
 - ✅ Roadmap Page
+
+## Refactoring 2차
+
+Refactoring 기간 : 2026-07-03
+
+#### 목표
+
+- Form 입력 시 부모 Component의 Re-rendering 방지를 위해 Uncontrolled Components 패턴 도입
+- Upvote, Comment 및 Feedback CRUD에 Optimistic UI 적용 및 Error 발생 시 자동 Rollback 구현
+- Detail Page 진입 후 복귀 시 Category 및 Sort 필터 조건을 보존하도록 URL Query Parameter 유지 기능 구현
+- Feedback 삭제 시 Status에 맞춰 Home 또는 Roadmap Page로 Smart Redirect 처리 및 History Stack 최적화
+- Browser History가 없을 때 Go Back Button 작동을 보완하는 안전장치 구현
+- Comment 입력 창에서 Enter Key로 Submit, Shift + Enter로 Newline 단축키 설정 및 Comment 등록 후 Smooth Scroll 추가
+- Guest Login Page Design 고도화
+- Header에 정적 G 대신 DB에 등록된 User의 Profile Image 연동
+- Resolution 및 Responsive Layout CSS 구조 개선
+- Hover 시 불필요한 React State 조작 제거 및 CSS Selector 기반 최적화
+- Page Scroll 동작 시 Layout Shift 방지를 위한 스크롤 영역 고정
+- Select Arrow Icon 회전 Motion 및 Transition Animation 개선
+- Vercel을 통한 실시간 Build 및 Deployment 안정화
+
+#### 진행 과정
+
+- ✅ Form Optimization
+- ✅ Optimistic UI
+- ✅ URL Query Parameter
+- ✅ Smart Redirect
+- ✅ Keyboard Shortcuts & Smooth Scroll
+- ✅ Login Page Design & Header Profile Image
+- ✅ Resolution & Responsive Layout
+- ✅ CSS Hover
+- ✅ Layout Shift & Animation
+- ✅ Vercel Deployment

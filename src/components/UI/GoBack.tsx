@@ -14,8 +14,16 @@ const GoBack = (props: Props) => {
     props.isRoadmap ? classes.whiteColor : ""
   }`;
 
+  const goBackHandler = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate("/", { replace: true });
+    }
+  };
+
   return (
-    <button className={conStyle} onClick={() => navigate(-1)}>
+    <button className={conStyle} onClick={goBackHandler}>
       <IconArrowLeft aria-hidden="true" />
       <p>Go Back</p>
     </button>

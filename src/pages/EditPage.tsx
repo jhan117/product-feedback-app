@@ -26,12 +26,21 @@ const EditPage = (props: PageProps) => {
   }, [navigate, requestId, sugId]);
 
   useEffect(() => {
-    if (fulfilled === "delete") {
-      navigate("/", { replace: true });
+    if (fulfilled.startsWith("delete:")) {
+      const status = fulfilled.split(":")[1];
+      if (window.history.state && window.history.state.idx >= 2) {
+        navigate(-2);
+      } else {
+        if (status === "suggestion") {
+          navigate("/", { replace: true });
+        } else {
+          navigate("/roadmap", { replace: true });
+        }
+      }
       dispatch(suggestionsActions.changeFulfilled());
     }
     if (fulfilled === "edit") {
-      navigate(`/feedbacks/${requestId}`, { replace: true });
+      navigate(-1);
       dispatch(suggestionsActions.changeFulfilled());
     }
   }, [fulfilled, requestId, navigate, dispatch]);
