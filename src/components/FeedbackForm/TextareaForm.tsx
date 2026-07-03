@@ -9,30 +9,21 @@ import {
 import classes from "./TextareaForm.module.css";
 
 interface Props {
-  data: FeedbackItem;
-  setData: Dispatch<SetStateAction<FeedbackItem>>;
+  initialValue: string;
 }
 
 const TextareaForm = (props: Props) => {
-  const { data, setData } = props;
-  const [isValid, setIsValid] = useState(false);
+  const [value, setValue] = useState(props.initialValue);
+  const [isValid, setIsValid] = useState(true);
   const [isTouched, setIsTouched] = useState(false);
 
-  const { description } = data;
-
   useEffect(() => {
-    if (description.trim() === "") {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-    }
-  }, [description]);
+    setValue(props.initialValue);
+  }, [props.initialValue]);
 
   const detailChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setData((prevState) => ({
-      ...prevState,
-      description: event.target.value,
-    }));
+    setValue(event.target.value);
+    setIsValid(event.target.value.trim() !== "");
   };
 
   const textareaStyle = `${classes.textarea} ${
@@ -49,10 +40,14 @@ const TextareaForm = (props: Props) => {
       </label>
       <textarea
         id="detail"
+        name="description"
         className={textareaStyle}
-        value={description}
+        value={value}
         onChange={detailChangeHandler}
-        onBlur={() => setIsTouched(true)}
+        onBlur={() => {
+          setIsTouched(true);
+          setIsValid(value.trim() !== "");
+        }}
       />
       {!isValid && isTouched && <p className={classes.error}>Can't be empty</p>}
     </div>

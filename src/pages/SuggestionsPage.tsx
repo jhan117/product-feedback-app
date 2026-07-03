@@ -18,11 +18,14 @@ const SuggestionsPage = (props: PageProps) => {
   useEffect(() => {
     changeRootStyle("sug");
     dispatch(suggestionsActions.changeSug(""));
-    navigate({
-      pathname: location.pathname,
-      search: "?sort=most_upvotes&category=all",
-    });
-  }, [dispatch, location.pathname, navigate]);
+    
+    if (!location.search) {
+      navigate({
+        pathname: location.pathname,
+        search: "?sort=most_upvotes&category=all",
+      });
+    }
+  }, [dispatch, location.pathname, location.search, navigate]);
 
   return (
     <Fragment>

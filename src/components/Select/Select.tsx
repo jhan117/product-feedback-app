@@ -1,5 +1,4 @@
 import { ReactComponent as IconArrowDown } from "../../assets/shared/icon-arrow-down.svg";
-import { ReactComponent as IconArrowUp } from "../../assets/shared/icon-arrow-up.svg";
 import {
   Dispatch,
   Fragment,

@@ -9,32 +9,21 @@ import {
 import classes from "./InputForm.module.css";
 
 interface Props {
-  data: FeedbackItem;
-  setData: Dispatch<SetStateAction<FeedbackItem>>;
+  initialValue: string;
 }
 
 const InputForm = (props: Props) => {
-  const { data, setData } = props;
-  const [isValid, setIsValid] = useState(false);
+  const [value, setValue] = useState(props.initialValue);
+  const [isValid, setIsValid] = useState(true);
   const [isTouched, setIsTouched] = useState(false);
 
-  const { title } = data;
-
   useEffect(() => {
-    if (title.trim() === "") {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-    }
-  }, [title]);
+    setValue(props.initialValue);
+  }, [props.initialValue]);
 
   const titleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setData((prevState) => {
-      return {
-        ...prevState,
-        title: event.target.value,
-      };
-    });
+    setValue(event.target.value);
+    setIsValid(event.target.value.trim() !== "");
   };
 
   return (
@@ -44,10 +33,14 @@ const InputForm = (props: Props) => {
       </label>
       <input
         id="title"
+        name="title"
         className={!isValid && isTouched ? classes.textError : ""}
-        value={title}
+        value={value}
         onChange={titleChangeHandler}
-        onBlur={() => setIsTouched(true)}
+        onBlur={() => {
+          setIsTouched(true);
+          setIsValid(value.trim() !== "");
+        }}
       />
       {!isValid && isTouched && <p className={classes.error}>Can't be empty</p>}
     </div>

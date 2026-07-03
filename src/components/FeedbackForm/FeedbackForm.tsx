@@ -16,47 +16,45 @@ interface Props {
 
 const FeedbackForm = (props: Props) => {
   const [data, setData] = useState<FeedbackItem>({
-    title: "",
+    title: "", // Not used in state anymore, handled by uncontrolled input
     category: "feature",
     status: "suggestion",
-    description: "",
+    description: "", // Not used in state anymore
   });
   const dispatch = useAppDispatch();
   const { curLastIds } = useAppSelector((state) => state.suggestions);
-  const [isValid, setIsValid] = useState(false);
 
   const { page, prevData } = props;
   const id = prevData?.id;
-  const { title, description } = data;
 
   useEffect(() => {
     if (page === "edit") {
       setData({
-        title: prevData!.title,
-        description: prevData!.description,
+        title: "", // Ignored by state
+        description: "", // Ignored by state
         category: prevData!.category,
         status: prevData!.status,
       });
     }
   }, [page, prevData, setData]);
 
-  useEffect(() => {
-    if (title.trim() === "" || description.trim() === "") setIsValid(false);
-    else setIsValid(true);
-  }, [title, description]);
-
-  const submitHandler = (event: FormEvent) => {
+  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
 
-    if (data.title.trim() === "" || data.description.trim() === "") return;
+    if (title.trim() === "" || description.trim() === "") return;
+
+    const finalData = { ...data, title, description };
 
     if (page === "edit") {
-      dispatch(editSug({ ...prevData!, ...data }));
+      dispatch(editSug({ ...prevData!, ...finalData }));
     } else {
       const newItem = {
         id: curLastIds.sug + 1,
         upvotes: 0,
-        ...data,
+        ...finalData,
       };
       dispatch(addSug(newItem));
     }
@@ -65,12 +63,12 @@ const FeedbackForm = (props: Props) => {
   return (
     <form className={classes.feedbackForm} onSubmit={submitHandler}>
       <div className={classes.formText}>
-        <InputForm data={data} setData={setData} />
+        <InputForm initialValue={page === "edit" ? prevData!.title : ""} />
         <SelectForm state="category" data={data} setData={setData} />
         {page === "edit" && <SelectForm state="status" data={data} setData={setData} />}
-        <TextareaForm data={data} setData={setData} />
+        <TextareaForm initialValue={page === "edit" ? prevData!.description : ""} />
       </div>
-      <BtnsContainer page={page} sugId={id} isValid={isValid} />
+      <BtnsContainer page={page} sugId={id} isValid={true} />
     </form>
   );
 };

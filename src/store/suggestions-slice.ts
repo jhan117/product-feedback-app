@@ -92,14 +92,13 @@ const suggestionsSlice = createSlice({
         state.error = action.payload as string;
         state.isLoading = false;
       })
-      .addCase(updateUpvoteData.pending, (state) => {
+      .addCase(updateUpvoteData.pending, (state, action) => {
         state.error = undefined;
-      })
-      .addCase(updateUpvoteData.fulfilled, (state, action) => {
-        const { sugId, upvotes, isUpvoted } = action.payload;
+        const { sugId, upvotes, isUpvoted } = action.meta.arg;
+        const editedUpvotes = isUpvoted ? upvotes - 1 : upvotes + 1;
 
         const item = state.suggestionItems.find((item) => item.id === sugId);
-        if (item) item.upvotes = upvotes;
+        if (item) item.upvotes = editedUpvotes;
 
         if (isUpvoted) {
           state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
@@ -110,15 +109,26 @@ const suggestionsSlice = createSlice({
           state.currentUser.upvoteItems.push(sugId);
         }
       })
+      .addCase(updateUpvoteData.fulfilled, () => {})
       .addCase(updateUpvoteData.rejected, (state, action) => {
         state.error = action.payload as string;
-      })
-      .addCase(addReply.pending, (state) => {
-        state.error = undefined;
-      })
-      .addCase(addReply.fulfilled, (state, action) => {
-        const { sugId, commentId, reply } = action.payload;
+        // Rollback
+        const { sugId, upvotes, isUpvoted } = action.meta.arg;
+        const item = state.suggestionItems.find((item) => item.id === sugId);
+        if (item) item.upvotes = upvotes;
 
+        if (isUpvoted) {
+          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = [];
+          state.currentUser.upvoteItems.push(sugId);
+        } else {
+          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
+            (item) => item !== sugId
+          );
+        }
+      })
+      .addCase(addReply.pending, (state, action) => {
+        state.error = undefined;
+        const { sugId, commentId, reply } = action.meta.arg;
         const cId = `c${commentId}`;
         const rId = `r${reply.id}`;
 
@@ -135,15 +145,25 @@ const suggestionsSlice = createSlice({
         }
         state.curLastIds.reply += 1;
       })
+      .addCase(addReply.fulfilled, () => {})
       .addCase(addReply.rejected, (state, action) => {
         state.error = action.payload as string;
+        // Rollback
+        const { sugId, commentId, reply } = action.meta.arg;
+        const cId = `c${commentId}`;
+        const rId = `r${reply.id}`;
+        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        if (sug && sug.comments) {
+          const comment = sug.comments[cId];
+          if (comment && comment.replies) {
+            delete comment.replies[rId];
+          }
+        }
+        state.curLastIds.reply -= 1;
       })
-      .addCase(addComment.pending, (state) => {
+      .addCase(addComment.pending, (state, action) => {
         state.error = undefined;
-      })
-      .addCase(addComment.fulfilled, (state, action) => {
-        const { sugId, comment } = action.payload;
-
+        const { sugId, comment } = action.meta.arg;
         const cId = `c${comment.id}`;
 
         const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
@@ -154,18 +174,23 @@ const suggestionsSlice = createSlice({
             sug.comments = { [cId]: comment };
           }
         }
-
         state.curLastIds.comment += 1;
       })
+      .addCase(addComment.fulfilled, () => {})
       .addCase(addComment.rejected, (state, action) => {
         state.error = action.payload as string;
+        // Rollback
+        const { sugId, comment } = action.meta.arg;
+        const cId = `c${comment.id}`;
+        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        if (sug && sug.comments) {
+          delete sug.comments[cId];
+        }
+        state.curLastIds.comment -= 1;
       })
-      .addCase(editSug.pending, (state) => {
+      .addCase(editSug.pending, (state, action) => {
         state.error = undefined;
-      })
-      .addCase(editSug.fulfilled, (state, action) => {
-        const feedback = action.payload;
-
+        const feedback = action.meta.arg;
         const sug = state.suggestionItems.find((item) => item.id === feedback.id);
         if (sug) {
           sug.title = feedback.title;
@@ -175,41 +200,39 @@ const suggestionsSlice = createSlice({
         }
         state.fulfilled = "edit";
       })
+      .addCase(editSug.fulfilled, () => {})
       .addCase(editSug.rejected, (state, action) => {
         state.error = action.payload as string;
+        state.fulfilled = "";
       })
-      .addCase(deleteSug.pending, (state) => {
+      .addCase(deleteSug.pending, (state, action) => {
         state.error = undefined;
-      })
-      .addCase(deleteSug.fulfilled, (state, action) => {
-        const { sugId, hasUpvote } = action.payload;
-
+        const sugId = action.meta.arg;
         state.suggestionItems = state.suggestionItems.filter(
           (item) => item.id !== sugId
         );
-
-        if (hasUpvote) {
-          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
-            (v) => v !== sugId
-          );
-        }
+        state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
+          (v) => v !== sugId
+        );
         state.fulfilled = "delete";
       })
+      .addCase(deleteSug.fulfilled, () => {})
       .addCase(deleteSug.rejected, (state, action) => {
         state.error = action.payload as string;
+        state.fulfilled = "";
       })
-      .addCase(addSug.pending, (state) => {
+      .addCase(addSug.pending, (state, action) => {
         state.error = undefined;
-      })
-      .addCase(addSug.fulfilled, (state, action) => {
-        const feedback = action.payload;
-
+        const feedback = action.meta.arg;
         state.suggestionItems.push(feedback);
-
         state.fulfilled = "new";
       })
+      .addCase(addSug.fulfilled, () => {})
       .addCase(addSug.rejected, (state, action) => {
         state.error = action.payload as string;
+        const feedback = action.meta.arg;
+        state.suggestionItems = state.suggestionItems.filter((item) => item.id !== feedback.id);
+        state.fulfilled = "";
       });
   },
 });
