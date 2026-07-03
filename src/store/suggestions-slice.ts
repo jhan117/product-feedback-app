@@ -11,6 +11,7 @@ import {
   editSug,
   fetchData,
   updateUpvoteData,
+  loginAsGuest,
 } from "./suggestions-thunks";
 
 interface SuggestionsState {
@@ -21,6 +22,8 @@ interface SuggestionsState {
   sugId: string;
   curLastIds: { sug: number; comment: number; reply: number };
   fulfilled: string;
+  isLoggedIn: boolean;
+  token: string | null;
 }
 
 const initialState: SuggestionsState = {
@@ -36,6 +39,8 @@ const initialState: SuggestionsState = {
   sugId: "",
   curLastIds: { sug: 0, comment: 0, reply: 0 },
   fulfilled: "",
+  isLoggedIn: false,
+  token: null,
 };
 
 const suggestionsSlice = createSlice({
@@ -50,6 +55,10 @@ const suggestionsSlice = createSlice({
     },
     changeFulfilled(state) {
       state.fulfilled = "";
+    },
+    logout(state) {
+      state.isLoggedIn = false;
+      state.token = null;
     },
   },
   extraReducers(builder) {
@@ -67,6 +76,19 @@ const suggestionsSlice = createSlice({
         state.curLastIds = getLastId(request);
       })
       .addCase(fetchData.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.isLoading = false;
+      })
+      .addCase(loginAsGuest.pending, (state) => {
+        state.error = undefined;
+        state.isLoading = true;
+      })
+      .addCase(loginAsGuest.fulfilled, (state, action) => {
+        state.token = action.payload;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(loginAsGuest.rejected, (state, action) => {
         state.error = action.payload as string;
         state.isLoading = false;
       })

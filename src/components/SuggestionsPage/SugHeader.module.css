@@ -19,6 +19,47 @@
   z-index: 2;
 }
 
+.authInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.guestProfile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--blue);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border: 2px solid white;
+}
+
+.logoutBtn {
+  color: white;
+  opacity: 0.8;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.logoutBtn:hover {
+  opacity: 1;
+}
+
+.hamburgerWrapper {
+  grid-row: 1 / span 2;
+  grid-column: 3;
+  justify-self: end;
+}
+
 .board h1 {
   font-size: 1.5rem;
   font-weight: 600;
@@ -61,6 +102,13 @@
     font-size: 2rem;
     line-height: 2.9rem;
     letter-spacing: -0.025rem;
+  }
+
+  .authInfo {
+    grid-row: auto;
+    grid-column: auto;
+    justify-self: start;
+    margin-top: 1rem;
   }
 
   .board p {

@@ -7,8 +7,17 @@ import DetailPage from "./pages/DetailPage";
 import EditPage from "./pages/EditPage";
 import NewPage from "./pages/NewPage";
 import RoadmapPage from "./pages/RoadmapPage";
-
+import LoginPage from "./pages/LoginPage";
 import { suggestionsActions } from "./store/suggestions-slice";
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isLoggedIn = useAppSelector((state) => state.suggestions.isLoggedIn);
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
+
 
 const App = () => {
   const [showError, setShowError] = useState(false);
@@ -26,27 +35,46 @@ const App = () => {
 
   return (
     <Routes>
+      <Route path="/login" element={<LoginPage />} />
       <Route
         path="/"
         element={
-          <SuggestionsPage showError={showError} handler={errorHandler} />
+          <ProtectedRoute>
+            <SuggestionsPage showError={showError} handler={errorHandler} />
+          </ProtectedRoute>
         }
       />
       <Route
         path="/feedbacks/:requestId"
-        element={<DetailPage showError={showError} handler={errorHandler} />}
+        element={
+          <ProtectedRoute>
+            <DetailPage showError={showError} handler={errorHandler} />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/feedbacks/:requestId/edit"
-        element={<EditPage showError={showError} handler={errorHandler} />}
+        element={
+          <ProtectedRoute>
+            <EditPage showError={showError} handler={errorHandler} />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/feedbacks/new"
-        element={<NewPage showError={showError} handler={errorHandler} />}
+        element={
+          <ProtectedRoute>
+            <NewPage showError={showError} handler={errorHandler} />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/roadmap"
-        element={<RoadmapPage showError={showError} handler={errorHandler} />}
+        element={
+          <ProtectedRoute>
+            <RoadmapPage showError={showError} handler={errorHandler} />
+          </ProtectedRoute>
+        }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

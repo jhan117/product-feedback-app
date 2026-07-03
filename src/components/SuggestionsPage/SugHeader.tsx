@@ -1,4 +1,7 @@
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { suggestionsActions } from "../../store/suggestions-slice";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Card from "../UI/Card";
@@ -11,6 +14,14 @@ import classes from "./SugHeader.module.css";
 const SugHeader = () => {
   const isTablet = useMediaQuery("tablet");
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAppSelector((state) => state.suggestions);
+
+  const handleLogout = () => {
+    dispatch(suggestionsActions.logout());
+    navigate("/login", { replace: true });
+  };
 
   const navbarClickHandler = () => {
     isNavbarOpen ? setIsNavbarOpen(false) : setIsNavbarOpen(true);
@@ -31,10 +42,22 @@ const SugHeader = () => {
             isNavbarOpen ? classes.boardZIndex : ""
           }`}
         >
-          <h1>Frontend Mentor</h1>
-          <p>Feedback Board</p>
+          <div className={classes.boardText}>
+            <h1>Frontend Mentor</h1>
+            <p>Feedback Board</p>
+          </div>
+          {isLoggedIn && (
+            <div className={classes.authInfo}>
+              <div className={classes.guestProfile}>G</div>
+              <button className={classes.logoutBtn} onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
           {!isTablet && (
-            <HamburgerIcon isOpen={isNavbarOpen} onClick={navbarClickHandler} />
+            <div className={classes.hamburgerWrapper}>
+              <HamburgerIcon isOpen={isNavbarOpen} onClick={navbarClickHandler} />
+            </div>
           )}
         </Card>
         {isTablet && wideHeader}
