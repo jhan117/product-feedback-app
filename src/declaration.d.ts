@@ -6,7 +6,7 @@ interface CurrentUser {
   image: string;
   name: string;
   username: string;
-  upvoteItems?: number[];
+  upvoteItems?: Record<string, boolean>;
 }
 
 interface FeedbackItem {
@@ -17,7 +17,7 @@ interface FeedbackItem {
 }
 
 interface Suggestion {
-  id: number;
+  id: string;
   category: string;
   description: string;
   status: string;
@@ -31,7 +31,7 @@ interface Suggestions {
 }
 
 interface CommentItem {
-  id: number;
+  id: string;
   user: User;
   content: string;
   replies?: Replies;
@@ -42,7 +42,7 @@ interface Comments {
 }
 
 interface Reply {
-  id: number;
+  id: string;
   user: User;
   content: string;
   replyingTo: string;
@@ -65,7 +65,7 @@ interface User {
   username: string;
 }
 
-// nameList
+
 interface Item {
   id: string;
   name: string;

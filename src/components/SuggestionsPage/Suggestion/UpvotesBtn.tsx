@@ -7,7 +7,7 @@ import classes from "./UpvotesBtn.module.css";
 import { updateUpvoteData } from "../../../store/suggestions-thunks";
 
 interface Props {
-  sugId: number;
+  sugId: string;
   upvotes: number;
   isRoadmap?: boolean;
 }
@@ -22,7 +22,7 @@ const UpvotesBtn = (props: Props) => {
   const [isUpvoted, setIsUpvoted] = useState<boolean>(false);
 
   useEffect(() => {
-    if (upvoteItems?.includes(sugId)) {
+    if (upvoteItems?.[sugId]) {
       setIsUpvoted(true);
     } else {
       setIsUpvoted(false);
@@ -40,9 +40,8 @@ const UpvotesBtn = (props: Props) => {
     );
   };
 
-  const btnClass = `${classes.upvoteBtn} ${
-    props.isRoadmap ? classes.roadmapBtn : classes.sugBtn
-  } ${isUpvoted ? classes.isUpvoted : ""}`;
+  const btnClass = `${classes.upvoteBtn} ${props.isRoadmap ? classes.roadmapBtn : classes.sugBtn
+    } ${isUpvoted ? classes.isUpvoted : ""}`;
 
   return (
     <button

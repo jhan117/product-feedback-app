@@ -12,25 +12,3 @@ export const getAllComments = (comments: Comments) => {
   return commentValues.length + repliesCount;
 };
 
-export const getLastId = (data: Suggestion[]) => {
-  const sugIds: number[] = [0],
-    commentIds: number[] = [0],
-    replyIds: number[] = [0];
-
-  for (const d of data) {
-    sugIds.push(d.id);
-    if (d.comments) {
-      for (const c of Object.values(d.comments)) {
-        commentIds.push(c.id);
-        if (c.replies) {
-          replyIds.push(...Object.values(c.replies).map((v) => v.id));
-        }
-      }
-    }
-  }
-  return {
-    sug: Math.max(...sugIds),
-    comment: Math.max(...commentIds),
-    reply: Math.max(...replyIds),
-  };
-};

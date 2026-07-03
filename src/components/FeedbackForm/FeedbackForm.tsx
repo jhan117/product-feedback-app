@@ -16,10 +16,10 @@ interface Props {
 
 const FeedbackForm = (props: Props) => {
   const [data, setData] = useState<FeedbackItem>({
-    title: "", // Not used in state anymore, handled by uncontrolled input
+    title: "",
     category: "feature",
     status: "suggestion",
-    description: "", // Not used in state anymore
+    description: "",
   });
   const dispatch = useAppDispatch();
   const [showErrors, setShowErrors] = useState(false);
@@ -30,8 +30,8 @@ const FeedbackForm = (props: Props) => {
   useEffect(() => {
     if (page === "edit") {
       setData({
-        title: "", // Ignored by state
-        description: "", // Ignored by state
+        title: "",
+        description: "",
         category: prevData!.category,
         status: prevData!.status,
       });
@@ -57,7 +57,7 @@ const FeedbackForm = (props: Props) => {
       dispatch(editSug({ ...prevData!, ...finalData }));
     } else {
       const newItem = {
-        id: Date.now(),
+        id: crypto.randomUUID(),
         upvotes: 0,
         ...finalData,
       };

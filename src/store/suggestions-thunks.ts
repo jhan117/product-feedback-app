@@ -10,20 +10,20 @@ const USER_URL = `${BASE_URL}/currentUser`;
 const AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
 
 interface UpvotePayload {
-  sugId: number;
+  sugId: string;
   upvotes: number;
   isUpvoted: boolean;
 }
 
 interface UpvoteResponse {
-  sugId: number;
+  sugId: string;
   upvotes: number;
   isUpvoted: boolean;
 }
 
 interface ReplyThunk {
   sugId: string;
-  commentId: number;
+  commentId: string;
   reply: Reply;
 }
 
@@ -45,11 +45,7 @@ export const fetchData = createAsyncThunk<
     const requestData = await requestResponse.json();
     const userData = await userResponse.json();
 
-    const upvoteItems =
-      userData.upvoteItems &&
-      Object.values(userData.upvoteItems)
-        .filter((item: any) => item && typeof item === "object" && "sugId" in item)
-        .map((item: any) => Number(item.sugId));
+    const upvoteItems = userData.upvoteItems || {};
 
     return {
       request: requestData ? Object.values(requestData) : [],
@@ -97,7 +93,7 @@ export const updateUpvoteData = createAsyncThunk<
     const { token } = thunkAPI.getState().suggestions;
     const auth = token ? `?auth=${token}` : "";
 
-    const upvoteDataURL = `${REQUEST_URL}/p${sugId}.json${auth}`;
+    const upvoteDataURL = `${REQUEST_URL}/${sugId}.json${auth}`;
     const upvoteItemURL = `${USER_URL}/upvoteItems/${sugId}.json${auth}`;
 
     try {
@@ -112,7 +108,7 @@ export const updateUpvoteData = createAsyncThunk<
       if (isUpvoted) {
         await request.delete(upvoteItemURL);
       } else {
-        await request.patch(upvoteItemURL, { sugId });
+        await request.put(upvoteItemURL, true);
       }
       return { sugId, upvotes: editedUpvotes, isUpvoted };
     } catch (error) {
@@ -132,7 +128,7 @@ export const addReply = createAsyncThunk<
   "suggestions/addReply",
   async ({ sugId, commentId, reply }, thunkAPI) => {
     const { token } = thunkAPI.getState().suggestions;
-    const replyURL = `${REQUEST_URL}/p${sugId}/comments/c${commentId}/replies/r${reply.id}.json${token ? `?auth=${token}` : ""}`;
+    const replyURL = `${REQUEST_URL}/${sugId}/comments/${commentId}/replies/${reply.id}.json${token ? `?auth=${token}` : ""}`;
 
     try {
       await request.patch(replyURL, reply);
@@ -151,7 +147,7 @@ export const addComment = createAsyncThunk<
   "suggestions/addComment",
   async ({ sugId, comment }, thunkAPI) => {
     const { token } = thunkAPI.getState().suggestions;
-    const commentURL = `${REQUEST_URL}/p${sugId}/comments/c${comment.id}.json${token ? `?auth=${token}` : ""}`;
+    const commentURL = `${REQUEST_URL}/${sugId}/comments/${comment.id}.json${token ? `?auth=${token}` : ""}`;
 
     try {
       await request.patch(commentURL, comment);
@@ -170,7 +166,7 @@ export const editSug = createAsyncThunk<
   "suggestions/editSug",
   async (feedback, thunkAPI) => {
     const { token } = thunkAPI.getState().suggestions;
-    const sugURL = `${REQUEST_URL}/p${feedback.id}.json${token ? `?auth=${token}` : ""}`;
+    const sugURL = `${REQUEST_URL}/${feedback.id}.json${token ? `?auth=${token}` : ""}`;
 
     try {
       await request.put(sugURL, feedback);
@@ -182,8 +178,8 @@ export const editSug = createAsyncThunk<
 );
 
 export const deleteSug = createAsyncThunk<
-  { sugId: number; hasUpvote: boolean },
-  number,
+  { sugId: string; hasUpvote: boolean },
+  string,
   { state: RootState }
 >("suggestions/deleteSug", async (sugId, thunkAPI) => {
   const { upvoteItems } = thunkAPI.getState().suggestions.currentUser;
@@ -191,9 +187,9 @@ export const deleteSug = createAsyncThunk<
   const auth = token ? `?auth=${token}` : "";
   let hasUpvote = false;
   const upvoteItemsURL = `${USER_URL}/upvoteItems/${sugId}.json${auth}`;
-  const sugURL = `${REQUEST_URL}/p${sugId}.json${auth}`;
+  const sugURL = `${REQUEST_URL}/${sugId}.json${auth}`;
 
-  if (upvoteItems?.find((v) => v === sugId)) {
+  if (upvoteItems?.[sugId]) {
     hasUpvote = true;
 
     try {
@@ -207,7 +203,7 @@ export const deleteSug = createAsyncThunk<
     await request.delete(sugURL);
     return { sugId, hasUpvote };
   } catch (error) {
-    if (hasUpvote) await request.patch(upvoteItemsURL, { sugId });
+    if (hasUpvote) await request.put(upvoteItemsURL, true);
     return thunkAPI.rejectWithValue("Failed to delete current feedback");
   }
 });
@@ -220,7 +216,7 @@ export const addSug = createAsyncThunk<
   "suggestions/addSug",
   async (feedback, thunkAPI) => {
     const { token } = thunkAPI.getState().suggestions;
-    const sugURL = `${REQUEST_URL}/p${feedback.id}.json${token ? `?auth=${token}` : ""}`;
+    const sugURL = `${REQUEST_URL}/${feedback.id}.json${token ? `?auth=${token}` : ""}`;
 
     try {
       await request.put(sugURL, feedback);

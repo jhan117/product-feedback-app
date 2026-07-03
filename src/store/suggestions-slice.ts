@@ -2,7 +2,7 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { RootState } from ".";
 
 import { statusList } from "../utils/nameList";
-import { getAllComments, getLastId } from "../utils/getCnt";
+import { getAllComments } from "../utils/getCnt";
 import {
   addComment,
   addReply,
@@ -20,7 +20,7 @@ interface SuggestionsState {
   isLoading: boolean;
   error: string | undefined;
   sugId: string;
-  curLastIds: { sug: number; comment: number; reply: number };
+
   fulfilled: string;
   isLoggedIn: boolean;
   token: string | null;
@@ -31,13 +31,13 @@ const initialState: SuggestionsState = {
     image: "string",
     name: "string",
     username: "string",
-    upvoteItems: [],
+    upvoteItems: {},
   },
   suggestionItems: [],
   isLoading: true,
   error: undefined,
   sugId: "",
-  curLastIds: { sug: 0, comment: 0, reply: 0 },
+
   fulfilled: "",
   isLoggedIn: false,
   token: null,
@@ -73,7 +73,7 @@ const suggestionsSlice = createSlice({
         state.currentUser = user;
         state.suggestionItems = request;
         state.isLoading = false;
-        state.curLastIds = getLastId(request);
+
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.error = action.payload as string;
@@ -101,12 +101,10 @@ const suggestionsSlice = createSlice({
         if (item) item.upvotes = editedUpvotes;
 
         if (isUpvoted) {
-          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
-            (item) => item !== sugId
-          );
+          if (state.currentUser.upvoteItems) delete state.currentUser.upvoteItems[sugId];
         } else {
-          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = [];
-          state.currentUser.upvoteItems.push(sugId);
+          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = {};
+          state.currentUser.upvoteItems[sugId] = true;
         }
       })
       .addCase(updateUpvoteData.fulfilled, () => {})
@@ -118,75 +116,67 @@ const suggestionsSlice = createSlice({
         if (item) item.upvotes = upvotes;
 
         if (isUpvoted) {
-          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = [];
-          state.currentUser.upvoteItems.push(sugId);
+          if (!state.currentUser.upvoteItems) state.currentUser.upvoteItems = {};
+          state.currentUser.upvoteItems[sugId] = true;
         } else {
-          state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
-            (item) => item !== sugId
-          );
+          if (state.currentUser.upvoteItems) delete state.currentUser.upvoteItems[sugId];
         }
       })
       .addCase(addReply.pending, (state, action) => {
         state.error = undefined;
         const { sugId, commentId, reply } = action.meta.arg;
-        const cId = `c${commentId}`;
-        const rId = `r${reply.id}`;
 
-        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        const sug = state.suggestionItems.find((item) => item.id === sugId);
         if (sug && sug.comments) {
-          const comment = sug.comments[cId];
+          const comment = sug.comments[commentId];
           if (comment) {
             if (comment.hasOwnProperty("replies") && comment.replies) {
-              comment.replies[rId] = reply;
+              comment.replies[reply.id] = reply;
             } else {
-              comment.replies = { [rId]: reply };
+              comment.replies = { [reply.id]: reply };
             }
           }
         }
-        state.curLastIds.reply += 1;
+
       })
       .addCase(addReply.fulfilled, () => {})
       .addCase(addReply.rejected, (state, action) => {
         state.error = action.payload as string;
         // Rollback
         const { sugId, commentId, reply } = action.meta.arg;
-        const cId = `c${commentId}`;
-        const rId = `r${reply.id}`;
-        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        const sug = state.suggestionItems.find((item) => item.id === sugId);
         if (sug && sug.comments) {
-          const comment = sug.comments[cId];
+          const comment = sug.comments[commentId];
           if (comment && comment.replies) {
-            delete comment.replies[rId];
+            delete comment.replies[reply.id];
           }
         }
-        state.curLastIds.reply -= 1;
+
       })
       .addCase(addComment.pending, (state, action) => {
         state.error = undefined;
         const { sugId, comment } = action.meta.arg;
-        const cId = `c${comment.id}`;
 
-        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        const sug = state.suggestionItems.find((item) => item.id === sugId);
         if (sug) {
           if (sug.hasOwnProperty("comments") && sug.comments) {
-            sug.comments[cId] = comment;
+            sug.comments[comment.id] = comment;
           } else {
-            sug.comments = { [cId]: comment };
+            sug.comments = { [comment.id]: comment };
           }
         }
-        state.curLastIds.comment += 1;
+
       })
       .addCase(addComment.fulfilled, () => {})
       .addCase(addComment.rejected, (state, action) => {
         state.error = action.payload as string;
         // Rollback
         const { sugId, comment } = action.meta.arg;
-        const cId = `c${comment.id}`;
-        const sug = state.suggestionItems.find((item) => item.id === Number(sugId));
+        const sug = state.suggestionItems.find((item) => item.id === sugId);
         if (sug && sug.comments) {
-          delete sug.comments[cId];
+          delete sug.comments[comment.id];
         }
-        state.curLastIds.comment -= 1;
+
       })
       .addCase(editSug.pending, (state, action) => {
         state.error = undefined;
@@ -210,13 +200,14 @@ const suggestionsSlice = createSlice({
         const sugId = action.meta.arg;
         const item = state.suggestionItems.find((item) => item.id === sugId);
         const status = item ? item.status : "suggestion";
+        const hasUpvote = state.currentUser.upvoteItems && state.currentUser.upvoteItems[sugId];
 
         state.suggestionItems = state.suggestionItems.filter(
           (item) => item.id !== sugId
         );
-        state.currentUser.upvoteItems = state.currentUser.upvoteItems?.filter(
-          (v) => v !== sugId
-        );
+        if (hasUpvote) {
+          if (state.currentUser.upvoteItems) delete state.currentUser.upvoteItems[sugId];
+        }
         state.fulfilled = `delete:${status}`;
       })
       .addCase(deleteSug.fulfilled, () => {})
@@ -228,7 +219,7 @@ const suggestionsSlice = createSlice({
         state.error = undefined;
         const feedback = action.meta.arg;
         state.suggestionItems.push(feedback);
-        state.curLastIds.sug = Math.max(state.curLastIds.sug, feedback.id);
+
         state.fulfilled = `new:${feedback.id}`;
       })
       .addCase(addSug.fulfilled, () => {})
@@ -310,6 +301,6 @@ export const selectSugById = createSelector(
     (state: RootState): string => state.suggestions.sugId,
   ],
   (items, sugId) => {
-    return items.find((item) => item.id === Number(sugId));
+    return items.find((item) => item.id === sugId);
   }
 );

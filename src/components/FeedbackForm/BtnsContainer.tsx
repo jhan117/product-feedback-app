@@ -7,7 +7,7 @@ import { deleteSug } from "../../store/suggestions-thunks";
 
 interface Props {
   page: string;
-  sugId?: number;
+  sugId?: string;
   isValid: boolean;
 }
 

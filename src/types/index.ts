@@ -2,7 +2,7 @@ export interface CurrentUser {
   image: string;
   name: string;
   username: string;
-  upvoteItems?: number[];
+  upvoteItems?: Record<string, boolean>;
 }
 
 export interface FeedbackItem {
@@ -13,7 +13,7 @@ export interface FeedbackItem {
 }
 
 export interface Suggestion {
-  id: number;
+  id: string;
   category: string;
   description: string;
   status: string;
@@ -27,7 +27,7 @@ export interface Suggestions {
 }
 
 export interface CommentItem {
-  id: number;
+  id: string;
   user: User;
   content: string;
   replies?: Replies;
@@ -38,7 +38,7 @@ export interface Comments {
 }
 
 export interface Reply {
-  id: number;
+  id: string;
   user: User;
   content: string;
   replyingTo: string;

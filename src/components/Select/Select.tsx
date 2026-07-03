@@ -74,7 +74,7 @@ const Select = (props: Props) => {
     content = categoryToUpper(data!.category);
   }
 
-  // form style, sort style
+
   const sugNone = props.length === 0 ? classes.sortNone : "";
   const conStyle = `${classes.selectCon} ${isSort ? sugNone : classes.formCon}`;
   const labelStyle = `${classes.selectLabel} ${

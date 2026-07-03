@@ -58,6 +58,7 @@ Refactoring 기간 : 2026-07-03
 - Hover 시 불필요한 React State 조작 제거 및 CSS Selector 기반 최적화
 - Page Scroll 동작 시 Layout Shift 방지를 위한 스크롤 영역 고정
 - Select Arrow Icon 회전 Motion 및 Transition Animation 개선
+- Firebase DB 구조 개선 (Array Leakage 방지 및 UUID 도입, 데이터 평탄화)
 - Vercel을 통한 실시간 Build 및 Deployment 안정화
 
 #### 진행 과정
@@ -71,4 +72,5 @@ Refactoring 기간 : 2026-07-03
 - ✅ Resolution & Responsive Layout
 - ✅ CSS Hover
 - ✅ Layout Shift & Animation
+- ✅ Firebase DB Refactoring
 - ✅ Vercel Deployment

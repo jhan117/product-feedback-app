@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// query : tablet, desktop
+
 const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false);
 

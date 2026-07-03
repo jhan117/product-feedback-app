@@ -8,7 +8,7 @@ import { addComment, addReply } from "../../store/suggestions-thunks";
 interface Props {
   className?: string;
   replyingToUser?: string;
-  commentId?: number;
+  commentId?: string;
   isComment?: boolean;
   onSubmit?: () => void;
 }
@@ -33,7 +33,7 @@ const NewCommentForm = (props: Props) => {
   const [content, setContent] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [textLength, setTextLength] = useState(250);
-  const { sugId, currentUser, curLastIds } = useAppSelector(
+  const { sugId, currentUser } = useAppSelector(
     (state) => state.suggestions
   );
   const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ const NewCommentForm = (props: Props) => {
     }
 
     const { image, name, username } = currentUser;
-    const id = (isComment ? curLastIds.comment : curLastIds.reply) + 1;
+    const id = crypto.randomUUID();
     const user = { image, name, username };
 
     if (isComment) {
