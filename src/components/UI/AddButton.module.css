@@ -4,11 +4,16 @@
 
   width: 13.4rem;
   height: 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.4rem;
 }
 
 .addBtnText {
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.9rem;
   color: var(--dark-white);
 }

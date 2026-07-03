@@ -1,5 +1,5 @@
 import { ReactComponent as IconComments } from "../../../assets/shared/icon-comments.svg";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 import UpvotesBtn from "./UpvotesBtn";
 import StatusDeco from "../../UI/StatusDeco";
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const SuggestionItem = (props: Props) => {
-  const [isHover, setIsHover] = useState<boolean>(false);
 
   const { id, category, description, status, title, upvotes, comments } =
     props.item;
@@ -37,11 +36,10 @@ const SuggestionItem = (props: Props) => {
         sugId={id}
         upvotes={upvotes}
         isRoadmap={props.isRoadmap}
-        setIsHover={setIsHover}
       />
       <div className={classes.content}>
         <div className={classes.text}>
-          <h3 className={isHover || props.isDetail ? "" : classes.hoverTitle}>
+          <h3 className={props.isDetail ? "" : classes.hoverTitle}>
             {title}
           </h3>
           <p>{description}</p>
@@ -51,7 +49,7 @@ const SuggestionItem = (props: Props) => {
         </div>
       </div>
       <div className={classes.commentCon}>
-        <IconComments />
+        <IconComments aria-hidden="true" />
         <p>{getAllComments(comments || {})}</p>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { ReactComponent as IconArrowDown } from "../../assets/shared/icon-arrow-down.svg";
+import { ReactComponent as IconArrowUp } from "../../assets/shared/icon-arrow-up.svg";
 import {
   Dispatch,
   Fragment,
@@ -40,7 +41,7 @@ const Select = (props: Props) => {
     const currentRef = conRef.current?.getBoundingClientRect();
     if (currentRef) {
       setPosition({
-        top: currentRef.top + currentRef.height,
+        top: currentRef.top + window.scrollY + currentRef.height,
         left: currentRef.left,
       });
     }
@@ -64,8 +65,8 @@ const Select = (props: Props) => {
   if (isSort) {
     content = (
       <Fragment>
-        <span>Sort by : </span>
-        {queryToName(searchParams.get("sort") || "most_upvotes")}
+        <span className={classes.sortPrefix}>Sort by : </span>
+        <span className={classes.sortValue}>{queryToName(searchParams.get("sort") || "most_upvotes")}</span>
       </Fragment>
     );
   } else if (state === "status") {
@@ -79,7 +80,7 @@ const Select = (props: Props) => {
   const conStyle = `${classes.selectCon} ${isSort ? sugNone : classes.formCon}`;
   const labelStyle = `${classes.selectLabel} ${
     isSort ? classes.sortLabel : ""
-  }`;
+  } ${isSort && isOptionOpen ? classes.sortActive : ""}`;
   const iconStyle = `${classes.iconArrow} ${isSort ? classes.sortIcon : ""} ${
     isOptionOpen ? classes.iconClickedOn : ""
   }`;
@@ -89,7 +90,7 @@ const Select = (props: Props) => {
       <div className={conStyle} onClick={optionClickHandler} ref={conRef}>
         <div className={labelStyle}>
           <p>{content}</p>
-          <IconArrowDown className={iconStyle} />
+          <IconArrowDown aria-hidden="true" className={iconStyle} />
         </div>
       </div>
       {isOptionOpen && (

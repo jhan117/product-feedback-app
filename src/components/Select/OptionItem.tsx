@@ -22,7 +22,7 @@ const OptionItem = (props: Props) => {
 
   let currentName;
   if (isSort) {
-    currentName = searchParams.get("sort");
+    currentName = searchParams.get("sort")?.replace("_", " ") || "most upvotes";
   } else if (state === "status") {
     currentName = props.data!.status;
   } else {
@@ -56,7 +56,7 @@ const OptionItem = (props: Props) => {
       onClick={optionItemClickHandler}
     >
       <p>{name}</p>
-      {lowerName === currentName && <IconCheck />}
+      {lowerName === currentName && <IconCheck aria-hidden="true" />}
     </li>
   );
 };

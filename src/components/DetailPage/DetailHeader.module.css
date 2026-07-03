@@ -10,22 +10,19 @@
 
   height: 4rem;
   width: 11.9rem;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.9rem;
+  color: var(--dark-white);
 }
 
 .editBtn:hover {
   background-color: hsl(230, 91%, 73%);
 }
-.editBtn:disabled,
-.linkDisabled {
+.editBtn:disabled {
   background-color: hsl(0, 0%, 70%);
   cursor: not-allowed;
-}
-
-.editLink {
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1.9rem;
-  color: var(--dark-white);
 }
 
 /* tablet */
@@ -33,8 +30,6 @@
   .editBtn {
     height: 4.4rem;
     width: 14.2rem;
-  }
-  .editLink {
     font-size: 1.4rem;
     line-height: 2rem;
   }

@@ -13,7 +13,8 @@ const EmptyContent = () => {
       <ImageEmpty
         width={isTablet ? "128" : "102"}
         height={isTablet ? "135" : "108"}
-        viewBox={isTablet ? "0 0 102 108" : null}
+        viewBox="0 0 102 108"
+        aria-hidden="true"
       />
       <div className={classes.emptyText}>
         <h1>There is no feedback yet.</h1>

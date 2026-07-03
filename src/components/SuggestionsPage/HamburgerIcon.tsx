@@ -10,9 +10,14 @@ interface Props {
 
 const HamburgerIcon = (props: Props) => {
   return (
-    <div className={classes.iconCon} onClick={props.onClick}>
-      {props.isOpen ? <IconClose /> : <IconHamburger />}
-    </div>
+    <button
+      className={classes.iconCon}
+      onClick={props.onClick}
+      aria-label={props.isOpen ? "Close menu" : "Open menu"}
+      aria-expanded={props.isOpen}
+    >
+      {props.isOpen ? <IconClose aria-hidden="true" /> : <IconHamburger aria-hidden="true" />}
+    </button>
   );
 };
 

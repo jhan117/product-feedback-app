@@ -16,9 +16,9 @@ const FeedbackCard = (props: Props) => {
   return (
     <Fragment>
       {props.page === "edit" ? (
-        <IconEditFeedback viewBox="0 0 40 40" className={classes.icon} />
+        <IconEditFeedback aria-hidden="true" viewBox="0 0 40 40" className={classes.icon} />
       ) : (
-        <IconNewFeedback viewBox="0 0 56 56" className={classes.icon} />
+        <IconNewFeedback aria-hidden="true" viewBox="0 0 56 56" className={classes.icon} />
       )}
       <Card
         className={`${classes.card} ${

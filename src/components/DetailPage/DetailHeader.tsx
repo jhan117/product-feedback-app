@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 
 import GoBack from "../UI/GoBack";
@@ -10,18 +10,17 @@ interface Props {
 
 const DetailHeader = (props: Props) => {
   const { isLoading } = useAppSelector((state) => state.suggestions);
-
-  const linkStyle = `${classes.editLink} ${
-    isLoading ? classes.linkDisabled : ""
-  }`;
+  const navigate = useNavigate();
 
   return (
     <header className={classes.detailHeader}>
       <GoBack />
-      <button className={classes.editBtn} disabled={isLoading}>
-        <Link className={linkStyle} to={`/feedbacks/${props.id}/edit`}>
-          Edit Feedback
-        </Link>
+      <button 
+        className={classes.editBtn} 
+        disabled={isLoading}
+        onClick={() => navigate(`/feedbacks/${props.id}/edit`)}
+      >
+        Edit Feedback
       </button>
     </header>
   );

@@ -1,5 +1,5 @@
 .optionList {
-  position: fixed;
+  position: absolute;
 
   background-color: white;
   box-shadow: 0 1rem 4rem -0.7rem rgba(55, 63, 104, 0.350492);

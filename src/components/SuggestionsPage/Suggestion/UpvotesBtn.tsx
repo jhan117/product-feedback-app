@@ -10,7 +10,6 @@ interface Props {
   sugId: number;
   upvotes: number;
   isRoadmap?: boolean;
-  setIsHover: (value: boolean) => void;
 }
 
 const UpvotesBtn = (props: Props) => {
@@ -49,14 +48,10 @@ const UpvotesBtn = (props: Props) => {
     <button
       className={btnClass}
       onClick={toggleUpvoteStatusHandler}
-      onMouseEnter={() => {
-        props.setIsHover(true);
-      }}
-      onMouseLeave={() => {
-        props.setIsHover(false);
-      }}
+      aria-label={`Upvote, currently ${props.upvotes} upvotes`}
+      aria-pressed={isUpvoted}
     >
-      <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} />
+      <IconArrowUp className={isUpvoted ? classes.isUpvoteIcon : ""} aria-hidden="true" />
       <p>{props.upvotes}</p>
     </button>
   );

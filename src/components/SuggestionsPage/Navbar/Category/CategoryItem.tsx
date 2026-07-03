@@ -18,8 +18,8 @@ const CategoryItem = (props: Props) => {
   };
 
   const className = `${classes.tagBtn} ${
-    filter === name.toLowerCase() && classes.onTagBtn
-  }`;
+    filter === name.toLowerCase() ? classes.onTagBtn : ""
+  }`.trim();
 
   return (
     <li>

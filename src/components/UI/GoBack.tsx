@@ -15,10 +15,10 @@ const GoBack = (props: Props) => {
   }`;
 
   return (
-    <div className={conStyle} onClick={() => navigate(-1)}>
-      <IconArrowLeft />
+    <button className={conStyle} onClick={() => navigate(-1)}>
+      <IconArrowLeft aria-hidden="true" />
       <p>Go Back</p>
-    </div>
+    </button>
   );
 };
 

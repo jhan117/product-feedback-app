@@ -25,3 +25,6 @@ yarn-error.log*
 
 # font info
 font.txt
+# Figma files
+*.fig
+*.pdf

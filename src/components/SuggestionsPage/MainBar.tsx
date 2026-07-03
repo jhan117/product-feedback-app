@@ -15,7 +15,7 @@ const MainBar = (props: Props) => {
 
   const sugsCnt = (
     <div className={classes.sugCnt}>
-      <IconSuggestions />
+      <IconSuggestions aria-hidden="true" />
       <p>{props.length} Suggestions</p>
     </div>
   );

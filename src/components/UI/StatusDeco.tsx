@@ -10,7 +10,7 @@ const StatusDeco = (props: Props) => {
   const statusName = props.status.replace("-", " ");
 
   return (
-    <div className={`${classes.decoCon} ${props.isNav && classes.navCon}`}>
+    <div className={`${classes.decoCon} ${props.isNav ? classes.navCon : ""}`}>
       <div className={`${classes.circle} ${classes[colorName]}`} />
       <p>{statusName}</p>
     </div>

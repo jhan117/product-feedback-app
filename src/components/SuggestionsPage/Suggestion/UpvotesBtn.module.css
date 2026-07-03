@@ -32,6 +32,10 @@
   stroke: white;
 }
 
+.upvoteBtn svg {
+  flex-shrink: 0;
+}
+
 .isUpvoted {
   background-color: var(--blue);
   color: white;

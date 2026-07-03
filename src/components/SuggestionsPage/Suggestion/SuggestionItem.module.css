@@ -9,7 +9,7 @@
   border-radius: 1rem;
 }
 
-.commonLi:hover .hoverTitle {
+.commonLi:hover:not(:has(button:hover)) .hoverTitle {
   color: hsl(230, 76%, 59%);
 }
 
